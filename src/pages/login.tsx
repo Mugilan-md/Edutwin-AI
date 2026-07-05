@@ -133,15 +133,7 @@ function Login() {
   const [introState, setIntroState] = useState<"init" | "entrance" | "reveal" | "breath" | "transition" | "loop">("init");
   const [showUI, setShowUI] = useState(false);
 
-  useEffect(() => {
-    const hasVisited = localStorage.getItem("edutwin_visited");
-    if (hasVisited === "true") {
-      setIntroState("loop");
-      setShowUI(true);
-    } else {
-      localStorage.setItem("edutwin_visited", "true");
-    }
-  }, []);
+
 
   useEffect(() => {
     const canvas = canvasRef.current;
