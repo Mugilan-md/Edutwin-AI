@@ -1,0 +1,264 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+
+@import "tailwindcss";
+
+/* =====================================================
+   EDUTWIN AI - PREMIUM WHITE SAAS DESIGN SYSTEM
+   ===================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, sans-serif;
+  background-color: #f8f9fc;
+  color: #1a1a2e;
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* =====================================================
+   SCROLLBAR CUSTOMIZATION
+   ===================================================== */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f4;
+  border-radius: 100px;
+}
+::-webkit-scrollbar-thumb {
+  background: #c7d0e8;
+  border-radius: 100px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #8b9fcf;
+}
+
+/* =====================================================
+   FLOATING NAVBAR ANIMATIONS
+   ===================================================== */
+nav {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+nav a {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+nav a:hover {
+  transform: translateY(-1px);
+}
+
+/* =====================================================
+   CARD & ELEMENT HOVER ANIMATIONS
+   ===================================================== */
+.hover-lift {
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -8px rgba(99, 102, 241, 0.15);
+}
+
+/* Pulse animation for AI loading states */
+@keyframes ai-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(0.97); }
+}
+
+.ai-pulse {
+  animation: ai-pulse 2s ease-in-out infinite;
+}
+
+/* Shimmer loading animation */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #f0f0f5 25%,
+    #e8e8f0 50%,
+    #f0f0f5 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: 8px;
+}
+
+/* =====================================================
+   PROGRESS BAR ANIMATIONS
+   ===================================================== */
+@keyframes progress-fill {
+  from { width: 0%; }
+  to { width: var(--target-width); }
+}
+
+.progress-bar {
+  animation: progress-fill 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* =====================================================
+   GRADIENT TEXT UTILITY
+   ===================================================== */
+.gradient-text {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a78bfa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-dark {
+  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* =====================================================
+   GLASS MORPHISM EFFECTS
+   ===================================================== */
+.glass {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.glass-dark {
+  background: rgba(30, 27, 75, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+/* =====================================================
+   BUTTON MICRO-ANIMATIONS
+   ===================================================== */
+button, a[class*="bg-"] {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* =====================================================
+   INPUT FOCUS STYLES
+   ===================================================== */
+input:focus, textarea:focus, select:focus {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* =====================================================
+   AI BADGE GLOW ANIMATION
+   ===================================================== */
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.3); }
+  50% { box-shadow: 0 0 20px 4px rgba(99, 102, 241, 0.15); }
+}
+
+.ai-glow {
+  animation: glow-pulse 2.5s ease-in-out infinite;
+}
+
+/* =====================================================
+   FLOATING ORBS BACKGROUND
+   ===================================================== */
+.bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* =====================================================
+   TABLE STYLES
+   ===================================================== */
+th {
+  letter-spacing: 0.05em;
+}
+
+td {
+  vertical-align: middle;
+}
+
+/* =====================================================
+   MODAL ANIMATION
+   ===================================================== */
+@keyframes modal-in {
+  from { opacity: 0; transform: scale(0.95) translateY(8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-enter {
+  animation: modal-in 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* =====================================================
+   FADE-IN ANIMATION FOR PAGE TRANSITIONS
+   ===================================================== */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.page-fade-in {
+  animation: fade-in-up 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* =====================================================
+   STAT CARD NUMBER COUNTER EFFECT
+   ===================================================== */
+@keyframes count-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.stat-number {
+  animation: count-up 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* =====================================================
+   RESPONSIVE ADJUSTMENTS
+   ===================================================== */
+@media (max-width: 768px) {
+  .hidden-mobile {
+    display: none !important;
+  }
+}
+
+/* =====================================================
+   PRINT STYLES
+   ===================================================== */
+@media print {
+  nav,
+  button,
+  .print\:hidden {
+    display: none !important;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  .bg-white {
+    box-shadow: none !important;
+    border: 1px solid #e5e7eb !important;
+  }
+}
