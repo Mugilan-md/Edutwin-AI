@@ -3,137 +3,180 @@ import { useState, useEffect, useRef } from "react";
 import { signInUser } from "../services/authService";
 import { getProfile } from "../services/profileService";
 import { supabase } from "../lib/supabase";
-import { Sparkles, Mail, Lock, Loader2, Eye, EyeOff, Brain, GraduationCap, Award, Briefcase, TrendingUp } from "lucide-react";
+import {
+  Sparkles,
+  Mail,
+  Lock,
+  Loader2,
+  Eye,
+  EyeOff,
+  Brain,
+  GraduationCap,
+  Award,
+  Briefcase,
+  TrendingUp,
+} from "lucide-react";
 
-// Particle Class for 4K Embers & Smoke
-class Particle {
+// ─── Cinematic Fire Particle ─────────────────────────────────────────────────
+// Uses HSLA color so each particle transitions from white-hot → yellow → orange → red
+class FireParticle {
   x: number;
   y: number;
   vx: number;
   vy: number;
+  life: number;       // 0..1 normalized lifetime
+  maxLife: number;
   size: number;
-  color: string;
-  alpha: number;
-  decay: number;
-  type: "ember" | "spark" | "fire" | "digital" | "smoke" | "flame_shape";
-  targetX?: number;
-  targetY?: number;
+  hue: number;        // 0–60 for fire colours
+  turbX: number;
+  turbY: number;
+  type: "core" | "ember" | "smoke" | "god_ray";
 
   constructor(
     x: number,
     y: number,
-    type: "ember" | "spark" | "fire" | "digital" | "smoke" | "flame_shape",
-    customColor?: string
+    type: "core" | "ember" | "smoke" | "god_ray" = "core"
   ) {
     this.x = x;
     this.y = y;
     this.type = type;
-    this.alpha = 1;
+    this.life = 1;
 
-    const colors = ["#FF6A00", "#FFC247", "#D7263D", "#F5F5F5"];
-    this.color = customColor || colors[Math.floor(Math.random() * colors.length)];
-
-    if (type === "ember") {
+    if (type === "core") {
+      this.maxLife = Math.random() * 60 + 40;
+      this.vx = (Math.random() - 0.5) * 3.5;
+      this.vy = -(Math.random() * 4.5 + 2.5);
+      this.size = Math.random() * 28 + 14;
+      this.hue = Math.random() * 30;           // white-hot to yellow
+      this.turbX = (Math.random() - 0.5) * 0.3;
+      this.turbY = (Math.random() - 0.5) * 0.3;
+    } else if (type === "ember") {
+      this.maxLife = Math.random() * 120 + 80;
       this.vx = (Math.random() - 0.5) * 2;
-      this.vy = -Math.random() * 2.2 - 0.6;
+      this.vy = -(Math.random() * 2 + 0.8);
       this.size = Math.random() * 3.5 + 1.2;
-      this.decay = Math.random() * 0.007 + 0.003;
-    } else if (type === "spark") {
-      const angle = Math.random() * Math.PI * 2;
-      const speed = Math.random() * 6 + 3;
-      this.vx = Math.cos(angle) * speed;
-      this.vy = Math.sin(angle) * speed - 1.5;
-      this.size = Math.random() * 2.5 + 1;
-      this.decay = Math.random() * 0.025 + 0.012;
-    } else if (type === "fire") {
-      this.vx = (Math.random() - 0.5) * 4;
-      this.vy = -Math.random() * 5 - 3;
-      this.size = Math.random() * 35 + 20;
-      this.decay = Math.random() * 0.018 + 0.008;
-    } else if (type === "flame_shape") {
-      const angle = Math.random() * Math.PI * 2;
-      const speed = Math.random() * 5 + 2;
-      this.vx = Math.cos(angle) * speed;
-      this.vy = Math.sin(angle) * speed - 1;
-      this.size = Math.random() * 50 + 30; // Large fire billows
-      this.decay = Math.random() * 0.02 + 0.015;
-    } else if (type === "digital") {
-      this.vx = (Math.random() - 0.5) * 0.6;
-      this.vy = (Math.random() - 0.5) * 0.6;
-      this.size = Math.random() * 3 + 1;
-      this.decay = Math.random() * 0.004 + 0.002;
-    } else {
+      this.hue = Math.random() * 40 + 20;
+      this.turbX = (Math.random() - 0.5) * 0.15;
+      this.turbY = 0;
+    } else if (type === "smoke") {
+      this.maxLife = Math.random() * 200 + 120;
       this.vx = (Math.random() - 0.5) * 1.2;
-      this.vy = -Math.random() * 1.6 - 0.3;
-      this.size = Math.random() * 60 + 30;
-      this.decay = Math.random() * 0.005 + 0.0025;
-      this.alpha = 0.3;
+      this.vy = -(Math.random() * 1.2 + 0.3);
+      this.size = Math.random() * 60 + 40;
+      this.hue = 0;
+      this.turbX = (Math.random() - 0.5) * 0.1;
+      this.turbY = 0;
+    } else {
+      // god_ray
+      this.maxLife = Math.random() * 60 + 30;
+      const angle = (Math.random() - 0.5) * Math.PI * 0.6;
+      const speed = Math.random() * 8 + 4;
+      this.vx = Math.sin(angle) * speed;
+      this.vy = -Math.cos(angle) * speed;
+      this.size = Math.random() * 8 + 4;
+      this.hue = Math.random() * 50 + 10;
+      this.turbX = 0;
+      this.turbY = 0;
     }
+    this.life = this.maxLife;
   }
 
   update() {
-    this.x += this.vx;
-    this.y += this.vy;
+    this.x += this.vx + this.turbX;
+    this.y += this.vy + this.turbY;
 
-    if (this.type === "digital" && this.targetX !== undefined && this.targetY !== undefined) {
-      this.x += (this.targetX - this.x) * 0.07;
-      this.y += (this.targetY - this.y) * 0.07;
+    // Turbulence flicker
+    this.turbX += (Math.random() - 0.5) * 0.4;
+    this.turbX *= 0.9;
+
+    if (this.type === "core") {
+      // Fire rises and spreads
+      this.vy *= 0.98;
+      this.size *= 0.993;
+    } else if (this.type === "ember") {
+      this.vy += 0.03; // slight gravity
+      this.vx *= 0.99;
+    } else if (this.type === "smoke") {
+      this.size *= 1.005;
+      this.vy *= 0.97;
     }
 
-    this.alpha -= this.decay;
+    this.life -= 1;
   }
 
   draw(ctx: CanvasRenderingContext2D) {
+    const t = this.life / this.maxLife;   // 1 (fresh) → 0 (dead)
+    if (t <= 0) return;
+
     ctx.save();
-    ctx.globalAlpha = Math.max(0, this.alpha);
-    if (this.type === "fire" || this.type === "smoke" || this.type === "flame_shape") {
+
+    if (this.type === "core") {
+      // White-hot → yellow → orange → red as particle ages
+      const hue = this.hue + (1 - t) * 20;
+      const sat = 100;
+      const lit = 30 + t * 55;            // brighter when fresh
+      const alpha = Math.pow(t, 0.5) * 0.85;
+
       const grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size);
-      if (this.type === "flame_shape") {
-        grad.addColorStop(0, "rgba(255, 194, 71, 0.9)");
-        grad.addColorStop(0.2, "rgba(255, 106, 0, 0.7)");
-        grad.addColorStop(0.5, "rgba(215, 38, 61, 0.3)");
-        grad.addColorStop(1, "rgba(8, 20, 38, 0)");
-      } else if (this.type === "fire") {
-        grad.addColorStop(0, this.color);
-        grad.addColorStop(0.3, "rgba(215, 38, 61, 0.4)");
-        grad.addColorStop(1, "rgba(8, 20, 38, 0)");
-      } else {
-        grad.addColorStop(0, "rgba(110, 110, 120, 0.12)");
-        grad.addColorStop(1, "rgba(8, 20, 38, 0)");
-      }
+      grad.addColorStop(0, `hsla(${hue}, ${sat}%, ${Math.min(lit + 30, 98)}%, ${alpha})`);
+      grad.addColorStop(0.4, `hsla(${hue + 5}, ${sat}%, ${lit}%, ${alpha * 0.7})`);
+      grad.addColorStop(1, `hsla(${hue + 15}, ${sat}%, 20%, 0)`);
+
       ctx.fillStyle = grad;
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
       ctx.fill();
-    } else {
-      ctx.fillStyle = this.color;
-      if (this.type === "digital") {
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = "#FF6A00";
-      }
+
+    } else if (this.type === "ember") {
+      const alpha = t * 0.9;
+      const hue = this.hue + (1 - t) * 30;
+      ctx.fillStyle = `hsla(${hue}, 100%, ${50 + t * 40}%, ${alpha})`;
+      ctx.shadowBlur = 8;
+      ctx.shadowColor = `hsla(${hue}, 100%, 70%, 0.8)`;
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
       ctx.fill();
+
+    } else if (this.type === "smoke") {
+      const alpha = t * 0.08;
+      const grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size);
+      grad.addColorStop(0, `rgba(80,60,50,${alpha})`);
+      grad.addColorStop(1, `rgba(20,15,10,0)`);
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+
+    } else {
+      // god_ray — thin elongated streak
+      const alpha = t * 0.6;
+      ctx.globalAlpha = alpha;
+      ctx.strokeStyle = `hsla(${this.hue}, 100%, 80%, ${alpha})`;
+      ctx.lineWidth = this.size * t;
+      ctx.shadowBlur = 20;
+      ctx.shadowColor = `hsla(${this.hue}, 100%, 70%, 0.5)`;
+      ctx.beginPath();
+      ctx.moveTo(this.x, this.y);
+      ctx.lineTo(this.x - this.vx * 8, this.y - this.vy * 8);
+      ctx.stroke();
     }
+
     ctx.restore();
   }
 }
 
+// ─── Main Login Component ─────────────────────────────────────────────────────
 function Login() {
   const navigate = useNavigate();
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
-  // States: 'init' -> 'entrance' -> 'reveal' -> 'breath' -> 'transition' -> 'loop'
-  const [introState, setIntroState] = useState<"init" | "entrance" | "reveal" | "breath" | "transition" | "loop">("init");
   const [showUI, setShowUI] = useState(false);
-
-
+  const [introPhase, setIntroPhase] = useState(0); // 0=darkness 1=phoenix_enter 2=breathe 3=settle
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -141,339 +184,529 @@ function Login() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    let animationId: number;
-    let particles: Particle[] = [];
-    
-    // Set 4K Ultra Quality Resolution (Backing Store scaling method)
-    const resizeCanvas = () => {
-      const dpr = window.devicePixelRatio || 1;
+    // ── 4K DPI-aware canvas sizing ───────────────────────────────────────────
+    const dpr = Math.min(window.devicePixelRatio || 1, 3);
+    const resize = () => {
       canvas.width = window.innerWidth * dpr;
       canvas.height = window.innerHeight * dpr;
-      ctx.setTransform(1, 0, 0, 1, 0, 0); // reset scale
-      ctx.scale(dpr, dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
+    resize();
+    window.addEventListener("resize", resize);
 
-    let time = 0;
-    let phoenixX = -150;
-    let phoenixY = window.innerHeight / 2;
-    let targetX = window.innerWidth / 2;
-    let targetY = window.innerHeight / 2;
-    let phoenixAngle = 0;
-    let stateStartTime = Date.now();
+    let raf: number;
+    let frame = 0;
+    let particles: FireParticle[] = [];
+    let beakParticles: FireParticle[] = [];
 
-    const changeState = (newState: typeof introState) => {
-      setIntroState(newState);
-      stateStartTime = Date.now();
-    };
+    // Phoenix position
+    let px = -200;
+    let py = 0;
+    let wingPhase = 0;
+    let currentPhase = 0;
+    let phaseTimer = 0;
 
-    const loop = () => {
-      time++;
-      const elapsed = Date.now() - stateStartTime;
-      const currentState = canvas.getAttribute("data-state") || "init";
-      const w = window.innerWidth;
-      const h = window.innerHeight;
+    // ── Noise helper (simple sin-based turbulence) ───────────────────────────
+    const noise = (x: number, y: number, t: number) =>
+      Math.sin(x * 0.02 + t * 0.8) *
+      Math.cos(y * 0.015 + t * 0.6) *
+      Math.sin(t * 0.4 + x * 0.01);
 
-      // 1. Draw solid dark background
-      ctx.fillStyle = "#050508";
+    // ── Draw cinematic sky / background glow ─────────────────────────────────
+    const drawBackground = (w: number, h: number, phase: number) => {
+      // Deep persistence — partial clear creates motion blur / smoke trails
+      ctx.globalCompositeOperation = "source-over";
+      const persistence = phase >= 2 ? 0.18 : 0.25;
+      ctx.fillStyle = `rgba(4,3,8,${persistence})`;
       ctx.fillRect(0, 0, w, h);
 
-      // 2. Volumetric central illumination
-      const bgGrad = ctx.createRadialGradient(w / 2, h / 2, 10, w / 2, h / 2, Math.max(w, h));
-      bgGrad.addColorStop(0, "#081426");
-      bgGrad.addColorStop(0.65, "#050508");
-      bgGrad.addColorStop(1, "#020203");
-      ctx.fillStyle = bgGrad;
-      ctx.fillRect(0, 0, w, h);
-
-      if (currentState === "init") {
-        const glowGrad = ctx.createRadialGradient(0, h / 2, 50, 0, h / 2, w * 0.45);
-        glowGrad.addColorStop(0, "rgba(255, 106, 0, 0.15)");
-        glowGrad.addColorStop(1, "rgba(8, 20, 38, 0)");
-        ctx.fillStyle = glowGrad;
+      // Ambient light halo around phoenix position
+      if (phase >= 1) {
+        const intensity = Math.min(1, (phaseTimer - 60) / 120);
+        const haloGrad = ctx.createRadialGradient(px, py, 0, px, py, 350);
+        haloGrad.addColorStop(0, `rgba(255,160,20,${intensity * 0.18})`);
+        haloGrad.addColorStop(0.4, `rgba(200,60,5,${intensity * 0.08})`);
+        haloGrad.addColorStop(1, "rgba(4,3,8,0)");
+        ctx.fillStyle = haloGrad;
+        ctx.globalCompositeOperation = "lighter";
         ctx.fillRect(0, 0, w, h);
-
-        if (Math.random() < 0.2) {
-          particles.push(new Particle(Math.random() * w, h + 10, "ember"));
-        }
-
-        if (elapsed > 2500) {
-          changeState("entrance");
-        }
+        ctx.globalCompositeOperation = "source-over";
       }
 
-      else if (currentState === "entrance") {
-        phoenixAngle += 0.05;
-        const radius = Math.max(80, (1 - elapsed / 3500) * (w * 0.45));
-        targetX = w / 2 + Math.cos(phoenixAngle) * radius;
-        targetY = h / 2 + Math.sin(phoenixAngle) * radius * 0.7;
-
-        phoenixX += (targetX - phoenixX) * 0.1;
-        phoenixY += (targetY - phoenixY) * 0.1;
-
-        // Produce wings, feathers, & sparks from phoenix position
-        for (let i = 0; i < 6; i++) {
-          particles.push(new Particle(phoenixX, phoenixY, "fire", "#FF6A00"));
-          particles.push(new Particle(phoenixX, phoenixY, "spark", "#FFC247"));
-        }
-        if (Math.random() < 0.4) {
-          particles.push(new Particle(phoenixX, phoenixY, "smoke"));
-        }
-
-        // Draw Majestic procedural phoenix (Scaled up to be large and detailed)
-        drawProceduralPhoenix(ctx, phoenixX, phoenixY, phoenixAngle, Math.sin(time * 0.22), time);
-
-        if (elapsed > 3500) {
-          changeState("reveal");
-        }
-      }
-
-      else if (currentState === "reveal") {
-        phoenixX += (w / 2 - phoenixX) * 0.08;
-        phoenixY += (h / 2 - phoenixY) * 0.08;
-
-        const wingFlap = Math.sin(time * 0.25);
-        for (let i = 0; i < 4; i++) {
-          particles.push(new Particle(phoenixX, phoenixY, "spark", "#FFC247"));
-          particles.push(new Particle(phoenixX, phoenixY, "ember", "#F5F5F5"));
-        }
-
-        const centerGlow = ctx.createRadialGradient(phoenixX, phoenixY, 10, phoenixX, phoenixY, 280);
-        centerGlow.addColorStop(0, "rgba(255, 194, 71, 0.3)");
-        centerGlow.addColorStop(1, "rgba(8, 20, 38, 0)");
-        ctx.fillStyle = centerGlow;
-        ctx.beginPath();
-        ctx.arc(phoenixX, phoenixY, 280, 0, Math.PI * 2);
-        ctx.fill();
-
-        drawProceduralPhoenix(ctx, phoenixX, phoenixY, 0, wingFlap, time);
-
-        if (elapsed > 2000) {
-          changeState("breath");
-        }
-      }
-
-      else if (currentState === "breath") {
-        phoenixX = w / 2;
-        phoenixY = h / 2;
-
-        // Draw beak fire flames (flame shape billows emitting from mouth)
-        const beakX = phoenixX;
-        const beakY = phoenixY - 30; // approximate beak coordinate
-
-        // Stream real fire billows
-        const burstRate = Math.min(25, Math.floor(elapsed / 25));
-        for (let i = 0; i < burstRate; i++) {
-          particles.push(new Particle(beakX, beakY, "flame_shape"));
-        }
-
-        ctx.save();
-        ctx.globalAlpha = Math.max(0, 1 - elapsed / 1200);
-        drawProceduralPhoenix(ctx, phoenixX, phoenixY, time * 0.03, Math.sin(time * 0.4), time);
-        ctx.restore();
-
-        if (elapsed > 1800) {
-          changeState("transition");
-          setShowUI(true);
-        }
-      }
-
-      else if (currentState === "transition") {
-        if (particles.length < 90 && Math.random() < 0.35) {
-          const px = Math.random() * w;
-          const py = Math.random() * h;
-          const p = new Particle(px, py, "digital", "#FF6A00");
-          p.targetX = px + (Math.random() - 0.5) * 100;
-          p.targetY = py + (Math.random() - 0.5) * 100;
-          particles.push(p);
-        }
-
-        drawDigitalConnections(ctx, particles);
-
-        if (elapsed > 2000) {
-          changeState("loop");
-        }
-      }
-
-      else {
-        // loop background
-        if (particles.length < 80 && Math.random() < 0.28) {
-          particles.push(new Particle(Math.random() * w, h + 10, "ember"));
-        }
-        if (Math.random() < 0.05) {
-          particles.push(new Particle(Math.random() * w, h + 10, "smoke"));
-        }
-
-        drawDigitalConnections(ctx, particles);
-      }
-
-      particles.forEach((p) => {
-        p.update();
-        p.draw(ctx);
-      });
-
-      particles = particles.filter((p) => p.alpha > 0);
-      animationId = requestAnimationFrame(loop);
+      // Dark vignette
+      const vig = ctx.createRadialGradient(w / 2, h / 2, h * 0.25, w / 2, h / 2, h * 0.85);
+      vig.addColorStop(0, "rgba(0,0,0,0)");
+      vig.addColorStop(1, "rgba(0,0,0,0.65)");
+      ctx.fillStyle = vig;
+      ctx.fillRect(0, 0, w, h);
     };
 
-    loop();
+    // ── Draw a single large feather plume ────────────────────────────────────
+    const drawFeatherPlume = (
+      ox: number, oy: number,
+      angle: number, length: number,
+      hue: number, alpha: number, t: number,
+      wobble: number
+    ) => {
+      ctx.save();
+      ctx.translate(ox, oy);
+      ctx.rotate(angle + Math.sin(t * 0.9 + angle) * 0.04 * wobble);
+      ctx.globalAlpha = alpha;
 
-    return () => {
-      cancelAnimationFrame(animationId);
-      window.removeEventListener("resize", resizeCanvas);
+      // Primary feather shaft
+      const grad = ctx.createLinearGradient(0, 0, 0, -length);
+      grad.addColorStop(0, `hsla(${hue}, 100%, 55%, 0.9)`);
+      grad.addColorStop(0.5, `hsla(${hue + 10}, 100%, 65%, 0.7)`);
+      grad.addColorStop(1, `hsla(${hue + 25}, 90%, 75%, 0)`);
+
+      const halfW = length * 0.18;
+      ctx.fillStyle = grad;
+      ctx.shadowBlur = 22;
+      ctx.shadowColor = `hsla(${hue}, 100%, 60%, 0.6)`;
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.bezierCurveTo(-halfW * 0.6, -length * 0.3, -halfW, -length * 0.7, 0, -length);
+      ctx.bezierCurveTo(halfW, -length * 0.7, halfW * 0.6, -length * 0.3, 0, 0);
+      ctx.fill();
+
+      ctx.restore();
     };
-  }, [introState]);
 
-  // Renders a highly realistic, majestic phoenix
-  const drawProceduralPhoenix = (
-    ctx: CanvasRenderingContext2D,
-    x: number,
-    y: number,
-    angle: number,
-    wingOffset = 0,
-    time = 0
-  ) => {
-    ctx.save();
-    ctx.translate(x, y);
-    ctx.rotate(angle);
+    // ── Draw the FULL cinematic phoenix ──────────────────────────────────────
+    const drawPhoenix = (
+      _w: number, _h: number, t: number,
+      wingAmp: number, alpha: number
+    ) => {
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, alpha);
 
-    // Large Majestic Scale Factor
-    const scale = 1.6;
-    ctx.scale(scale, scale);
+      const cx = px;
+      const cy = py;
+      const sc = 2.6;               // large, majestic scale
+      wingPhase = t * 0.045;
 
-    // Dynamic glowing body aura
-    const coreGlow = ctx.createRadialGradient(0, 0, 0, 0, 0, 90);
-    coreGlow.addColorStop(0, "rgba(255, 210, 80, 0.95)");
-    coreGlow.addColorStop(0.35, "rgba(255, 106, 0, 0.5)");
-    coreGlow.addColorStop(1, "rgba(215, 38, 61, 0)");
-    ctx.fillStyle = coreGlow;
-    ctx.beginPath();
-    ctx.arc(0, 0, 90, 0, Math.PI * 2);
-    ctx.fill();
+      // ── Outer wing glow (additive bloom) ────────────────────────────────
+      ctx.globalCompositeOperation = "lighter";
+      const bloomR = 240 * sc * 0.5;
+      const bloom = ctx.createRadialGradient(cx, cy - 10 * sc, 0, cx, cy - 10 * sc, bloomR);
+      bloom.addColorStop(0, "rgba(255,200,50,0.12)");
+      bloom.addColorStop(0.5, "rgba(255,80,0,0.06)");
+      bloom.addColorStop(1, "rgba(0,0,0,0)");
+      ctx.fillStyle = bloom;
+      ctx.beginPath();
+      ctx.ellipse(cx, cy, bloomR * 1.3, bloomR * 0.9, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.globalCompositeOperation = "source-over";
+      ctx.globalAlpha = Math.max(0, alpha);
 
-    // 1. Detailed Head Crown/Feathers
-    ctx.fillStyle = "#FFC247";
-    ctx.beginPath();
-    ctx.moveTo(0, -32);
-    ctx.quadraticCurveTo(-15, -45, -8, -55);
-    ctx.quadraticCurveTo(0, -42, 0, -32);
-    ctx.moveTo(0, -32);
-    ctx.quadraticCurveTo(15, -45, 8, -55);
-    ctx.quadraticCurveTo(0, -42, 0, -32);
-    ctx.fill();
+      // ── TAIL FEATHERS (long flowing) ────────────────────────────────────
+      const tailFeathers = [
+        { angle: Math.PI * 0.55, len: 200 * sc * 0.5, hue: 25 },
+        { angle: Math.PI * 0.62, len: 180 * sc * 0.5, hue: 30 },
+        { angle: Math.PI * 0.70, len: 160 * sc * 0.5, hue: 20 },
+        { angle: Math.PI * 0.78, len: 145 * sc * 0.5, hue: 35 },
+        { angle: Math.PI * 0.45, len: 175 * sc * 0.5, hue: 15 },
+      ];
+      for (const tf of tailFeathers) {
+        drawFeatherPlume(
+          cx + Math.cos(tf.angle) * 20 * sc * 0.5,
+          cy + Math.sin(tf.angle) * 20 * sc * 0.5,
+          tf.angle - Math.PI / 2,
+          tf.len,
+          tf.hue,
+          alpha * 0.9,
+          t,
+          1.5
+        );
+      }
 
-    // Head
-    ctx.fillStyle = "#FF6A00";
-    ctx.beginPath();
-    ctx.arc(0, -25, 8, 0, Math.PI * 2);
-    ctx.fill();
+      // ── LEFT WING (layered feathers) ─────────────────────────────────────
+      const wingLift = Math.sin(wingPhase) * wingAmp * 30;
+      const wFeathers = [
+        { dx: -0.22, dy: -0.12, len: 0.82, hue: 20 },
+        { dx: -0.30, dy: -0.20, len: 0.70, hue: 15 },
+        { dx: -0.38, dy: -0.28, len: 0.58, hue: 25 },
+        { dx: -0.45, dy: -0.34, len: 0.45, hue: 10 },
+        { dx: -0.48, dy: -0.38, len: 0.35, hue: 30 },
+      ];
+      for (let i = 0; i < wFeathers.length; i++) {
+        const f = wFeathers[i];
+        const fx = cx + f.dx * 280 * sc * 0.5;
+        const fy = cy + f.dy * 280 * sc * 0.5 - wingLift * (1 - i / wFeathers.length);
+        const angle = -Math.PI * 0.55 - i * 0.1 + Math.sin(wingPhase + i * 0.3) * 0.08 * wingAmp;
+        drawFeatherPlume(fx, fy, angle, f.len * 170 * sc * 0.5, f.hue, alpha * 0.95, t, 0.8);
+      }
+      // Secondary left wing fan
+      for (let i = 0; i < 6; i++) {
+        const fan = (i - 2.5) / 5;
+        const fanX = cx - 60 * sc * 0.5 + fan * 80 * sc * 0.5;
+        const fanY = cy - 30 * sc * 0.5 - wingLift * 0.8;
+        drawFeatherPlume(fanX, fanY, -Math.PI * 0.42 + fan * 0.35, 100 * sc * 0.5, 20 + i * 3, alpha * 0.7, t, 0.6);
+      }
 
-    // Beak (Majestic downward curve)
-    ctx.fillStyle = "#FFC247";
-    ctx.beginPath();
-    ctx.moveTo(0, -28);
-    ctx.lineTo(8, -25);
-    ctx.lineTo(0, -22);
-    ctx.fill();
+      // ── RIGHT WING (mirrored) ─────────────────────────────────────────────
+      const rwFeathers = [
+        { dx: 0.22, dy: -0.12, len: 0.82, hue: 20 },
+        { dx: 0.30, dy: -0.20, len: 0.70, hue: 15 },
+        { dx: 0.38, dy: -0.28, len: 0.58, hue: 25 },
+        { dx: 0.45, dy: -0.34, len: 0.45, hue: 10 },
+        { dx: 0.48, dy: -0.38, len: 0.35, hue: 30 },
+      ];
+      for (let i = 0; i < rwFeathers.length; i++) {
+        const f = rwFeathers[i];
+        const fx = cx + f.dx * 280 * sc * 0.5;
+        const fy = cy + f.dy * 280 * sc * 0.5 - wingLift * (1 - i / rwFeathers.length);
+        const angle = -Math.PI * 0.45 + i * 0.1 + Math.sin(wingPhase + i * 0.3) * 0.08 * wingAmp;
+        drawFeatherPlume(fx, fy, angle, f.len * 170 * sc * 0.5, f.hue, alpha * 0.95, t, 0.8);
+      }
+      for (let i = 0; i < 6; i++) {
+        const fan = (i - 2.5) / 5;
+        const fanX = cx + 60 * sc * 0.5 + fan * 80 * sc * 0.5;
+        const fanY = cy - 30 * sc * 0.5 - wingLift * 0.8;
+        drawFeatherPlume(fanX, fanY, -Math.PI * 0.58 + fan * 0.35, 100 * sc * 0.5, 20 + i * 3, alpha * 0.7, t, 0.6);
+      }
 
-    // 2. Flowing Wave Tail Feathers (Procedural Sine Waving)
-    ctx.fillStyle = "#FF6A00";
-    const tailWavelength = Math.sin(time * 0.15) * 12;
-    ctx.beginPath();
-    ctx.moveTo(-4, 25);
-    ctx.bezierCurveTo(-12 + tailWavelength, 55, -20 - tailWavelength, 85, -5 + tailWavelength, 110);
-    ctx.bezierCurveTo(-2, 85, -6, 55, -4, 25);
-    ctx.fill();
+      // ── BODY ─────────────────────────────────────────────────────────────
+      const bodyGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, 50 * sc * 0.5);
+      bodyGrad.addColorStop(0, "hsla(45,100%,80%,0.95)");
+      bodyGrad.addColorStop(0.25, "hsla(30,100%,55%,0.85)");
+      bodyGrad.addColorStop(0.7, "hsla(10,90%,35%,0.6)");
+      bodyGrad.addColorStop(1, "hsla(5,80%,20%,0)");
+      ctx.fillStyle = bodyGrad;
+      ctx.shadowBlur = 40;
+      ctx.shadowColor = "rgba(255,160,20,0.8)";
+      ctx.beginPath();
+      ctx.ellipse(cx, cy, 30 * sc * 0.5, 45 * sc * 0.5, 0, 0, Math.PI * 2);
+      ctx.fill();
 
-    ctx.fillStyle = "#FFC247";
-    ctx.beginPath();
-    ctx.moveTo(4, 25);
-    ctx.bezierCurveTo(12 - tailWavelength, 55, 20 + tailWavelength, 85, 5 - tailWavelength, 110);
-    ctx.bezierCurveTo(2, 85, 6, 55, 4, 25);
-    ctx.fill();
-
-    // 3. Body
-    ctx.fillStyle = "#D7263D";
-    ctx.beginPath();
-    ctx.moveTo(0, -25);
-    ctx.quadraticCurveTo(12, 0, 0, 25);
-    ctx.quadraticCurveTo(-12, 0, 0, -25);
-    ctx.fill();
-
-    // Body Feather Highlights
-    ctx.fillStyle = "#FF6A00";
-    ctx.beginPath();
-    ctx.arc(0, -5, 5, 0, Math.PI * 2);
-    ctx.arc(0, 8, 4, 0, Math.PI * 2);
-    ctx.fill();
-
-    // 4. Large Majestic Upward wings (Matches reference style)
-    const flapWidth = 65 + wingOffset * 22;
-
-    // Left Wing
-    ctx.fillStyle = "#FF6A00";
-    ctx.beginPath();
-    ctx.moveTo(-5, -5);
-    ctx.bezierCurveTo(-45, -50 - wingOffset * 15, -flapWidth, -95, -95, -25 + wingOffset * 10);
-    ctx.bezierCurveTo(-55, 20, -25, 25, -5, 5);
-    ctx.fill();
-
-    // Wing secondary feathers
-    ctx.fillStyle = "#D7263D";
-    ctx.beginPath();
-    ctx.moveTo(-5, -5);
-    ctx.bezierCurveTo(-38, -42, -58, -75, -82, -20);
-    ctx.bezierCurveTo(-45, 15, -22, 20, -5, 5);
-    ctx.fill();
-
-    // Right Wing
-    ctx.fillStyle = "#FF6A00";
-    ctx.beginPath();
-    ctx.moveTo(5, -5);
-    ctx.bezierCurveTo(45, -50 + wingOffset * 15, flapWidth, -95, 95, -25 + wingOffset * 10);
-    ctx.bezierCurveTo(55, 20, 25, 25, 5, 5);
-    ctx.fill();
-
-    // Wing secondary feathers
-    ctx.fillStyle = "#D7263D";
-    ctx.beginPath();
-    ctx.moveTo(5, -5);
-    ctx.bezierCurveTo(38, -42, 58, -75, 82, -20);
-    ctx.bezierCurveTo(45, 15, 22, 20, 5, 5);
-    ctx.fill();
-
-    // White glowing eyes
-    ctx.fillStyle = "#FFF";
-    ctx.shadowBlur = 8;
-    ctx.shadowColor = "#FFF";
-    ctx.beginPath();
-    ctx.arc(-3, -25, 1.8, 0, Math.PI * 2);
-    ctx.arc(3, -25, 1.8, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.restore();
-  };
-
-  const drawDigitalConnections = (ctx: CanvasRenderingContext2D, pList: Particle[]) => {
-    const digitals = pList.filter((p) => p.type === "digital" || p.type === "ember");
-    ctx.save();
-    ctx.lineWidth = 0.5;
-    for (let i = 0; i < digitals.length; i++) {
-      for (let j = i + 1; j < digitals.length; j++) {
-        const dist = Math.hypot(digitals[i].x - digitals[j].x, digitals[i].y - digitals[j].y);
-        if (dist < 120) {
-          ctx.strokeStyle = `rgba(255, 106, 0, ${0.12 * (1 - dist / 120)})`;
+      // Feather scale texture on body
+      ctx.shadowBlur = 0;
+      for (let row = 0; row < 4; row++) {
+        for (let col = -1; col <= 1; col++) {
+          const sx = cx + col * 10 * sc * 0.5;
+          const sy = cy - 15 * sc * 0.5 + row * 12 * sc * 0.5;
+          const sGrad = ctx.createRadialGradient(sx, sy, 0, sx, sy, 8 * sc * 0.5);
+          sGrad.addColorStop(0, "rgba(255,220,80,0.5)");
+          sGrad.addColorStop(1, "rgba(200,80,0,0)");
+          ctx.fillStyle = sGrad;
           ctx.beginPath();
-          ctx.moveTo(digitals[i].x, digitals[i].y);
-          ctx.lineTo(digitals[j].x, digitals[j].y);
+          ctx.ellipse(sx, sy, 6 * sc * 0.5, 8 * sc * 0.5, 0.2, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      // ── NECK & HEAD ───────────────────────────────────────────────────────
+      const headY = cy - 55 * sc * 0.5;
+
+      // Neck
+      const neckGrad = ctx.createLinearGradient(cx - 8 * sc * 0.5, cy - 25 * sc * 0.5, cx + 8 * sc * 0.5, headY);
+      neckGrad.addColorStop(0, "hsla(30,100%,50%,0.9)");
+      neckGrad.addColorStop(1, "hsla(25,100%,55%,0.85)");
+      ctx.fillStyle = neckGrad;
+      ctx.beginPath();
+      ctx.moveTo(cx - 8 * sc * 0.5, cy - 25 * sc * 0.5);
+      ctx.bezierCurveTo(cx - 10 * sc * 0.5, headY + 15 * sc * 0.5, cx + 5 * sc * 0.5, headY + 10 * sc * 0.5, cx + 6 * sc * 0.5, cy - 25 * sc * 0.5);
+      ctx.fill();
+
+      // Head
+      const headGrad = ctx.createRadialGradient(cx, headY, 0, cx, headY, 18 * sc * 0.5);
+      headGrad.addColorStop(0, "hsla(45,100%,80%,0.95)");
+      headGrad.addColorStop(0.5, "hsla(25,100%,55%,0.9)");
+      headGrad.addColorStop(1, "hsla(15,90%,35%,0.6)");
+      ctx.fillStyle = headGrad;
+      ctx.shadowBlur = 20;
+      ctx.shadowColor = "rgba(255,180,30,0.6)";
+      ctx.beginPath();
+      ctx.arc(cx, headY, 16 * sc * 0.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+
+      // ── CROWN FEATHERS (crest) ─────────────────────────────────────────────
+      const crownFeathers = [-0.45, -0.25, -0.05, 0.15, 0.32];
+      for (let i = 0; i < crownFeathers.length; i++) {
+        const cf = crownFeathers[i];
+        drawFeatherPlume(
+          cx + cf * 20 * sc * 0.5,
+          headY - 10 * sc * 0.5,
+          -Math.PI * 0.85 + cf * 0.6 + Math.sin(t * 0.06 + i) * 0.06,
+          45 * sc * 0.5,
+          15 + i * 8,
+          alpha * 0.9,
+          t,
+          1.2
+        );
+      }
+
+      // Eyes
+      ctx.shadowBlur = 15;
+      ctx.shadowColor = "rgba(255,255,200,0.9)";
+      ctx.fillStyle = "rgba(255,255,220,0.95)";
+      ctx.beginPath();
+      ctx.arc(cx - 5 * sc * 0.5, headY - 2 * sc * 0.5, 3 * sc * 0.5, 0, Math.PI * 2);
+      ctx.arc(cx + 5 * sc * 0.5, headY - 2 * sc * 0.5, 3 * sc * 0.5, 0, Math.PI * 2);
+      ctx.fill();
+      // Pupils
+      ctx.fillStyle = "rgba(20,10,5,0.9)";
+      ctx.shadowBlur = 0;
+      ctx.beginPath();
+      ctx.arc(cx - 5 * sc * 0.5, headY - 2 * sc * 0.5, 1.5 * sc * 0.5, 0, Math.PI * 2);
+      ctx.arc(cx + 5 * sc * 0.5, headY - 2 * sc * 0.5, 1.5 * sc * 0.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Beak (curved, eagle-like)
+      ctx.fillStyle = "hsla(45,100%,75%,0.9)";
+      ctx.shadowBlur = 10;
+      ctx.shadowColor = "rgba(255,200,50,0.8)";
+      ctx.beginPath();
+      ctx.moveTo(cx + 4 * sc * 0.5, headY + 2 * sc * 0.5);
+      ctx.quadraticCurveTo(cx + 18 * sc * 0.5, headY + 5 * sc * 0.5, cx + 14 * sc * 0.5, headY + 12 * sc * 0.5);
+      ctx.quadraticCurveTo(cx + 10 * sc * 0.5, headY + 8 * sc * 0.5, cx + 4 * sc * 0.5, headY + 2 * sc * 0.5);
+      ctx.fill();
+
+      // ── TALONS ────────────────────────────────────────────────────────────
+      const talonY = cy + 50 * sc * 0.5;
+      for (let side of [-1, 1]) {
+        const tx = cx + side * 18 * sc * 0.5;
+        ctx.strokeStyle = "hsla(30,100%,55%,0.75)";
+        ctx.lineWidth = 2.5 * sc * 0.5;
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = "rgba(255,140,0,0.6)";
+        // Leg
+        ctx.beginPath();
+        ctx.moveTo(cx + side * 12 * sc * 0.5, cy + 38 * sc * 0.5);
+        ctx.lineTo(tx, talonY);
+        ctx.stroke();
+        // Claws
+        for (let c = -1; c <= 1; c++) {
+          ctx.beginPath();
+          ctx.moveTo(tx, talonY);
+          ctx.quadraticCurveTo(tx + c * 12 * sc * 0.5, talonY + 8 * sc * 0.5, tx + c * 16 * sc * 0.5, talonY + 14 * sc * 0.5);
           ctx.stroke();
         }
       }
-    }
-    ctx.restore();
-  };
+      ctx.shadowBlur = 0;
 
+      ctx.restore();
+    };
+
+    // ── Emit volumetric beak flames ──────────────────────────────────────────
+    const emitBeakFlames = (_t: number, intensity: number) => {
+      // Beak tip in world coords
+      const beakX = px + 16;
+      const beakY = py - 55 * 2.6 * 0.5 + 9;
+
+      for (let i = 0; i < Math.floor(intensity * 10); i++) {
+        const p = new FireParticle(
+          beakX + (Math.random() - 0.5) * 10,
+          beakY + (Math.random() - 0.5) * 6,
+          "core"
+        );
+        // Flames shoot right and slightly up
+        p.vx = Math.random() * 7 + 3;
+        p.vy = -(Math.random() * 3 + 0.5);
+        p.size = Math.random() * 35 + 20;
+        p.hue = Math.random() * 30;
+        p.maxLife = Math.random() * 50 + 30;
+        p.life = p.maxLife;
+        beakParticles.push(p);
+      }
+      // God rays from beak
+      if (Math.random() < intensity * 0.5) {
+        const gr = new FireParticle(beakX, beakY, "god_ray");
+        gr.vx = Math.random() * 12 + 5;
+        gr.vy = -(Math.random() * 4 - 2);
+        beakParticles.push(gr);
+      }
+      // Embers
+      if (Math.random() < intensity * 0.8) {
+        const em = new FireParticle(
+          beakX + Math.random() * 40,
+          beakY + (Math.random() - 0.5) * 20,
+          "ember"
+        );
+        em.vx = Math.random() * 5 + 1;
+        beakParticles.push(em);
+      }
+    };
+
+    // ── Main animation loop ──────────────────────────────────────────────────
+    const animate = () => {
+      frame++;
+      phaseTimer++;
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+
+      // Phase transitions
+      if (currentPhase === 0 && phaseTimer > 100) {
+        currentPhase = 1;
+        phaseTimer = 0;
+        px = -220;
+        py = h / 2;
+      } else if (currentPhase === 1 && phaseTimer > 260) {
+        currentPhase = 2;
+        phaseTimer = 0;
+      } else if (currentPhase === 2 && phaseTimer > 200) {
+        currentPhase = 3;
+        phaseTimer = 0;
+        setShowUI(true);
+        setIntroPhase(3);
+      }
+
+      drawBackground(w, h, currentPhase);
+
+      // ── Phase 0: darkness with very faint embers ───────────────────────
+      if (currentPhase === 0) {
+        if (Math.random() < 0.08) {
+          const p = new FireParticle(
+            Math.random() * w,
+            h + 20,
+            "ember"
+          );
+          p.vy = -(Math.random() * 1 + 0.3);
+          particles.push(p);
+        }
+      }
+
+      // ── Phase 1: phoenix sweeps in from left with fire trail ────────────
+      if (currentPhase === 1) {
+        const progress = Math.min(1, phaseTimer / 200);
+        // Ease-out curve into center
+        const eased = 1 - Math.pow(1 - progress, 3);
+        px = -220 + (w / 2 - (-220)) * eased;
+        py = h / 2 + Math.sin(progress * Math.PI * 1.5) * 80;
+
+        const alpha = Math.min(1, phaseTimer / 60);
+        drawPhoenix(w, h, frame, 1.0, alpha);
+
+        // Trail fire particles from body
+        for (let i = 0; i < 15; i++) {
+          const p = new FireParticle(
+            px - 30 + (Math.random() - 0.5) * 60,
+            py + (Math.random() - 0.5) * 60,
+            "core"
+          );
+          p.vx = -(Math.random() * 4 + 1);
+          p.size = Math.random() * 40 + 20;
+          particles.push(p);
+        }
+        for (let i = 0; i < 5; i++) {
+          particles.push(
+            new FireParticle(px + (Math.random() - 0.5) * 80, py + (Math.random() - 0.5) * 80, "ember")
+          );
+        }
+        if (Math.random() < 0.3) {
+          particles.push(
+            new FireParticle(px + (Math.random() - 0.5) * 100, py + (Math.random() - 0.5) * 100, "smoke")
+          );
+        }
+
+        // God-rays burst
+        if (phaseTimer % 12 === 0) {
+          for (let i = 0; i < 3; i++) {
+            const gr = new FireParticle(px, py, "god_ray");
+            particles.push(gr);
+          }
+        }
+      }
+
+      // ── Phase 2: hovering center, beak spews deadly fire ───────────────
+      if (currentPhase === 2) {
+        // Hover oscillation
+        px += (w / 2 - px) * 0.04;
+        py += (h / 2 - py) * 0.04;
+        py += Math.sin(frame * 0.04) * 1.2;
+
+        const breathIntensity = Math.min(1, phaseTimer / 80);
+        drawPhoenix(w, h, frame, 1.2, 1.0);
+        emitBeakFlames(frame, breathIntensity);
+
+        // Body fire halo
+        for (let i = 0; i < 8; i++) {
+          const angle = Math.random() * Math.PI * 2;
+          const r = Math.random() * 60 + 20;
+          const p = new FireParticle(
+            px + Math.cos(angle) * r,
+            py + Math.sin(angle) * r,
+            "core"
+          );
+          p.size = Math.random() * 25 + 10;
+          p.vy = -(Math.random() * 4 + 2);
+          particles.push(p);
+        }
+        for (let i = 0; i < 4; i++) {
+          particles.push(
+            new FireParticle(px + (Math.random() - 0.5) * 120, py + (Math.random() - 0.5) * 120, "ember")
+          );
+        }
+        if (Math.random() < 0.2) {
+          particles.push(
+            new FireParticle(px + (Math.random() - 0.5) * 80, py + (Math.random() - 0.5) * 80, "smoke")
+          );
+        }
+      }
+
+      // ── Phase 3: settled, ambient hover with light beak flicker ─────────
+      if (currentPhase === 3) {
+        px += (w / 2 - px) * 0.02;
+        py += (h / 2 - py) * 0.02;
+        py += Math.sin(frame * 0.03) * 1.0;
+
+        drawPhoenix(w, h, frame, 0.8, 0.85);
+        // Gentle beak flicker
+        if (frame % 4 === 0) emitBeakFlames(frame, 0.3);
+
+        for (let i = 0; i < 4; i++) {
+          const angle = Math.random() * Math.PI * 2;
+          const r = Math.random() * 50 + 15;
+          const p = new FireParticle(
+            px + Math.cos(angle) * r,
+            py + Math.sin(angle) * r,
+            "core"
+          );
+          p.size = Math.random() * 18 + 8;
+          p.vy = -(Math.random() * 3 + 1.5);
+          particles.push(p);
+        }
+        if (Math.random() < 0.12) {
+          particles.push(new FireParticle(Math.random() * w, h + 10, "ember"));
+        }
+        if (Math.random() < 0.05) {
+          particles.push(new FireParticle(Math.random() * w, h + 10, "smoke"));
+        }
+      }
+
+      // ── Draw all fire particles with additive blending ──────────────────
+      ctx.globalCompositeOperation = "lighter";
+
+      for (const p of particles) {
+        const noiseOffset = noise(p.x, p.y, frame * 0.02);
+        p.x += noiseOffset * 0.6;
+        p.update();
+        p.draw(ctx);
+      }
+
+      for (const p of beakParticles) {
+        p.update();
+        p.draw(ctx);
+      }
+
+      ctx.globalCompositeOperation = "source-over";
+
+      particles = particles.filter((p) => p.life > 0 && p.size > 0.5);
+      beakParticles = beakParticles.filter((p) => p.life > 0 && p.size > 0.3);
+
+      raf = requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", resize);
+    };
+  }, []);
+
+  // ── Auth handlers ──────────────────────────────────────────────────────────
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !password) {
@@ -495,7 +728,7 @@ function Login() {
 
       if (data?.user) {
         const { data: profile, error: profileError } = await getProfile(data.user.id);
-        
+
         if (profileError || !profile) {
           localStorage.setItem("user_role", "student");
           localStorage.setItem("user_name", email.split("@")[0]);
@@ -503,7 +736,7 @@ function Login() {
         } else {
           localStorage.setItem("user_role", profile.role || "student");
           localStorage.setItem("user_name", profile.full_name || "");
-          
+
           if (profile.role === "faculty") {
             navigate("/faculty");
           } else if (profile.role === "admin") {
@@ -526,14 +759,9 @@ function Login() {
     try {
       const { error } = await supabase.auth.signInWithOAuth({
         provider,
-        options: {
-          redirectTo: window.location.origin + "/student",
-        },
+        options: { redirectTo: window.location.origin + "/student" },
       });
-
-      if (error) {
-        setErrorMessage(error.message);
-      }
+      if (error) setErrorMessage(error.message);
     } catch (err: any) {
       setErrorMessage(err.message || "OAuth login failed.");
     } finally {
@@ -542,209 +770,236 @@ function Login() {
   };
 
   const skipIntro = () => {
-    setIntroState("loop");
     setShowUI(true);
+    setIntroPhase(3);
   };
 
+  // ── Render ─────────────────────────────────────────────────────────────────
   return (
-    <div className="min-h-screen relative flex items-center justify-center bg-[#050508] overflow-hidden select-none font-['Inter']">
-      
-      {/* Dynamic Style tags */}
-      <style>{`
-        @keyframes sparksUp {
-          0% { transform: translateY(10%) translateX(0px); opacity: 0; }
-          50% { opacity: 0.6; }
-          100% { transform: translateY(-110%) translateX(20px); opacity: 0; }
-        }
-      `}</style>
-
-      {/* 4K Render Canvas */}
-      <canvas 
-        ref={canvasRef} 
-        data-state={introState}
+    <div className="min-h-screen relative flex items-center justify-center bg-[#040308] overflow-hidden select-none">
+      {/* 4K Canvas */}
+      <canvas
+        ref={canvasRef}
         className="absolute inset-0 w-full h-full block z-0 pointer-events-none"
       />
 
-      {/* Ambient depth filter */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(215,38,61,0.04)_0%,transparent_50%),radial-gradient(ellipse_at_top_right,rgba(255,194,71,0.04)_0%,transparent_60%)] pointer-events-none z-10"></div>
+      {/* Cinematic letterbox vignette overlay */}
+      <div className="absolute inset-0 z-10 pointer-events-none">
+        <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-black/60 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/60 to-transparent" />
+      </div>
 
-      {introState !== "loop" && (
+      {/* Skip intro */}
+      {introPhase < 3 && (
         <button
           onClick={skipIntro}
-          className="absolute top-6 right-6 z-40 bg-white/5 hover:bg-white/10 text-white/70 hover:text-white px-4 py-2 rounded-lg border border-white/10 text-xs font-black uppercase tracking-widest transition-all duration-300 backdrop-blur-sm cursor-pointer"
+          className="absolute top-6 right-6 z-40 bg-black/30 hover:bg-black/50 text-white/60 hover:text-white/90 px-5 py-2 rounded-full border border-white/10 text-[11px] font-bold uppercase tracking-widest transition-all duration-300 backdrop-blur-md cursor-pointer"
         >
           Skip Intro
         </button>
       )}
 
-      {/* Main Container: Features restored block diagram and login card */}
-      <div className={`w-full max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between p-6 md:p-12 relative z-30 transition-all duration-1000 ${showUI ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"}`}>
-        
-        {/* Left Side: Restored Interactive 5-Node Block Diagram */}
-        <div className="w-full md:w-1/2 flex flex-col justify-between pr-0 md:pr-12 mb-10 md:mb-0">
-          
-          {/* Top Brand */}
+      {/* Main UI container — fades in when showUI=true */}
+      <div
+        className={`w-full max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between px-6 md:px-12 py-8 relative z-30 transition-all duration-[1200ms] ease-out ${
+          showUI ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8 pointer-events-none"
+        }`}
+      >
+        {/* ── Left: Interactive Block Diagram ───────────────────────────── */}
+        <div className="w-full md:w-1/2 flex flex-col pr-0 md:pr-12 mb-10 md:mb-0">
+
+          {/* Brand */}
           <div className="flex items-center gap-3 mb-8">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#D7263D] via-[#FF6A00] to-[#FFC247] flex items-center justify-center text-white font-bold shadow-lg shadow-orange-500/20">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#D7263D] via-[#FF6A00] to-[#FFC247] flex items-center justify-center shadow-lg shadow-orange-500/30">
               <Sparkles className="w-5 h-5 text-white" />
             </div>
             <div>
-              <span className="font-black text-xl tracking-tight bg-gradient-to-r from-white to-orange-200 bg-clip-text text-transparent">Edutwin AI</span>
-              <span className="block text-[10px] text-orange-400 font-bold uppercase tracking-widest -mt-1">Student Twin Hub</span>
+              <span className="font-black text-xl tracking-tight bg-gradient-to-r from-white to-orange-200 bg-clip-text text-transparent">
+                Edutwin AI
+              </span>
+              <span className="block text-[10px] text-orange-400 font-bold uppercase tracking-widest -mt-1">
+                Student Twin Hub
+              </span>
             </div>
           </div>
 
-          {/* Heading */}
-          <h2 className="text-3xl font-black text-white leading-tight mb-2">Shaping Future Careers with AI</h2>
-          <p className="text-xs text-orange-300/80 mb-10">Holistic student activity records matching data to placements.</p>
+          <h2 className="text-3xl font-black text-white leading-tight mb-1">
+            Shaping Future Careers with AI
+          </h2>
+          <p className="text-xs text-orange-300/70 mb-10">
+            Holistic student activity records — data-driven placement predictions.
+          </p>
 
-          {/* Restored Network Block Diagram */}
-          <div className="relative w-80 h-80 mx-auto flex items-center justify-center mb-8">
-            
-            {/* Center Brain Hub */}
-            <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-[#D7263D] via-[#FF6A00] to-[#FFC247] flex flex-col items-center justify-center p-1 border border-orange-400/40 shadow-[0_0_40px_rgba(249,115,22,0.4)] relative z-20 animate-[pulse_3s_ease-in-out_infinite]">
-              <Brain className="w-9 h-9 text-white animate-[bounce_4s_infinite]" />
-              <span className="text-[9px] font-black tracking-wider uppercase mt-1 text-orange-100">EDUTWIN AI</span>
+          {/* 5-Node Block Diagram */}
+          <div className="relative w-80 h-80 mx-auto flex items-center justify-center mb-6">
+
+            {/* Center Hub */}
+            <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-[#D7263D] via-[#FF6A00] to-[#FFC247] flex flex-col items-center justify-center border border-orange-400/40 shadow-[0_0_50px_rgba(249,115,22,0.5)] relative z-20 animate-pulse">
+              <Brain className="w-9 h-9 text-white" />
+              <span className="text-[9px] font-black tracking-wider uppercase mt-1 text-orange-100">
+                EDUTWIN AI
+              </span>
             </div>
 
-            {/* Connecting paths */}
+            {/* Connecting lines SVG */}
             <svg className="absolute inset-0 w-full h-full pointer-events-none z-10" viewBox="0 0 320 320">
-              <line x1="60" y1="60" x2="160" y2="160" stroke="rgba(249,115,22,0.3)" strokeWidth="2" strokeDasharray="4 4" />
-              <line x1="260" y1="60" x2="160" y2="160" stroke="rgba(239,68,68,0.3)" strokeWidth="2" strokeDasharray="4 4" />
-              <line x1="40" y1="160" x2="160" y2="160" stroke="rgba(245,158,11,0.3)" strokeWidth="2" strokeDasharray="4 4" />
-              <line x1="280" y1="160" x2="160" y2="160" stroke="rgba(249,115,22,0.3)" strokeWidth="2" strokeDasharray="4 4" />
-              <line x1="160" y1="270" x2="160" y2="160" stroke="rgba(249,115,22,0.3)" strokeWidth="2" strokeDasharray="4 4" />
+              <line x1="60" y1="60" x2="160" y2="160" stroke="rgba(249,115,22,0.35)" strokeWidth="1.5" strokeDasharray="5 4" />
+              <line x1="260" y1="60" x2="160" y2="160" stroke="rgba(239,68,68,0.35)" strokeWidth="1.5" strokeDasharray="5 4" />
+              <line x1="30" y1="160" x2="160" y2="160" stroke="rgba(245,158,11,0.35)" strokeWidth="1.5" strokeDasharray="5 4" />
+              <line x1="290" y1="160" x2="160" y2="160" stroke="rgba(249,115,22,0.35)" strokeWidth="1.5" strokeDasharray="5 4" />
+              <line x1="160" y1="280" x2="160" y2="160" stroke="rgba(249,115,22,0.35)" strokeWidth="1.5" strokeDasharray="5 4" />
             </svg>
 
-            {/* 5 Nodes */}
-            <div className="absolute top-[30px] left-[20px] z-20 flex flex-col items-center group cursor-pointer">
-              <div className="w-10 h-10 rounded-xl bg-[#2a0c04] border border-orange-500/20 flex items-center justify-center text-orange-400 group-hover:bg-orange-600 group-hover:text-white transition-all duration-300">
+            {/* Node: Academic */}
+            <div className="absolute top-[28px] left-[18px] z-20 flex flex-col items-center group cursor-pointer">
+              <div className="w-10 h-10 rounded-xl bg-[#200a02] border border-orange-500/25 flex items-center justify-center text-orange-400 group-hover:bg-orange-600 group-hover:scale-110 group-hover:text-white transition-all duration-300 shadow-lg shadow-orange-950/50">
                 <GraduationCap className="w-5 h-5" />
               </div>
-              <span className="text-[9px] font-bold mt-1 text-orange-300 bg-[#1f0702] border border-orange-950 px-2 py-0.5 rounded-md whitespace-nowrap">Academic Performance</span>
+              <span className="text-[9px] font-bold mt-1 text-orange-300/80 bg-black/50 border border-orange-900/40 px-1.5 py-0.5 rounded-md whitespace-nowrap backdrop-blur-sm">
+                Academic
+              </span>
             </div>
 
-            <div className="absolute top-[30px] right-[20px] z-20 flex flex-col items-center group cursor-pointer">
-              <div className="w-10 h-10 rounded-xl bg-[#2a0c04] border border-red-500/20 flex items-center justify-center text-red-400 group-hover:bg-red-600 group-hover:text-white transition-all duration-300">
+            {/* Node: Co-Curricular */}
+            <div className="absolute top-[28px] right-[18px] z-20 flex flex-col items-center group cursor-pointer">
+              <div className="w-10 h-10 rounded-xl bg-[#200a02] border border-red-500/25 flex items-center justify-center text-red-400 group-hover:bg-red-600 group-hover:scale-110 group-hover:text-white transition-all duration-300 shadow-lg shadow-red-950/50">
                 <Award className="w-5 h-5" />
               </div>
-              <span className="text-[9px] font-bold mt-1 text-red-300 bg-[#1f0702] border border-orange-950 px-2 py-0.5 rounded-md whitespace-nowrap">Co-Curricular Activities</span>
+              <span className="text-[9px] font-bold mt-1 text-red-300/80 bg-black/50 border border-red-900/40 px-1.5 py-0.5 rounded-md whitespace-nowrap backdrop-blur-sm">
+                Co-Curricular
+              </span>
             </div>
 
-            <div className="absolute left-[-10px] top-[140px] z-20 flex flex-col items-center group cursor-pointer">
-              <div className="w-10 h-10 rounded-xl bg-[#2a0c04] border border-amber-500/20 flex items-center justify-center text-amber-400 group-hover:bg-amber-600 group-hover:text-white transition-all duration-300">
+            {/* Node: Skills */}
+            <div className="absolute left-[-12px] top-[140px] z-20 flex flex-col items-center group cursor-pointer">
+              <div className="w-10 h-10 rounded-xl bg-[#200a02] border border-amber-500/25 flex items-center justify-center text-amber-400 group-hover:bg-amber-600 group-hover:scale-110 group-hover:text-white transition-all duration-300 shadow-lg shadow-amber-950/50">
                 <Sparkles className="w-5 h-5" />
               </div>
-              <span className="text-[9px] font-bold mt-1 text-amber-300 bg-[#1f0702] border border-orange-950 px-2 py-0.5 rounded-md whitespace-nowrap">Skills & Certifications</span>
+              <span className="text-[9px] font-bold mt-1 text-amber-300/80 bg-black/50 border border-amber-900/40 px-1.5 py-0.5 rounded-md whitespace-nowrap backdrop-blur-sm">
+                Skills
+              </span>
             </div>
 
-            <div className="absolute right-[-10px] top-[140px] z-20 flex flex-col items-center group cursor-pointer">
-              <div className="w-10 h-10 rounded-xl bg-[#2a0c04] border border-orange-500/20 flex items-center justify-center text-orange-400 group-hover:bg-orange-600 group-hover:text-white transition-all duration-300">
+            {/* Node: Internships */}
+            <div className="absolute right-[-12px] top-[140px] z-20 flex flex-col items-center group cursor-pointer">
+              <div className="w-10 h-10 rounded-xl bg-[#200a02] border border-orange-500/25 flex items-center justify-center text-orange-400 group-hover:bg-orange-600 group-hover:scale-110 group-hover:text-white transition-all duration-300 shadow-lg shadow-orange-950/50">
                 <Briefcase className="w-5 h-5" />
               </div>
-              <span className="text-[9px] font-bold mt-1 text-orange-300 bg-[#1f0702] border border-orange-950 px-2 py-0.5 rounded-md whitespace-nowrap">Internships & Projects</span>
+              <span className="text-[9px] font-bold mt-1 text-orange-300/80 bg-black/50 border border-orange-900/40 px-1.5 py-0.5 rounded-md whitespace-nowrap backdrop-blur-sm">
+                Internships
+              </span>
             </div>
 
+            {/* Node: Placement */}
             <div className="absolute bottom-[10px] left-1/2 -translate-x-1/2 z-20 flex flex-col items-center group cursor-pointer">
-              <div className="w-10 h-10 rounded-xl bg-[#2a0c04] border border-orange-500/20 flex items-center justify-center text-orange-400 group-hover:bg-orange-600 group-hover:text-white transition-all duration-300">
+              <div className="w-10 h-10 rounded-xl bg-[#200a02] border border-orange-500/25 flex items-center justify-center text-orange-400 group-hover:bg-orange-600 group-hover:scale-110 group-hover:text-white transition-all duration-300 shadow-lg shadow-orange-950/50">
                 <TrendingUp className="w-5 h-5" />
               </div>
-              <span className="text-[9px] font-bold mt-1 text-orange-300 bg-[#1f0702] border border-orange-950 px-2 py-0.5 rounded-md whitespace-nowrap">Placement Prediction</span>
+              <span className="text-[9px] font-bold mt-1 text-orange-300/80 bg-black/50 border border-orange-900/40 px-1.5 py-0.5 rounded-md whitespace-nowrap backdrop-blur-sm">
+                Placement Prediction
+              </span>
             </div>
-
           </div>
 
-          <div className="border-t border-orange-500/10 pt-4">
-            <p className="text-[9px] text-orange-300/40 leading-relaxed text-center md:text-left">
-              Holistic Data · Intelligent Predictions · Better Placements. Deployed securely with Supabase RLS.
-            </p>
-          </div>
+          <p className="text-[9px] text-orange-200/30 text-center md:text-left">
+            Holistic Data · Intelligent Predictions · Better Placements
+          </p>
         </div>
 
-        {/* Right Side: Ultra Glassmorphism Login Card */}
+        {/* ── Right: Glassmorphic Login Card ─────────────────────────────── */}
         <div className="w-full md:w-[420px] shrink-0">
-          <div className="bg-white/[0.02] border border-white/10 backdrop-blur-2xl p-8 md:p-10 rounded-3xl shadow-2xl shadow-black/80 space-y-6 relative overflow-hidden">
-            
-            <div className="absolute top-[-10%] right-[-10%] w-36 h-36 bg-[#FF6A00]/5 rounded-full blur-3xl pointer-events-none"></div>
+          <div className="relative bg-black/25 border border-white/8 backdrop-blur-2xl p-8 md:p-10 rounded-3xl shadow-2xl shadow-black/90 space-y-6 overflow-hidden">
+
+            {/* Card inner glow */}
+            <div className="absolute -top-20 -right-20 w-48 h-48 bg-orange-600/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-12 -left-12 w-32 h-32 bg-red-700/8 rounded-full blur-2xl pointer-events-none" />
 
             <div>
-              <h2 className="text-2xl font-black text-white">Welcome Back</h2>
-              <p className="text-xs text-orange-200/50 mt-1">Sign in to access your digital student portfolio</p>
+              <h2 className="text-2xl font-black text-white tracking-tight">Welcome Back</h2>
+              <p className="text-xs text-orange-200/45 mt-1 font-medium">
+                Sign in to access your digital student portfolio
+              </p>
             </div>
 
             {errorMessage && (
-              <div className="p-3.5 bg-red-950/40 border border-red-800/40 text-red-400 rounded-xl text-xs font-semibold">
+              <div className="p-3.5 bg-red-950/50 border border-red-700/40 text-red-400 rounded-xl text-xs font-semibold">
                 {errorMessage}
               </div>
             )}
 
             <form onSubmit={handleLogin} className="space-y-4" autoComplete="off">
-              <input type="text" name="dummy_username" style={{ display: "none" }} tabIndex={-1} aria-hidden="true" />
-              <input type="password" name="dummy_password" style={{ display: "none" }} tabIndex={-1} aria-hidden="true" />
+              {/* Honeypot */}
+              <input type="text" name="dummy_user" style={{ display: "none" }} tabIndex={-1} aria-hidden="true" />
+              <input type="password" name="dummy_pass" style={{ display: "none" }} tabIndex={-1} aria-hidden="true" />
 
+              {/* Email */}
               <div className="space-y-1">
-                <label className="text-[10px] font-black text-orange-300/60 uppercase tracking-widest pl-1">Email Address</label>
+                <label className="text-[10px] font-black text-orange-300/55 uppercase tracking-widest pl-1">
+                  Email Address
+                </label>
                 <div className="relative">
-                  <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-orange-400/60">
-                    <Mail className="w-4.5 h-4.5" />
+                  <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                    <Mail className="w-4 h-4 text-orange-400/55" />
                   </span>
                   <input
                     type="email"
-                    id="login-email-field"
-                    name="college_email_field"
                     autoComplete="off"
                     readOnly
                     onFocus={(e) => e.target.removeAttribute("readOnly")}
-                    placeholder="e.g. admin@portal.com"
+                    placeholder="e.g. student@college.edu"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     disabled={loading}
-                    className="w-full pl-11 pr-4 py-3 bg-white/[0.01] border border-white/5 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#FF6A00] focus:bg-[#150702] text-white text-sm transition-all duration-300 font-medium"
+                    className="w-full pl-10 pr-4 py-3 bg-white/[0.03] border border-white/8 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500/60 focus:bg-white/[0.05] text-white text-sm transition-all duration-300 font-medium placeholder-white/20"
                   />
                 </div>
               </div>
 
+              {/* Password */}
               <div className="space-y-1">
                 <div className="flex justify-between items-center pl-1 pr-1">
-                  <label className="text-[10px] font-black text-orange-300/60 uppercase tracking-widest">Password</label>
-                  <a href="#forgot" className="text-xs text-orange-400 hover:text-orange-300 font-bold">Forgot?</a>
+                  <label className="text-[10px] font-black text-orange-300/55 uppercase tracking-widest">
+                    Password
+                  </label>
+                  <a href="#" className="text-[10px] text-orange-400 hover:text-orange-300 font-bold transition-colors">
+                    Forgot?
+                  </a>
                 </div>
                 <div className="relative">
-                  <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-orange-400/60">
-                    <Lock className="w-4.5 h-4.5" />
+                  <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                    <Lock className="w-4 h-4 text-orange-400/55" />
                   </span>
                   <input
                     type={showPassword ? "text" : "password"}
-                    id="login-password-field"
-                    name="college_password_field"
                     autoComplete="new-password"
                     readOnly
                     onFocus={(e) => e.target.removeAttribute("readOnly")}
-                    placeholder="Enter password"
+                    placeholder="Enter your password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     disabled={loading}
-                    className="w-full pl-11 pr-12 py-3 bg-white/[0.01] border border-white/5 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#FF6A00] focus:bg-[#150702] text-white text-sm transition-all duration-300 font-medium"
+                    className="w-full pl-10 pr-11 py-3 bg-white/[0.03] border border-white/8 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500/60 focus:bg-white/[0.05] text-white text-sm transition-all duration-300 font-medium placeholder-white/20"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-orange-400/60 hover:text-orange-400 transition duration-200 cursor-pointer"
+                    className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-orange-400/55 hover:text-orange-300 transition-colors cursor-pointer"
                   >
-                    {showPassword ? <EyeOff className="w-4.5 h-4.5" /> : <Eye className="w-4.5 h-4.5" />}
+                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
                 </div>
               </div>
 
+              {/* Submit */}
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-gradient-to-r from-[#D7263D] via-[#FF6A00] to-[#FFC247] text-white font-bold py-3.5 px-4 rounded-xl hover:opacity-95 shadow-lg shadow-orange-950/50 transition-all duration-300 disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer text-sm"
+                className="w-full bg-gradient-to-r from-[#D7263D] via-[#FF6A00] to-[#FFC247] text-white font-black py-3.5 rounded-xl hover:brightness-110 shadow-lg shadow-orange-900/50 transition-all duration-300 disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer text-sm tracking-wide"
               >
                 {loading ? (
                   <>
-                    <Loader2 className="w-4.5 h-4.5 animate-spin" />
-                    Authenticating...
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Authenticating…
                   </>
                 ) : (
                   "Log In"
@@ -752,45 +1007,37 @@ function Login() {
               </button>
             </form>
 
-            <div className="space-y-4 pt-2">
-              <div className="relative flex items-center justify-center">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-white/5"></div>
-                </div>
-                <span className="relative bg-[#0c0301]/10 px-4 text-[10px] font-black text-orange-300/40 uppercase tracking-widest">or</span>
-              </div>
-
-              <button
-                type="button"
-                onClick={() => handleOAuthLogin("google")}
-                title="Sign In with Google"
-                className="w-full flex items-center justify-center gap-2.5 py-3 bg-white/[0.01] hover:bg-white/[0.04] rounded-xl border border-white/5 transition cursor-pointer text-orange-200 font-bold text-xs"
-              >
-                <svg className="w-4.5 h-4.5" viewBox="0 0 24 24">
-                  <path fill="#ea4335" d="M12 5.04c1.66 0 3.2.57 4.38 1.69l3.27-3.27C17.68 1.54 14.98 1 12 1 7.35 1 3.37 3.67 1.39 7.56l3.85 2.99c.9-2.7 3.4-4.51 6.76-4.51z" />
-                  <path fill="#4285f4" d="M23.49 12.27c0-.81-.07-1.59-.2-2.36H12v4.51h6.46c-.28 1.48-1.12 2.73-2.38 3.58l3.7 2.87c2.16-2 3.71-4.94 3.71-8.6z" />
-                  <path fill="#fbbc05" d="M5.24 14.56c-.24-.72-.38-1.5-.38-2.31s.14-1.59.38-2.31L1.39 6.95C.5 8.75 0 10.79 0 12.91s.5 4.16 1.39 5.96l3.85-2.95z" />
-                  <path fill="#34a853" d="M12 23c3.24 0 5.97-1.07 7.96-2.91l-3.7-2.87c-1.03.69-2.35 1.1-4.26 1.1-3.36 0-5.86-1.81-6.76-4.51l-3.85 2.99C3.37 20.33 7.35 23 12 23z" />
-                </svg>
-                Sign In with Google
-              </button>
+            {/* Divider */}
+            <div className="relative flex items-center">
+              <div className="flex-grow border-t border-white/6" />
+              <span className="mx-4 text-[10px] font-black text-white/25 uppercase tracking-widest">or</span>
+              <div className="flex-grow border-t border-white/6" />
             </div>
 
-            <div className="pt-2 text-center">
-              <p className="text-xs text-orange-200/50 font-semibold">
-                Don't have an account?{" "}
-                <Link
-                  to="/register"
-                  className="text-orange-400 hover:text-orange-300 font-black transition-colors duration-300"
-                >
-                  Sign Up
-                </Link>
-              </p>
-            </div>
+            {/* Google OAuth */}
+            <button
+              type="button"
+              onClick={() => handleOAuthLogin("google")}
+              className="w-full flex items-center justify-center gap-2.5 py-3 bg-white/[0.03] hover:bg-white/[0.07] rounded-xl border border-white/8 transition-all duration-200 cursor-pointer text-white/75 hover:text-white font-bold text-xs"
+            >
+              <svg className="w-4 h-4" viewBox="0 0 24 24">
+                <path fill="#ea4335" d="M12 5.04c1.66 0 3.2.57 4.38 1.69l3.27-3.27C17.68 1.54 14.98 1 12 1 7.35 1 3.37 3.67 1.39 7.56l3.85 2.99c.9-2.7 3.4-4.51 6.76-4.51z" />
+                <path fill="#4285f4" d="M23.49 12.27c0-.81-.07-1.59-.2-2.36H12v4.51h6.46c-.28 1.48-1.12 2.73-2.38 3.58l3.7 2.87c2.16-2 3.71-4.94 3.71-8.6z" />
+                <path fill="#fbbc05" d="M5.24 14.56c-.24-.72-.38-1.5-.38-2.31s.14-1.59.38-2.31L1.39 6.95C.5 8.75 0 10.79 0 12.91s.5 4.16 1.39 5.96l3.85-2.95z" />
+                <path fill="#34a853" d="M12 23c3.24 0 5.97-1.07 7.96-2.91l-3.7-2.87c-1.03.69-2.35 1.1-4.26 1.1-3.36 0-5.86-1.81-6.76-4.51l-3.85 2.99C3.37 20.33 7.35 23 12 23z" />
+              </svg>
+              Continue with Google — Edutwin AI
+            </button>
 
+            {/* Sign up link */}
+            <p className="text-center text-xs text-white/35 font-medium pt-1">
+              Don't have an account?{" "}
+              <Link to="/register" className="text-orange-400 hover:text-orange-300 font-black transition-colors">
+                Sign Up
+              </Link>
+            </p>
           </div>
         </div>
-
       </div>
     </div>
   );
