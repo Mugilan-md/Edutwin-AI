@@ -162,11 +162,10 @@ function AdminDashboard() {
   return (
     <div className="min-h-screen bg-[#080608] pb-16">
       <Navbar forcedRole="admin" />
-
-      <div className="pt-28 px-4 max-w-6xl mx-auto space-y-8">
+      <div className="pt-24 px-4 max-w-6xl mx-auto space-y-6">
 
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-gradient-to-r from-[#0f0a04] via-[#1a0d02] to-[#0a0505] border border-orange-500/20 text-white rounded-3xl p-8 shadow-2xl shadow-black/60 relative overflow-hidden">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-gradient-to-r from-[#0f0a04] via-[#1a0d02] to-[#0a0505] border border-orange-500/20 text-white rounded-3xl p-6 md:p-8 shadow-2xl shadow-black/60 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-orange-500/8 rounded-full blur-3xl pointer-events-none" />
           <div className="relative z-10 space-y-1">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-orange-500/10 border border-orange-500/20 rounded-full text-xs font-semibold text-orange-300 mb-2">
@@ -197,7 +196,7 @@ function AdminDashboard() {
         )}
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5">
           {[
             { label: "Registered Users", value: totalStudentsCount, sub: "All roles synced", icon: Users },
             { label: "Total Submissions", value: totalActsCount, sub: "Across all semesters", icon: BookOpen },
@@ -218,7 +217,7 @@ function AdminDashboard() {
         </div>
 
         {/* Main Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
           {/* Left: Student Directory */}
           <div className="lg:col-span-2 space-y-6">

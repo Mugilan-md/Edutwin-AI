@@ -130,11 +130,10 @@ function StudentDashboard() {
   return (
     <div className="min-h-screen bg-[#080608] pb-16">
       <Navbar />
-
-      <div className="pt-28 px-4 max-w-6xl mx-auto space-y-8">
+      <div className="pt-24 px-4 max-w-6xl mx-auto space-y-6">
 
         {/* Hero Header */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-gradient-to-r from-[#0f0a04] via-[#1a0d02] to-[#0a0505] border border-orange-500/20 text-white rounded-3xl p-8 shadow-2xl shadow-black/60 relative overflow-hidden">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-gradient-to-r from-[#0f0a04] via-[#1a0d02] to-[#0a0505] border border-orange-500/20 text-white rounded-3xl p-6 md:p-8 shadow-2xl shadow-black/60 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-orange-500/8 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-[200px] h-[200px] bg-red-600/5 rounded-full blur-3xl pointer-events-none" />
           <div className="relative z-10 space-y-2">
@@ -159,7 +158,7 @@ function StudentDashboard() {
         </div>
 
         {/* 4 Stats Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
           {[
             { label: "CGPA", value: cgpa.toFixed(2), sub: "Top 15% of Batch", icon: BookOpen, accent: "orange" },
             { label: "Attendance", value: `${attendance}%`, sub: "Excellent attendance", icon: Clock, accent: "amber" },
@@ -180,7 +179,7 @@ function StudentDashboard() {
         </div>
 
         {/* Dashboard Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
           {/* Left: Activities & ML (2 cols) */}
           <div className="lg:col-span-2 space-y-8">
