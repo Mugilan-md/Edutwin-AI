@@ -313,32 +313,49 @@ function StudentDashboard() {
                 <BrainCircuit className="w-5 h-5 text-orange-500" />
                 AI Skill Density
               </h2>
-              <div className="space-y-5">
-                {[
-                  { label: "Software / Web Dev", val: skills.webDev },
-                  { label: "Competitive Programming", val: skills.competitiveCoding },
-                  { label: "Research & Academics", val: skills.research },
-                  { label: "Leadership & Volunteering", val: skills.leadership },
-                ].map((s) => (
-                  <div key={s.label} className="space-y-1.5">
-                    <div className="flex justify-between text-xs font-semibold">
-                      <span className="text-orange-300/60">{s.label}</span>
-                      <span className="text-orange-400">{s.val}%</span>
+
+              {approvedCount === 0 ? (
+                <div className="py-8 text-center space-y-3">
+                  <BrainCircuit className="w-10 h-10 text-orange-500/20 mx-auto" />
+                  <p className="text-sm font-semibold text-orange-300/40">No approved activities yet</p>
+                  <p className="text-xs text-orange-300/25 leading-relaxed">
+                    Upload certificates and get them approved by faculty. Your skill profile will be generated automatically.
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-5">
+                  {[
+                    { label: "Software / Web Dev", val: skills.webDev },
+                    { label: "Competitive Programming", val: skills.competitiveCoding },
+                    { label: "Research & Academics", val: skills.research },
+                    { label: "Leadership & Volunteering", val: skills.leadership },
+                  ].map((s) => (
+                    <div key={s.label} className="space-y-1.5">
+                      <div className="flex justify-between text-xs font-semibold">
+                        <span className="text-orange-300/60">{s.label}</span>
+                        <span className="text-orange-400">{s.val}%</span>
+                      </div>
+                      <div className="h-2 bg-orange-500/10 rounded-full overflow-hidden">
+                        <div className="h-full bg-gradient-to-r from-[#D7263D] via-[#FF6A00] to-[#FFC247] transition-all duration-700 rounded-full" style={{ width: `${s.val}%` }} />
+                      </div>
                     </div>
-                    <div className="h-2 bg-orange-500/10 rounded-full overflow-hidden">
-                      <div className="h-full bg-gradient-to-r from-[#D7263D] via-[#FF6A00] to-[#FFC247] transition-all duration-700 rounded-full" style={{ width: `${s.val}%` }} />
-                    </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
 
               <div className="mt-8 p-4 bg-orange-500/8 rounded-2xl border border-orange-500/20 space-y-2">
                 <span className="text-[10px] font-bold text-orange-400 uppercase tracking-wider">AI Career Fit Prediction</span>
-                <div className="text-lg font-extrabold text-white">{careerFit}</div>
-                <div className="flex items-center justify-between text-xs text-orange-300/50">
-                  <span>Cosine Fit Score</span>
-                  <span className="font-bold text-orange-400">{careerConfidence}% Confidence</span>
-                </div>
+                {approvedCount === 0 ? (
+                  <div className="text-sm text-orange-300/30 italic">Awaiting approved certificates...</div>
+                ) : (
+                  <>
+                    <div className="text-lg font-extrabold text-white">{careerFit}</div>
+                    <div className="flex items-center justify-between text-xs text-orange-300/50">
+                      <span>Cosine Fit Score</span>
+                      <span className="font-bold text-orange-400">{careerConfidence}% Confidence</span>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
 

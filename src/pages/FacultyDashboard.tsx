@@ -97,14 +97,31 @@ function FacultyDashboard() {
             </div>
             <h1 className="text-2xl font-extrabold">Activity Approval Dashboard</h1>
             <p className="text-orange-200/50 text-sm">
-              Review, verify, and assign academic credits to student achievement submissions.
+              Review student certificates, verify authenticity, and assign NAAC academic credits.
             </p>
           </div>
-          <div className="relative z-10 flex items-center gap-3 bg-orange-500/10 border border-orange-500/20 rounded-2xl px-5 py-3">
-            <Clock className="w-6 h-6 text-amber-400" />
-            <div>
-              <span className="block text-2xl font-black text-white">{activities.length}</span>
-              <span className="block text-xs text-orange-300/60">Pending Reviews</span>
+          {/* 3 Quick Stat Boxes */}
+          <div className="relative z-10 flex items-center gap-3 flex-wrap">
+            <div className="flex items-center gap-3 bg-orange-500/10 border border-orange-500/20 rounded-2xl px-5 py-3">
+              <Clock className="w-5 h-5 text-amber-400" />
+              <div>
+                <span className="block text-xl font-black text-white">{activities.length}</span>
+                <span className="block text-[10px] text-orange-300/60">Pending Reviews</span>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 bg-orange-500/10 border border-orange-500/20 rounded-2xl px-5 py-3">
+              <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+              <div>
+                <span className="block text-xl font-black text-white">Approve</span>
+                <span className="block text-[10px] text-orange-300/60">= Add Credits</span>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 bg-orange-500/10 border border-orange-500/20 rounded-2xl px-5 py-3">
+              <XCircle className="w-5 h-5 text-red-400" />
+              <div>
+                <span className="block text-xl font-black text-white">Decline</span>
+                <span className="block text-[10px] text-orange-300/60">= No Credits</span>
+              </div>
             </div>
           </div>
         </div>

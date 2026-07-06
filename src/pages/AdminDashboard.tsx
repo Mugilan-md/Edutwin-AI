@@ -49,7 +49,8 @@ function AdminDashboard() {
       if (profilesError) setErrorMsg("Cannot fetch profiles. Check Supabase RLS policies.");
 
       const profilesList = profiles || [];
-      setTotalStudentsCount(profilesList.length);
+      // Count only students, not faculty or admin accounts
+      setTotalStudentsCount(profilesList.filter((p: any) => p.role === "student").length);
 
       const { data: acts, error: actsError } = await fetchAllActivitiesForAdmin();
       if (actsError) setErrorMsg("Cannot fetch activities. Check Supabase RLS policies.");
@@ -261,7 +262,7 @@ function AdminDashboard() {
                   <table className="w-full text-left">
                     <thead>
                       <tr className="border-b border-orange-500/10">
-                        {["Student", "Dept", "Year", "Activities", "Credits"].map((h) => (
+                {["Student", "Email", "Dept", "Year", "Activities", "Credits"].map((h) => (
                           <th key={h} className="pb-3 pr-4 text-[11px] font-bold text-orange-300/40 uppercase tracking-wider">{h}</th>
                         ))}
                       </tr>
@@ -273,6 +274,7 @@ function AdminDashboard() {
                             <span className="block text-sm font-bold text-white">{s.full_name}</span>
                             <span className="block text-[10px] text-orange-300/40">{s.register_no}</span>
                           </td>
+                          <td className="py-3.5 pr-4 text-xs text-orange-300/40">{s.email || "—"}</td>
                           <td className="py-3.5 pr-4 text-xs font-semibold text-orange-300/60">{s.department}</td>
                           <td className="py-3.5 pr-4 text-xs text-orange-300/40">{s.year}st/nd</td>
                           <td className="py-3.5 pr-4 text-xs text-orange-300/40">{s.activitiesCount} uploads</td>
