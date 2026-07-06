@@ -17,32 +17,20 @@ import {
   TrendingUp,
 } from "lucide-react";
 
-// ─── Lightweight ember particles for ambient atmosphere on top of the video ───
+// ─── Lightweight ember particles ─────────────────────────────────────────────
 class Ember {
-  x: number;
-  y: number;
-  vx: number;
-  vy: number;
-  size: number;
-  alpha: number;
-  decay: number;
-  hue: number;
+  x: number; y: number; vx: number; vy: number;
+  size: number; alpha: number; decay: number; hue: number;
 
   constructor(w: number, h: number) {
-    // Spawn from bottom or random sides
-    if (Math.random() < 0.7) {
-      this.x = Math.random() * w;
-      this.y = h + 10;
-    } else {
-      this.x = Math.random() < 0.5 ? -5 : w + 5;
-      this.y = h * 0.5 + Math.random() * h * 0.5;
-    }
+    if (Math.random() < 0.7) { this.x = Math.random() * w; this.y = h + 10; }
+    else { this.x = Math.random() < 0.5 ? -5 : w + 5; this.y = h * 0.5 + Math.random() * h * 0.5; }
     this.vy = -(Math.random() * 1.8 + 0.6);
     this.vx = (Math.random() - 0.5) * 1.2;
-    this.size = Math.random() * 2.8 + 0.8;
+    this.size = Math.random() * 2.5 + 0.8;
     this.alpha = Math.random() * 0.7 + 0.3;
     this.decay = Math.random() * 0.004 + 0.002;
-    this.hue = Math.random() * 40 + 15; // warm orange-yellow
+    this.hue = Math.random() * 40 + 15;
   }
 
   update() {
@@ -55,7 +43,7 @@ class Ember {
     if (this.alpha <= 0) return;
     ctx.save();
     ctx.globalAlpha = this.alpha;
-    ctx.shadowBlur = 12;
+    ctx.shadowBlur = 10;
     ctx.shadowColor = `hsla(${this.hue},100%,65%,0.9)`;
     ctx.fillStyle = `hsla(${this.hue},100%,70%,1)`;
     ctx.beginPath();
@@ -76,27 +64,50 @@ function Login() {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
-  // UI fades in after video starts
   const [showUI, setShowUI] = useState(false);
-  // Track if video has started to know when to reveal UI
-  const uiTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Show UI 1.5s after mount (video autoplays immediately)
+  // Show UI 1.2s after mount
   useEffect(() => {
-    uiTimerRef.current = setTimeout(() => setShowUI(true), 1500);
-    return () => {
-      if (uiTimerRef.current) clearTimeout(uiTimerRef.current);
-    };
+    const t = setTimeout(() => setShowUI(true), 1200);
+    return () => clearTimeout(t);
   }, []);
 
-  // ── Ember canvas overlay ─────────────────────────────────────────────────
+  // Force video play on mobile (iOS requires user interaction workaround)
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    // Ensure the video plays even on low-power mode on iOS
+    const tryPlay = () => {
+      video.play().catch(() => {
+        // If autoplay fails (strict mobile policy), retry on first touch
+        const resumeOnTouch = () => {
+          video.play().catch(() => {});
+          document.removeEventListener("touchstart", resumeOnTouch);
+          document.removeEventListener("click", resumeOnTouch);
+        };
+        document.addEventListener("touchstart", resumeOnTouch, { once: true });
+        document.addEventListener("click", resumeOnTouch, { once: true });
+      });
+    };
+
+    if (video.readyState >= 2) {
+      tryPlay();
+    } else {
+      video.addEventListener("canplay", tryPlay, { once: true });
+    }
+
+    return () => video.removeEventListener("canplay", tryPlay);
+  }, []);
+
+  // ── Ember canvas overlay ──────────────────────────────────────────────────
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    // Cap DPR at 2 for performance on mobile
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const resize = () => {
       canvas.width = window.innerWidth * dpr;
@@ -106,35 +117,32 @@ function Login() {
     resize();
     window.addEventListener("resize", resize);
 
+    // Fewer embers on mobile to preserve FPS
+    const isMobile = window.innerWidth < 768;
+    const MAX_EMBERS = isMobile ? 60 : 120;
+    const SPAWN_RATE = isMobile ? 0.25 : 0.4;
+
     let embers: Ember[] = [];
     let raf: number;
 
     const loop = () => {
       const w = window.innerWidth;
       const h = window.innerHeight;
-
       ctx.clearRect(0, 0, w, h);
 
-      // Spawn new embers
-      if (embers.length < 120 && Math.random() < 0.4) {
+      if (embers.length < MAX_EMBERS && Math.random() < SPAWN_RATE) {
         embers.push(new Ember(w, h));
       }
 
-      // Draw with additive blending for glow
       ctx.globalCompositeOperation = "lighter";
-      for (const e of embers) {
-        e.update();
-        e.draw(ctx);
-      }
+      for (const e of embers) { e.update(); e.draw(ctx); }
       ctx.globalCompositeOperation = "source-over";
 
       embers = embers.filter((e) => e.alpha > 0 && e.y > -20);
-
       raf = requestAnimationFrame(loop);
     };
 
     loop();
-
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", resize);
@@ -144,26 +152,16 @@ function Login() {
   // ── Auth handlers ─────────────────────────────────────────────────────────
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !password) {
-      setErrorMessage("Please enter both email and password.");
-      return;
-    }
-
+    if (!email || !password) { setErrorMessage("Please enter both email and password."); return; }
     setLoading(true);
     setErrorMessage("");
 
     try {
       const { data, error } = await signInUser(email, password);
-
-      if (error) {
-        setErrorMessage(error.message);
-        setLoading(false);
-        return;
-      }
+      if (error) { setErrorMessage(error.message); setLoading(false); return; }
 
       if (data?.user) {
         const { data: profile, error: profileError } = await getProfile(data.user.id);
-
         if (profileError || !profile) {
           localStorage.setItem("user_role", "student");
           localStorage.setItem("user_name", email.split("@")[0]);
@@ -171,15 +169,13 @@ function Login() {
         } else {
           localStorage.setItem("user_role", profile.role || "student");
           localStorage.setItem("user_name", profile.full_name || "");
-
           if (profile.role === "faculty") navigate("/faculty");
           else if (profile.role === "admin") navigate("/admin");
           else navigate("/student");
         }
       }
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : "An unexpected error occurred.";
-      setErrorMessage(message);
+      setErrorMessage(err instanceof Error ? err.message : "An unexpected error occurred.");
     } finally {
       setLoading(false);
     }
@@ -195,8 +191,7 @@ function Login() {
       });
       if (error) setErrorMessage(error.message);
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : "OAuth login failed.";
-      setErrorMessage(message);
+      setErrorMessage(err instanceof Error ? err.message : "OAuth login failed.");
     } finally {
       setLoading(false);
     }
@@ -204,9 +199,9 @@ function Login() {
 
   // ── Render ────────────────────────────────────────────────────────────────
   return (
-    <div className="min-h-screen relative flex items-center justify-center overflow-hidden bg-black select-none">
+    <div className="min-h-screen min-h-dvh relative flex items-center justify-center overflow-hidden bg-black select-none">
 
-      {/* ── REAL CINEMATIC VIDEO BACKGROUND ───────────────────────────────── */}
+      {/* ── CINEMATIC VIDEO BACKGROUND ─────────────────────────────────────── */}
       <video
         ref={videoRef}
         src="/phoenix_bg.mp4"
@@ -214,35 +209,40 @@ function Login() {
         loop
         muted
         playsInline
+        // webkit-playsinline for older iOS
+        {...{ "webkit-playsinline": "true" } as any}
+        preload="auto"
         className="absolute inset-0 w-full h-full object-cover z-0"
-        style={{ filter: "brightness(0.82) saturate(1.15) contrast(1.05)" }}
+        style={{
+          filter: "brightness(0.82) saturate(1.15) contrast(1.05)",
+          // GPU compositing hint — keeps video decode off the main thread
+          willChange: "transform",
+          transform: "translateZ(0)",
+        }}
       />
 
-      {/* Dark overlay to deepen blacks and improve text readability */}
+      {/* Dark gradient overlay */}
       <div className="absolute inset-0 z-10 bg-gradient-to-br from-black/55 via-black/20 to-black/60 pointer-events-none" />
 
       {/* Cinematic letterbox bars */}
-      <div className="absolute top-0 left-0 right-0 h-14 bg-gradient-to-b from-black/80 to-transparent z-10 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 right-0 h-14 bg-gradient-to-t from-black/80 to-transparent z-10 pointer-events-none" />
+      <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-black/80 to-transparent z-10 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-black/80 to-transparent z-10 pointer-events-none" />
 
-      {/* Ambient ember particles floating over video */}
+      {/* Ember canvas */}
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full block z-20 pointer-events-none"
       />
 
-      {/* ── MAIN UI ───────────────────────────────────────────────────────── */}
+      {/* ── MAIN UI ─────────────────────────────────────────────────────────── */}
       <div
-        className={`w-full max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between px-6 md:px-14 py-8 relative z-30 transition-all duration-[1400ms] ease-out ${
-          showUI
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 translate-y-10 pointer-events-none"
+        className={`w-full max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-center md:justify-between gap-6 md:gap-0 px-5 md:px-14 py-6 md:py-8 relative z-30 transition-all duration-[1200ms] ease-out min-h-dvh md:min-h-0 ${
+          showUI ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"
         }`}
       >
 
-        {/* ── LEFT: Block Diagram ─────────────────────────────────────────── */}
-        <div className="w-full md:w-1/2 flex flex-col pr-0 md:pr-14 mb-10 md:mb-0">
-
+        {/* ── LEFT: Block Diagram (hidden on small mobile, visible md+) ────── */}
+        <div className="hidden md:flex w-full md:w-1/2 flex-col pr-0 md:pr-14">
           {/* Brand */}
           <div className="flex items-center gap-3 mb-7">
             <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-[#D7263D] via-[#FF6A00] to-[#FFC247] flex items-center justify-center shadow-xl shadow-orange-600/30">
@@ -268,77 +268,42 @@ function Login() {
             Holistic student activity records — data-driven placement predictions.
           </p>
 
-          {/* 5-Node Interactive Block Diagram */}
+          {/* 5-Node Block Diagram */}
           <div className="relative w-80 h-80 mx-auto flex items-center justify-center mb-6">
-
             {/* Center Hub */}
             <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-[#D7263D] via-[#FF6A00] to-[#FFC247] flex flex-col items-center justify-center border border-orange-300/30 shadow-[0_0_60px_rgba(255,106,0,0.6)] relative z-20 animate-pulse">
               <Brain className="w-9 h-9 text-white" />
-              <span className="text-[8px] font-black tracking-wider uppercase mt-1 text-white/90">
-                EDUTWIN AI
-              </span>
+              <span className="text-[8px] font-black tracking-wider uppercase mt-1 text-white/90">EDUTWIN AI</span>
             </div>
 
-            {/* Connecting lines */}
-            <svg
-              className="absolute inset-0 w-full h-full pointer-events-none z-10"
-              viewBox="0 0 320 320"
-            >
-              <line x1="60" y1="60" x2="160" y2="160" stroke="rgba(255,140,0,0.45)" strokeWidth="1.5" strokeDasharray="6 4" />
-              <line x1="260" y1="60" x2="160" y2="160" stroke="rgba(220,60,30,0.45)" strokeWidth="1.5" strokeDasharray="6 4" />
-              <line x1="28" y1="160" x2="160" y2="160" stroke="rgba(255,180,20,0.45)" strokeWidth="1.5" strokeDasharray="6 4" />
+            {/* SVG lines */}
+            <svg className="absolute inset-0 w-full h-full pointer-events-none z-10" viewBox="0 0 320 320">
+              <line x1="60"  y1="60"  x2="160" y2="160" stroke="rgba(255,140,0,0.45)" strokeWidth="1.5" strokeDasharray="6 4" />
+              <line x1="260" y1="60"  x2="160" y2="160" stroke="rgba(220,60,30,0.45)"  strokeWidth="1.5" strokeDasharray="6 4" />
+              <line x1="28"  y1="160" x2="160" y2="160" stroke="rgba(255,180,20,0.45)" strokeWidth="1.5" strokeDasharray="6 4" />
               <line x1="292" y1="160" x2="160" y2="160" stroke="rgba(255,140,0,0.45)" strokeWidth="1.5" strokeDasharray="6 4" />
               <line x1="160" y1="282" x2="160" y2="160" stroke="rgba(255,140,0,0.45)" strokeWidth="1.5" strokeDasharray="6 4" />
             </svg>
 
-            {/* Node: Academic */}
-            <div className="absolute top-[28px] left-[16px] z-20 flex flex-col items-center group cursor-pointer">
-              <div className="w-11 h-11 rounded-xl bg-black/50 backdrop-blur-md border border-orange-500/30 flex items-center justify-center text-orange-400 group-hover:bg-orange-600 group-hover:scale-110 group-hover:text-white transition-all duration-300 shadow-lg shadow-black/50">
-                <GraduationCap className="w-5 h-5" />
+            {[
+              { top: "28px", left: "16px", icon: GraduationCap, label: "Academic", color: "orange" },
+              { top: "28px", right: "16px", icon: Award, label: "Co-Curricular", color: "red" },
+              { top: "138px", left: "-14px", icon: Sparkles, label: "Skills", color: "amber" },
+              { top: "138px", right: "-14px", icon: Briefcase, label: "Internships", color: "orange" },
+            ].map(({ top, left, right, icon: Icon, label, color }) => (
+              <div key={label} className="absolute z-20 flex flex-col items-center group cursor-pointer" style={{ top, left, right }}>
+                <div className={`w-11 h-11 rounded-xl bg-black/50 backdrop-blur-md border border-${color}-500/30 flex items-center justify-center text-${color}-400 group-hover:bg-${color}-600 group-hover:scale-110 group-hover:text-white transition-all duration-300 shadow-lg shadow-black/50`}>
+                  <Icon className="w-5 h-5" />
+                </div>
+                <span className={`text-[9px] font-bold mt-1 text-${color}-200/90 bg-black/60 border border-${color}-800/40 px-2 py-0.5 rounded-md whitespace-nowrap backdrop-blur-sm`}>{label}</span>
               </div>
-              <span className="text-[9px] font-bold mt-1 text-orange-200/90 bg-black/60 border border-orange-800/40 px-2 py-0.5 rounded-md whitespace-nowrap backdrop-blur-sm">
-                Academic
-              </span>
-            </div>
+            ))}
 
-            {/* Node: Co-Curricular */}
-            <div className="absolute top-[28px] right-[16px] z-20 flex flex-col items-center group cursor-pointer">
-              <div className="w-11 h-11 rounded-xl bg-black/50 backdrop-blur-md border border-red-500/30 flex items-center justify-center text-red-400 group-hover:bg-red-600 group-hover:scale-110 group-hover:text-white transition-all duration-300 shadow-lg shadow-black/50">
-                <Award className="w-5 h-5" />
-              </div>
-              <span className="text-[9px] font-bold mt-1 text-red-200/90 bg-black/60 border border-red-800/40 px-2 py-0.5 rounded-md whitespace-nowrap backdrop-blur-sm">
-                Co-Curricular
-              </span>
-            </div>
-
-            {/* Node: Skills */}
-            <div className="absolute left-[-14px] top-[138px] z-20 flex flex-col items-center group cursor-pointer">
-              <div className="w-11 h-11 rounded-xl bg-black/50 backdrop-blur-md border border-amber-500/30 flex items-center justify-center text-amber-400 group-hover:bg-amber-600 group-hover:scale-110 group-hover:text-white transition-all duration-300 shadow-lg shadow-black/50">
-                <Sparkles className="w-5 h-5" />
-              </div>
-              <span className="text-[9px] font-bold mt-1 text-amber-200/90 bg-black/60 border border-amber-800/40 px-2 py-0.5 rounded-md whitespace-nowrap backdrop-blur-sm">
-                Skills
-              </span>
-            </div>
-
-            {/* Node: Internships */}
-            <div className="absolute right-[-14px] top-[138px] z-20 flex flex-col items-center group cursor-pointer">
-              <div className="w-11 h-11 rounded-xl bg-black/50 backdrop-blur-md border border-orange-500/30 flex items-center justify-center text-orange-400 group-hover:bg-orange-600 group-hover:scale-110 group-hover:text-white transition-all duration-300 shadow-lg shadow-black/50">
-                <Briefcase className="w-5 h-5" />
-              </div>
-              <span className="text-[9px] font-bold mt-1 text-orange-200/90 bg-black/60 border border-orange-800/40 px-2 py-0.5 rounded-md whitespace-nowrap backdrop-blur-sm">
-                Internships
-              </span>
-            </div>
-
-            {/* Node: Placement */}
             <div className="absolute bottom-[8px] left-1/2 -translate-x-1/2 z-20 flex flex-col items-center group cursor-pointer">
               <div className="w-11 h-11 rounded-xl bg-black/50 backdrop-blur-md border border-orange-500/30 flex items-center justify-center text-orange-400 group-hover:bg-orange-600 group-hover:scale-110 group-hover:text-white transition-all duration-300 shadow-lg shadow-black/50">
                 <TrendingUp className="w-5 h-5" />
               </div>
-              <span className="text-[9px] font-bold mt-1 text-orange-200/90 bg-black/60 border border-orange-800/40 px-2 py-0.5 rounded-md whitespace-nowrap backdrop-blur-sm">
-                Placement Prediction
-              </span>
+              <span className="text-[9px] font-bold mt-1 text-orange-200/90 bg-black/60 border border-orange-800/40 px-2 py-0.5 rounded-md whitespace-nowrap backdrop-blur-sm">Placement Prediction</span>
             </div>
           </div>
 
@@ -347,22 +312,30 @@ function Login() {
           </p>
         </div>
 
-        {/* ── RIGHT: Glassmorphic Login Card ─────────────────────────────── */}
-        <div className="w-full md:w-[420px] shrink-0">
-          <div className="relative bg-black/30 border border-white/10 backdrop-blur-2xl p-8 md:p-10 rounded-3xl shadow-2xl shadow-black space-y-6 overflow-hidden">
+        {/* ── RIGHT: Login Card ────────────────────────────────────────────── */}
+        <div className="w-full md:w-[420px] shrink-0 flex flex-col justify-center">
 
-            {/* Subtle card inner glow */}
+          {/* Mobile-only mini brand header */}
+          <div className="flex md:hidden items-center gap-2.5 mb-5 justify-center">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#D7263D] via-[#FF6A00] to-[#FFC247] flex items-center justify-center shadow-lg shadow-orange-600/30">
+              <Sparkles className="w-4 h-4 text-white" />
+            </div>
+            <div>
+              <span className="font-black text-base bg-gradient-to-r from-white to-orange-200 bg-clip-text text-transparent">Edutwin AI</span>
+              <span className="block text-[9px] text-orange-400 font-bold uppercase tracking-widest -mt-0.5">Student Twin Hub</span>
+            </div>
+          </div>
+
+          <div className="relative bg-black/35 border border-white/10 backdrop-blur-2xl p-6 md:p-10 rounded-3xl shadow-2xl shadow-black space-y-5 overflow-hidden">
+
+            {/* Card glows */}
             <div className="absolute -top-16 -right-16 w-40 h-40 bg-orange-500/8 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute -bottom-10 -left-10 w-28 h-28 bg-red-600/6 rounded-full blur-2xl pointer-events-none" />
 
             {/* Header */}
             <div>
-              <h2 className="text-2xl font-black text-white tracking-tight drop-shadow-md">
-                Welcome Back
-              </h2>
-              <p className="text-xs text-orange-200/40 mt-1 font-medium">
-                Sign in to your digital student portfolio
-              </p>
+              <h2 className="text-xl md:text-2xl font-black text-white tracking-tight drop-shadow-md">Welcome Back</h2>
+              <p className="text-xs text-orange-200/40 mt-1 font-medium">Sign in to your digital student portfolio</p>
             </div>
 
             {/* Error */}
@@ -379,9 +352,7 @@ function Login() {
 
               {/* Email */}
               <div className="space-y-1.5">
-                <label className="text-[10px] font-black text-orange-300/55 uppercase tracking-widest pl-1">
-                  Email Address
-                </label>
+                <label className="text-[10px] font-black text-orange-300/55 uppercase tracking-widest pl-1">Email Address</label>
                 <div className="relative">
                   <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
                     <Mail className="w-4 h-4 text-orange-400/50" />
@@ -403,12 +374,8 @@ function Login() {
               {/* Password */}
               <div className="space-y-1.5">
                 <div className="flex justify-between items-center px-1">
-                  <label className="text-[10px] font-black text-orange-300/55 uppercase tracking-widest">
-                    Password
-                  </label>
-                  <a href="#" className="text-[10px] text-orange-400 hover:text-orange-300 font-bold transition-colors">
-                    Forgot?
-                  </a>
+                  <label className="text-[10px] font-black text-orange-300/55 uppercase tracking-widest">Password</label>
+                  <a href="#" className="text-[10px] text-orange-400 hover:text-orange-300 font-bold transition-colors">Forgot?</a>
                 </div>
                 <div className="relative">
                   <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
@@ -442,13 +409,8 @@ function Login() {
                 className="w-full bg-gradient-to-r from-[#D7263D] via-[#FF6A00] to-[#FFC247] text-white font-black py-3.5 rounded-xl hover:brightness-110 shadow-lg shadow-orange-900/60 transition-all duration-300 disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer text-sm tracking-wide"
               >
                 {loading ? (
-                  <>
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                    Authenticating…
-                  </>
-                ) : (
-                  "Log In"
-                )}
+                  <><Loader2 className="w-4 h-4 animate-spin" />Authenticating…</>
+                ) : "Log In"}
               </button>
             </form>
 
