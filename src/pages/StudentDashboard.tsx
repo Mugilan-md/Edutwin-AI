@@ -12,7 +12,6 @@ import {
   BrainCircuit,
   Award,
   ChevronRight,
-  BookOpen,
   AlertTriangle,
   Lightbulb,
   Plus,
@@ -28,8 +27,7 @@ function StudentDashboard() {
   const [totalCredits, setTotalCredits] = useState(0);
   const [approvedCount, setApprovedCount] = useState(0);
   const [pendingCount, setPendingCount] = useState(0);
-  const [cgpa, setCgpa] = useState(8.5);
-  const [attendance, setAttendance] = useState(85);
+  // CGPA & Attendance are stored in Profile page — not shown on dashboard
 
   const [projectedCredits, setProjectedCredits] = useState(0);
   const [skills, setSkills] = useState({ webDev: 20, competitiveCoding: 10, research: 10, leadership: 10 });
@@ -43,12 +41,7 @@ function StudentDashboard() {
         const { data: prof } = await getProfile();
         if (prof) {
           setProfile(prof);
-          const cachedAcademic = localStorage.getItem(`academic_profile_${prof.id}`);
-          if (cachedAcademic) {
-            const parsed = JSON.parse(cachedAcademic);
-            setCgpa(parseFloat(parsed.cgpa) || 8.5);
-            setAttendance(parseInt(parsed.attendance) || 85);
-          }
+          // Academic stats (CGPA, Attendance) are managed in the Profile page only
         }
 
         const { data: acts } = await fetchStudentActivities();
@@ -157,22 +150,22 @@ function StudentDashboard() {
           </button>
         </div>
 
-        {/* 4 Stats Cards */}
+        {/* 4 Stats Cards — only activity-related metrics, no CGPA (managed in Profile) */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
           {[
-            { label: "CGPA", value: cgpa.toFixed(2), sub: "Top 15% of Batch", icon: BookOpen, accent: "orange" },
-            { label: "Attendance", value: `${attendance}%`, sub: "Excellent attendance", icon: Clock, accent: "amber" },
-            { label: "Total Credits", value: `${totalCredits} pts`, sub: `${approvedCount} approved activities`, icon: Award, accent: "orange" },
-            { label: "Pending Review", value: pendingCount, sub: "Awaiting faculty approval", icon: Clock, accent: "red" },
+            { label: "Approved Activities", value: approvedCount, sub: "Verified by faculty", icon: CheckCircle2 },
+            { label: "Pending Review",      value: pendingCount,  sub: "Awaiting faculty approval", icon: Clock },
+            { label: "Total Credits",       value: `${totalCredits} pts`, sub: "From approved activities", icon: Award },
+            { label: "Uploaded",            value: activities.length, sub: "Total submissions", icon: FileText },
           ].map((stat) => (
-            <div key={stat.label} className="bg-[#0e0a04] border border-orange-500/15 rounded-2xl p-6 shadow-lg shadow-black/40 flex items-center justify-between hover:border-orange-500/30 transition-all duration-300">
-              <div className="space-y-1">
-                <span className="text-xs font-bold text-orange-300/50 uppercase tracking-wider">{stat.label}</span>
-                <h3 className="text-2xl font-black text-white">{stat.value}</h3>
-                <p className="text-xs text-orange-400/70 font-semibold">{stat.sub}</p>
+            <div key={stat.label} className="bg-[#0e0a04] border border-orange-500/15 rounded-2xl p-5 md:p-6 shadow-lg shadow-black/40 flex items-center justify-between hover:border-orange-500/30 transition-all duration-300">
+              <div className="space-y-1 min-w-0">
+                <span className="text-[10px] md:text-xs font-bold text-orange-300/50 uppercase tracking-wider">{stat.label}</span>
+                <h3 className="text-xl md:text-2xl font-black text-white">{stat.value}</h3>
+                <p className="text-[10px] md:text-xs text-orange-400/70 font-semibold">{stat.sub}</p>
               </div>
-              <div className="w-12 h-12 bg-orange-500/10 border border-orange-500/20 rounded-xl flex items-center justify-center text-orange-400">
-                <stat.icon className="w-6 h-6" />
+              <div className="w-10 h-10 md:w-12 md:h-12 bg-orange-500/10 border border-orange-500/20 rounded-xl flex items-center justify-center text-orange-400 shrink-0">
+                <stat.icon className="w-5 h-5 md:w-6 md:h-6" />
               </div>
             </div>
           ))}
