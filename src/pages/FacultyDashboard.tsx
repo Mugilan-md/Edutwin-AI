@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { fetchAllPendingActivities, updateActivityStatus, parseDescription } from "../services/activityService";
 import Navbar from "../components/Navbar";
+import { useNavigate } from "react-router-dom";
+import { getProfile } from "../services/profileService";
 import {
   CheckCircle2,
   XCircle,
@@ -17,6 +19,7 @@ import {
 } from "lucide-react";
 
 function FacultyDashboard() {
+  const navigate = useNavigate();
   const [activities, setActivities] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedActivity, setSelectedActivity] = useState<any | null>(null);
@@ -26,7 +29,22 @@ function FacultyDashboard() {
   const [submitting, setSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
-  useEffect(() => { loadPendingActivities(); }, []);
+  useEffect(() => {
+    async function init() {
+      try {
+        const { data: prof } = await getProfile();
+        if (!prof || prof.role === "student") {
+          navigate("/student");
+          return;
+        }
+        await loadPendingActivities();
+      } catch (e) {
+        console.error(e);
+        setLoading(false);
+      }
+    }
+    init();
+  }, []);
 
   async function loadPendingActivities() {
     setLoading(true);

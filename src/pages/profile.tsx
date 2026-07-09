@@ -188,12 +188,20 @@ function Profile() {
                 </div>
               </div>
 
-              {/* Account Role (read-only) */}
+              {/* Account Role (editable dropdown) */}
               <div>
                 <label className={labelCls}>Account Role</label>
                 <div className="relative">
                   <span className={iconCls}><Shield className="w-4 h-4" /></span>
-                  <input type="text" value={role.charAt(0).toUpperCase() + role.slice(1)} disabled className={disabledCls} />
+                  <select
+                    value={role}
+                    onChange={(e) => setRole(e.target.value)}
+                    className={inputCls + " appearance-none"}
+                  >
+                    <option value="student">Student</option>
+                    <option value="faculty">Faculty Member</option>
+                    <option value="admin">System Administrator</option>
+                  </select>
                 </div>
               </div>
 

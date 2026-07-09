@@ -20,7 +20,11 @@ import {
 } from "lucide-react";
 import { supabase } from "../lib/supabase";
 
+import { useNavigate } from "react-router-dom";
+import { getProfile } from "../services/profileService";
+
 function AdminDashboard() {
+  const navigate = useNavigate();
   const [students, setStudents] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -39,7 +43,22 @@ function AdminDashboard() {
   const [deptSkills, setDeptSkills] = useState<{ [key: string]: { web: number; coding: number; res: number; lead: number } }>({});
   const [categoryStats, setCategoryStats] = useState<{ [key: string]: number }>({});
 
-  useEffect(() => { loadAdminData(); }, []);
+  useEffect(() => {
+    async function init() {
+      try {
+        const { data: prof } = await getProfile();
+        if (!prof || prof.role === "student") {
+          navigate("/student");
+          return;
+        }
+        await loadAdminData();
+      } catch (e) {
+        console.error(e);
+        setLoading(false);
+      }
+    }
+    init();
+  }, []);
 
   async function loadAdminData() {
     setLoading(true);

@@ -56,7 +56,10 @@ export const saveProfile = async (
 
   // First check if profile exists to preserve role if not specified
   const { data: existing } = await getProfile(user.id);
-  const finalRole = existing?.role || role;
+  let finalRole = role;
+  if (existing?.role && (existing.role === "faculty" || existing.role === "admin") && role === "student") {
+    finalRole = existing.role;
+  }
 
   const { data, error } = await supabase
     .from("profiles")
