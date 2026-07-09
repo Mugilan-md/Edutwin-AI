@@ -112,7 +112,7 @@ function FacultyDashboard() {
           <div className="relative z-10">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-orange-500/10 border border-orange-500/20 rounded-full text-xs font-semibold text-orange-300 mb-3">
               <GraduationCap className="w-3.5 h-3.5" />
-              Faculty Review Panel
+              Faculty Review Panel (Faculty View)
             </div>
             <h1 className="text-xl md:text-2xl font-extrabold mb-1">Activity Approval Dashboard</h1>
             <p className="text-orange-200/50 text-sm mb-5">

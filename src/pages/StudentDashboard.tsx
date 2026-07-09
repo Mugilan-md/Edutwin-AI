@@ -147,7 +147,7 @@ function StudentDashboard() {
           <div className="relative z-10 space-y-2">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-orange-500/10 border border-orange-500/20 backdrop-blur-md rounded-full text-xs font-semibold text-orange-300">
               <Sparkles className="w-3.5 h-3.5" />
-              AI-Powered Student Digital Twin
+              AI-Powered Student Digital Twin (Student View)
             </div>
             <h1 className="text-3xl font-extrabold tracking-tight">
               Hello, {profile?.full_name || "Academic Student"} 👋

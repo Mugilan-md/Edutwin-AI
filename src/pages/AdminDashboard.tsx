@@ -189,7 +189,7 @@ function AdminDashboard() {
           <div className="relative z-10 space-y-1">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-orange-500/10 border border-orange-500/20 rounded-full text-xs font-semibold text-orange-300 mb-2">
               <BrainCircuit className="w-3.5 h-3.5" />
-              AI Accreditation Intelligence
+              AI Accreditation Intelligence (Admin View)
             </div>
             <h1 className="text-2xl font-extrabold">Institutional Analytics Dashboard</h1>
             <p className="text-orange-200/50 text-sm">NAAC · NIRF · AICTE Accreditation Readiness & Student Achievement Audit</p>
