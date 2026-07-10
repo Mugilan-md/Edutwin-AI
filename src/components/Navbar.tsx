@@ -7,8 +7,6 @@ import {
   UploadCloud,
   User,
   LogOut,
-  Award,
-  BarChart3,
   Sparkles,
   Menu,
   X,
@@ -62,15 +60,13 @@ export default function Navbar({ forcedRole }: NavbarProps) {
     switch (role) {
       case "faculty":
         return [
-          { path: "/faculty", label: "Approval Panel", icon: LayoutDashboard },
-          { path: "/admin",   label: "NAAC Analytics", icon: BarChart3 },
-          { path: "/profile", label: "Profile",         icon: User },
+          { path: "/faculty", label: "Approval Console", icon: LayoutDashboard },
+          { path: "/profile", label: "My Profile",       icon: User },
         ];
       case "admin":
         return [
-          { path: "/admin",   label: "Admin Dashboard", icon: LayoutDashboard },
-          { path: "/faculty", label: "Approval Review", icon: Award },
-          { path: "/profile", label: "Profile",          icon: User },
+          { path: "/admin",   label: "Command Center",   icon: LayoutDashboard },
+          { path: "/profile", label: "My Profile",       icon: User },
         ];
       case "student":
       default:
