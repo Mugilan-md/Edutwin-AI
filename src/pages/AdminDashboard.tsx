@@ -348,10 +348,50 @@ function AdminDashboard() {
                 AI Accreditation Forecaster
               </h2>
               <div className="space-y-5">
-                <div className="text-center p-5 bg-orange-500/8 border border-orange-500/20 rounded-2xl">
-                  <span className="text-[10px] font-bold text-orange-400 uppercase tracking-wider">Predicted NAAC CGPA</span>
-                  <div className="text-5xl font-black text-orange-400 my-2">{naacScore}</div>
-                  <span className="text-xs font-bold text-orange-300/70">{naacStatus}</span>
+                {/* Animated Speedometer SVG Dial */}
+                <div className="text-center p-5 bg-orange-500/8 border border-orange-500/20 rounded-2xl flex flex-col items-center">
+                  <div className="relative w-48 h-28 flex items-center justify-center overflow-hidden mb-2">
+                    <svg className="w-full h-full absolute inset-0" viewBox="0 0 200 120">
+                      <defs>
+                        <linearGradient id="speed-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                          <stop offset="0%" stopColor="#D7263D" />
+                          <stop offset="50%" stopColor="#FF6A00" />
+                          <stop offset="100%" stopColor="#FFC247" />
+                        </linearGradient>
+                      </defs>
+                      <path
+                        d="M 20 100 A 80 80 0 0 1 180 100"
+                        fill="none"
+                        stroke="#1a121a"
+                        strokeWidth="12"
+                        strokeLinecap="round"
+                      />
+                      {(() => {
+                        const percentage = Math.min(100, Math.max(0, ((naacScore - 2.0) / 2.0) * 100));
+                        const strokeDashoffset = 251.2 - (251.2 * percentage) / 100;
+                        return (
+                          <path
+                            d="M 20 100 A 80 80 0 0 1 180 100"
+                            fill="none"
+                            stroke="url(#speed-grad)"
+                            strokeWidth="12"
+                            strokeLinecap="round"
+                            strokeDasharray="251.2"
+                            strokeDashoffset={strokeDashoffset}
+                            className="transition-all duration-[1500ms] ease-out"
+                          />
+                        );
+                      })()}
+                      <text x="22" y="115" className="text-[10px] font-black fill-orange-300/30 text-center">2.0</text>
+                      <text x="94" y="24" className="text-[10px] font-black fill-orange-300/30 text-center">3.0</text>
+                      <text x="168" y="115" className="text-[10px] font-black fill-orange-300/30 text-center">4.0</text>
+                    </svg>
+                    <div className="absolute bottom-0 text-center">
+                      <div className="text-3xl font-black text-white leading-none">{naacScore.toFixed(2)}</div>
+                      <span className="text-[9px] font-black text-orange-400 uppercase tracking-widest block mt-1">NAAC INDEX</span>
+                    </div>
+                  </div>
+                  <span className="text-xs font-bold text-orange-300/70 mt-1">{naacStatus}</span>
                 </div>
                 <div className="space-y-3 text-xs">
                   {[
@@ -405,6 +445,53 @@ function AdminDashboard() {
                   </div>
                 ))}
               </div>
+            </div>
+
+            {/* Department Comparison SVG Bar Chart */}
+            <div className="bg-[#0e0a04] border border-orange-500/15 rounded-3xl shadow-lg shadow-black/40 p-8 space-y-4">
+              <h2 className="text-base font-bold text-white flex items-center gap-2 border-b border-orange-500/10 pb-4 mb-2">
+                <BarChart3 className="w-5 h-5 text-orange-500" />
+                Department Credit Averages
+              </h2>
+              {(() => {
+                const deptStats: { [key: string]: { total: number; count: number } } = {};
+                students.forEach((s) => {
+                  if (!deptStats[s.department]) deptStats[s.department] = { total: 0, count: 0 };
+                  deptStats[s.department].total += s.credits;
+                  deptStats[s.department].count += 1;
+                });
+                
+                const depts = Object.entries(deptStats).map(([name, stat]) => ({
+                  name,
+                  avg: parseFloat((stat.total / Math.max(stat.count, 1)).toFixed(1))
+                })).sort((a, b) => b.avg - a.avg);
+
+                const maxAvg = Math.max(...depts.map(d => d.avg), 1);
+
+                return depts.length === 0 ? (
+                  <span className="text-xs text-orange-300/30 block text-center py-4">No data to compare yet</span>
+                ) : (
+                  <div className="space-y-4 pt-1">
+                    {depts.slice(0, 4).map((d) => {
+                      const pct = Math.min(100, Math.round((d.avg / maxAvg) * 100));
+                      return (
+                        <div key={d.name} className="space-y-1">
+                          <div className="flex justify-between items-center text-xs font-bold">
+                            <span className="text-orange-300/80">{d.name} Department</span>
+                            <span className="text-orange-400">{d.avg} pts avg</span>
+                          </div>
+                          <div className="h-3 bg-black/40 border border-white/5 rounded-full overflow-hidden flex">
+                            <div
+                              className="h-full bg-gradient-to-r from-[#D7263D] via-[#FF6A00] to-[#FFC247] rounded-full transition-all duration-1000"
+                              style={{ width: `${pct}%` }}
+                            />
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
+              })()}
             </div>
 
             {/* Accreditation Summary */}

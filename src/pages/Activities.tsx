@@ -31,16 +31,28 @@ function Activities() {
   const [success, setSuccess] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
-  const handleFileChange = (file: File) => {
+  const fileToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        const base64 = (reader.result as string).split(",")[1];
+        resolve(base64);
+      };
+      reader.onerror = (error) => reject(error);
+    });
+  };
+
+  const handleFileChange = async (file: File) => {
     setCertificate(file);
     setAiExtracted(false);
     setErrorMsg("");
     setAiParsing(true);
 
-    setTimeout(() => {
+    const runFallback = () => {
       const name = file.name.toLowerCase();
       let extractedTitle = "";
-      let extractedCategory = "Workshop";
+      let extractedCategory = "Workshop / Seminar";
       let extractedOrg = "Academic Institute";
       let extractedDate = new Date().toISOString().split("T")[0];
       let confidence = 75;
@@ -83,7 +95,60 @@ function Activities() {
       setAiSuggestedCredits(credits);
       setAiExtracted(true);
       setAiParsing(false);
-    }, 1500);
+    };
+
+    const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+    if (!apiKey) {
+      setTimeout(runFallback, 1200);
+      return;
+    }
+
+    try {
+      const base64Data = await fileToBase64(file);
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [
+            {
+              parts: [
+                { text: "Analyze this academic/curricular certificate and extract structural data. Return a JSON object with keys: title, category (must be one of: 'Workshop / Seminar', 'MOOC / Online Course', 'Internship', 'Hackathon / Competition', 'Volunteering / Club Activity', 'Paper Publication', 'Sports & Cultural'), organization, date (format YYYY-MM-DD), suggestedCredits (integer 1-5 per NAAC relevance), confidence (integer 0-100), and description." },
+                { inlineData: { mimeType: file.type || "application/pdf", data: base64Data } }
+              ]
+            }
+          ],
+          generationConfig: {
+            responseMimeType: "application/json"
+          }
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`Gemini API returned status ${response.status}`);
+      }
+
+      const resJson = await response.json();
+      const textResponse = resJson.candidates?.[0]?.content?.parts?.[0]?.text;
+      if (!textResponse) {
+        throw new Error("Empty response from Gemini API");
+      }
+
+      const parsedData = JSON.parse(textResponse);
+      setTitle(parsedData.title || file.name);
+      setCategory(parsedData.category || "Workshop / Seminar");
+      setOrganization(parsedData.organization || "Independent Organization");
+      setDate(parsedData.date || new Date().toISOString().split("T")[0]);
+      setDescription(parsedData.description || `Verified completion of ${parsedData.title}.`);
+      setAiConfidence(parsedData.confidence || 85);
+      setAiSuggestedCredits(parsedData.suggestedCredits || 2);
+      setAiExtracted(true);
+    } catch (err) {
+      console.warn("Gemini OCR parsing failed, running rule-based fallback:", err);
+      runFallback();
+    } finally {
+      setAiParsing(false);
+    }
   };
 
   const handleUpload = async (e: React.FormEvent) => {

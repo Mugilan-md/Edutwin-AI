@@ -261,47 +261,64 @@ function StudentDashboard() {
                   </button>
                 </div>
               ) : (
-                <div className="divide-y divide-orange-500/8">
+                <div className="relative border-l-2 border-orange-500/10 pl-6 ml-4 space-y-8 my-4">
                   {activities.slice(0, 5).map((act) => {
                     const meta = parseDescription(act.description);
+                    const isApproved = act.status === "approved";
+                    const isPending = act.status === "pending";
                     return (
-                      <div key={act.id} className="py-4 first:pt-0 last:pb-0 flex items-center justify-between gap-4">
-                        <div className="space-y-1 min-w-0">
-                          <h4 className="font-semibold text-sm text-white truncate">{act.title}</h4>
-                          <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-orange-300/50">
-                            <span className="font-medium text-orange-300/70">{act.category}</span>
-                            <span>•</span>
-                            <span className="truncate">{meta.organization || "Private Organisation"}</span>
-                            {meta.date && (<><span>•</span><span>{meta.date}</span></>)}
+                      <div key={act.id} className="relative group">
+                        {/* Timeline point */}
+                        <span className={`absolute -left-[33px] top-1 w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
+                          isApproved ? "bg-emerald-500 border-emerald-400 shadow-md shadow-emerald-500/40" :
+                          isPending ? "bg-amber-500 border-amber-400 shadow-md shadow-amber-500/40" : "bg-red-500 border-red-400"
+                        }`}>
+                          <span className="w-1 h-1 bg-black rounded-full" />
+                        </span>
+
+                        <div className="bg-black/35 border border-white/5 group-hover:border-orange-500/20 p-4 rounded-2xl transition duration-300 space-y-2">
+                          <div className="flex justify-between items-start gap-4">
+                            <div>
+                              <h4 className="font-bold text-sm text-white group-hover:text-orange-300 transition-colors">{act.title}</h4>
+                              <p className="text-[10px] text-orange-300/40 mt-0.5">{meta.organization || "Independent Institution"} · {meta.date || "Recent"}</p>
+                            </div>
+                            <span className="text-[10px] font-semibold text-orange-400 uppercase tracking-widest">{act.category}</span>
                           </div>
+                          
+                          {meta.text && (
+                            <p className="text-xs text-orange-200/50 leading-relaxed truncate max-w-lg">{meta.text}</p>
+                          )}
+
                           {meta.feedback && (
-                            <p className="text-xs text-orange-400 bg-orange-500/8 border border-orange-500/15 p-2 rounded-lg mt-2 italic">
+                            <p className="text-[11px] text-orange-400 bg-orange-500/5 border border-orange-500/10 p-2.5 rounded-lg mt-2 italic">
                               <strong>Feedback:</strong> "{meta.feedback}"
                             </p>
                           )}
-                        </div>
-                        <div className="flex items-center gap-3 shrink-0">
-                          {act.status === "approved" && (
-                            <span className="bg-emerald-950/50 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
-                              <CheckCircle2 className="w-3.5 h-3.5" />+{meta.credits || 0} Credits
-                            </span>
-                          )}
-                          {act.status === "pending" && (
-                            <span className="bg-amber-950/50 text-amber-400 border border-amber-500/20 px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
-                              <Clock className="w-3.5 h-3.5" />Pending
-                            </span>
-                          )}
-                          {act.status === "rejected" && (
-                            <span className="bg-red-950/50 text-red-400 border border-red-500/20 px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
-                              <AlertTriangle className="w-3.5 h-3.5" />Declined
-                            </span>
-                          )}
-                          {act.certificate_url && (
-                            <a href={act.certificate_url} target="_blank" rel="noreferrer"
-                              className="p-2 hover:bg-orange-500/10 text-orange-400/50 hover:text-orange-400 rounded-xl transition border border-transparent hover:border-orange-500/20 flex items-center justify-center cursor-pointer">
-                              <ExternalLink className="w-4 h-4" />
-                            </a>
-                          )}
+
+                          <div className="flex items-center justify-between pt-1.5 border-t border-white/5 mt-1.5">
+                            {isApproved && (
+                              <span className="text-[10px] font-bold text-emerald-400 flex items-center gap-1">
+                                <CheckCircle2 className="w-3.5 h-3.5" /> Approved (+{meta.credits || 0} credits)
+                              </span>
+                            )}
+                            {isPending && (
+                              <span className="text-[10px] font-bold text-amber-400 flex items-center gap-1">
+                                <Clock className="w-3.5 h-3.5" /> Pending Faculty Verification
+                              </span>
+                            )}
+                            {!isApproved && !isPending && (
+                              <span className="text-[10px] font-bold text-red-400 flex items-center gap-1">
+                                <AlertTriangle className="w-3.5 h-3.5" /> Declined Submission
+                              </span>
+                            )}
+
+                            {act.certificate_url && (
+                              <a href={act.certificate_url} target="_blank" rel="noreferrer"
+                                className="text-[10px] font-bold text-orange-400 hover:text-orange-300 flex items-center gap-0.5 transition-colors">
+                                View Certificate <ExternalLink className="w-3.5 h-3.5" />
+                              </a>
+                            )}
+                          </div>
                         </div>
                       </div>
                     );
@@ -315,8 +332,8 @@ function StudentDashboard() {
           <div className="space-y-8">
 
             {/* AI Skill Density */}
-            <div className="bg-[#0e0a04] border border-orange-500/15 rounded-3xl shadow-lg shadow-black/40 p-8">
-              <h2 className="text-lg font-bold text-white flex items-center gap-2 border-b border-orange-500/10 pb-4 mb-6">
+            <div className="bg-[#0e0a04] border border-orange-500/15 rounded-3xl shadow-lg shadow-black/40 p-8 space-y-6">
+              <h2 className="text-lg font-bold text-white flex items-center gap-2 border-b border-orange-500/10 pb-4">
                 <BrainCircuit className="w-5 h-5 text-orange-500" />
                 AI Skill Density
               </h2>
@@ -330,24 +347,65 @@ function StudentDashboard() {
                   </p>
                 </div>
               ) : (
-                <div className="space-y-5">
-                  {[
-                    { label: "Software / Web Dev", val: skills.webDev },
-                    { label: "Competitive Programming", val: skills.competitiveCoding },
-                    { label: "Research & Academics", val: skills.research },
-                    { label: "Leadership & Volunteering", val: skills.leadership },
-                  ].map((s) => (
-                    <div key={s.label} className="space-y-1.5">
-                      <div className="flex justify-between text-xs font-semibold">
-                        <span className="text-orange-300/60">{s.label}</span>
-                        <span className="text-orange-400">{s.val}%</span>
+                <>
+                  <div className="py-4 text-center border-b border-orange-500/10">
+                    {(() => {
+                      const getDominantSkill = () => {
+                        const { webDev, competitiveCoding, research, leadership } = skills;
+                        const maxVal = Math.max(webDev, competitiveCoding, research, leadership);
+                        if (maxVal === 0) return { name: "Awaiting Data", color: "#FF6A00", gradient: "from-orange-500 to-amber-500" };
+                        if (maxVal === webDev) return { name: "Software Engineer", color: "#FF6A00", gradient: "from-[#FF6A00] to-[#FFC247]" };
+                        if (maxVal === competitiveCoding) return { name: "Algorithm Specialist", color: "#D7263D", gradient: "from-[#D7263D] to-[#FF6A00]" };
+                        if (maxVal === research) return { name: "Academic Researcher", color: "#c084fc", gradient: "from-purple-500 to-pink-500" };
+                        return { name: "Student Leader", color: "#34d399", gradient: "from-emerald-400 to-teal-400" };
+                      };
+                      const dominant = getDominantSkill();
+                      return (
+                        <div className="space-y-4">
+                          <div className="relative w-40 h-40 mx-auto flex items-center justify-center">
+                            <svg className="w-full h-full absolute inset-0" viewBox="0 0 200 200">
+                              <defs>
+                                <radialGradient id="twin-glow" cx="50%" cy="50%" r="50%">
+                                  <stop offset="0%" stopColor={dominant.color} stopOpacity="0.35" />
+                                  <stop offset="100%" stopColor={dominant.color} stopOpacity="0" />
+                                </radialGradient>
+                              </defs>
+                              <circle cx="100" cy="100" r="70" fill="url(#twin-glow)" className="animate-pulse" />
+                              <circle cx="100" cy="100" r="60" fill="none" stroke={dominant.color} strokeWidth="1" strokeDasharray="6 4" className="animate-[spin_20s_linear_infinite]" style={{ transformOrigin: "center" }} />
+                              <circle cx="100" cy="100" r="45" fill="none" stroke={dominant.color} strokeWidth="2" strokeOpacity="0.5" className="animate-[spin_10s_linear_infinite_reverse]" style={{ transformOrigin: "center" }} />
+                            </svg>
+                            <div className={`w-20 h-20 rounded-full bg-gradient-to-tr ${dominant.gradient} flex items-center justify-center text-white font-bold shadow-[0_0_40px_rgba(255,106,0,0.5)] border border-white/20 relative z-10 transition-all duration-700 hover:scale-105`}>
+                              <BrainCircuit className="w-9 h-9 text-white" />
+                            </div>
+                          </div>
+                          <div>
+                            <span className="block text-[10px] text-orange-300/40 uppercase tracking-widest font-black">Digital Twin Focus</span>
+                            <span className="text-sm font-extrabold text-white block mt-0.5">{dominant.name}</span>
+                          </div>
+                        </div>
+                      );
+                    })()}
+                  </div>
+
+                  <div className="space-y-5 pt-4">
+                    {[
+                      { label: "Software / Web Dev", val: skills.webDev },
+                      { label: "Competitive Programming", val: skills.competitiveCoding },
+                      { label: "Research & Academics", val: skills.research },
+                      { label: "Leadership & Volunteering", val: skills.leadership },
+                    ].map((s) => (
+                      <div key={s.label} className="space-y-1.5">
+                        <div className="flex justify-between text-xs font-semibold">
+                          <span className="text-orange-300/60">{s.label}</span>
+                          <span className="text-orange-400">{s.val}%</span>
+                        </div>
+                        <div className="h-2 bg-orange-500/10 rounded-full overflow-hidden">
+                          <div className="h-full bg-gradient-to-r from-[#D7263D] via-[#FF6A00] to-[#FFC247] transition-all duration-700 rounded-full" style={{ width: `${s.val}%` }} />
+                        </div>
                       </div>
-                      <div className="h-2 bg-orange-500/10 rounded-full overflow-hidden">
-                        <div className="h-full bg-gradient-to-r from-[#D7263D] via-[#FF6A00] to-[#FFC247] transition-all duration-700 rounded-full" style={{ width: `${s.val}%` }} />
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                </>
               )}
 
               <div className="mt-8 p-4 bg-orange-500/8 rounded-2xl border border-orange-500/20 space-y-2">
