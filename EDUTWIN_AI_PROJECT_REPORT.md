@@ -41,15 +41,7 @@
 
 </div>
 
----
 
-**DEPARTMENT OF ELECTRONICS AND COMMUNICATION ENGINEERING**
-**V.S.B. ENGINEERING COLLEGE (AUTONOMOUS)**
-**KARUR – 639 111, TAMIL NADU, INDIA.**
-
-**ACADEMIC YEAR: 2026 – 2027**
-
-</div>
 
 ---
 
@@ -59,7 +51,7 @@
 Affiliated to Anna University, Chennai | Accredited by NAAC with 'A' Grade
 Karur – 639 111.
 
----
+
 
 This is to certify that this Mini Project Report titled
 
@@ -1333,10 +1325,6 @@ The twin visual component uses CSS variables bound to React states to animate:
    - For high skill density, the cycle speeds up to 1.5s.
    - For lower skill density, the cycle slows down to 3s.
 4. Scale transforms are applied dynamically to simulate a pulsing node representation of the student's achievements.
-
----
-
-*End of Report*
 
 ---
 
