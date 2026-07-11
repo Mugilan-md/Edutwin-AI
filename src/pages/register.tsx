@@ -4,35 +4,27 @@ import { signUpUser } from "../services/authService";
 import { saveProfile } from "../services/profileService";
 import { supabase } from "../lib/supabase";
 import {
-  Sparkles,
-  Mail,
-  Lock,
-  User,
-  Briefcase,
-  GraduationCap,
-  Calendar,
-  Hash,
-  Loader2,
+  Sparkles, Mail, Lock, User, Briefcase, GraduationCap, Calendar, Hash, Loader2,
 } from "lucide-react";
 
 function Register() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [fullName, setFullName] = useState("");
+  const [email, setEmail]         = useState("");
+  const [password, setPassword]   = useState("");
+  const [fullName, setFullName]   = useState("");
   const [department, setDepartment] = useState("");
-  const [year, setYear] = useState("1");
+  const [year, setYear]           = useState("1");
   const [registerNo, setRegisterNo] = useState("");
-  const [role, setRole] = useState("student"); // "student" or "faculty"
+  const [role, setRole]           = useState("student"); // "student" or "faculty"
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading]       = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !password || !fullName || !department || !registerNo) {
-      setErrorMessage("Please fill all fields.");
+      setErrorMessage("Please fill in all fields.");
       return;
     }
 
@@ -97,56 +89,53 @@ function Register() {
     }
   };
 
-  // Styled classes matching the login template
-  const containerCls = "min-h-screen bg-[#080608] flex items-center justify-center p-4 relative overflow-hidden py-12";
-  const glowTopCls = "absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-orange-500/5 rounded-full blur-[120px] pointer-events-none";
-  const glowBottomCls = "absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-red-600/5 rounded-full blur-[120px] pointer-events-none";
-
-  const cardCls = "w-full max-w-lg bg-black/40 border border-white/10 backdrop-blur-2xl rounded-3xl shadow-2xl shadow-black p-8 relative z-10 space-y-6";
-  const inputCls = "w-full pl-10 pr-4 py-3 bg-white/[0.04] border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:bg-white/[0.07] text-white text-sm transition-all duration-300 font-medium placeholder-white/20";
-  const labelCls = "text-[10px] font-black text-orange-300/55 uppercase tracking-widest pl-1 mb-1.5 block";
-  const iconCls = "absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-orange-400/50";
+  const labelCls = "text-[10px] font-black text-slate-500 uppercase tracking-widest pl-1 mb-1.5 block";
+  const iconCls  = "absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-blue-500/70";
+  const inputCls = "w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400 text-slate-800 text-xs font-semibold placeholder-slate-300 transition-all";
 
   return (
-    <div className={containerCls}>
-      <div className={glowTopCls}></div>
-      <div className={glowBottomCls}></div>
+    <div className="min-h-screen bg-gradient-to-br from-[#eef4ff] via-[#f0f7ff] to-[#e8f0fe] flex items-center justify-center p-4 relative overflow-hidden py-12">
+      {/* Background Blobs */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute -top-32 -left-32 w-96 h-96 bg-blue-200/40 rounded-full blur-3xl" />
+        <div className="absolute -bottom-20 -right-20 w-80 h-80 bg-sky-200/30 rounded-full blur-3xl" />
+      </div>
 
-      <div className={cardCls}>
+      <div className="w-full max-w-lg bg-white/90 backdrop-blur-xl border border-blue-100 rounded-3xl shadow-2xl shadow-blue-900/10 p-8 relative z-10 space-y-6">
         <div className="flex flex-col items-center">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#D7263D] via-[#FF6A00] to-[#FFC247] flex items-center justify-center text-white font-bold shadow-lg shadow-orange-600/30 mb-3">
-            <Sparkles className="w-6 h-6 text-white" />
+          <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-600 via-blue-500 to-sky-400 flex items-center justify-center shadow-md shadow-blue-500/25 mb-3">
+            <Sparkles className="w-5 h-5 text-white" />
           </div>
-          <h1 className="text-2xl font-black text-white tracking-tight drop-shadow-md">
+          <h1 className="text-2xl font-black text-slate-900 tracking-tight">
             Create Account
           </h1>
-          <p className="text-xs text-orange-200/40 mt-1 font-medium text-center">
+          <p className="text-xs text-slate-400 mt-1 font-semibold text-center">
             Join Edutwin AI & Start Cataloguing Achievements
           </p>
         </div>
 
         {errorMessage && (
-          <div className="p-3.5 bg-red-950/60 border border-red-700/40 text-red-400 rounded-xl text-xs font-semibold">
+          <div className="p-3.5 bg-red-50 border border-red-200 text-red-700 rounded-xl text-xs font-semibold">
             {errorMessage}
           </div>
         )}
 
         {successMessage && (
-          <div className="p-3.5 bg-emerald-950/60 border border-emerald-700/40 text-emerald-400 rounded-xl text-xs font-semibold">
+          <div className="p-3.5 bg-emerald-50 border border-emerald-200 text-emerald-700 rounded-xl text-xs font-semibold">
             {successMessage}
           </div>
         )}
 
         <form onSubmit={handleRegister} className="space-y-4" autoComplete="off">
-          {/* Role Toggle Selector */}
-          <div className="grid grid-cols-2 gap-2 bg-white/[0.03] p-1.5 rounded-xl border border-white/10">
+          {/* Role selector */}
+          <div className="grid grid-cols-2 gap-2 bg-slate-50 p-1.5 rounded-xl border border-slate-200/60">
             <button
               type="button"
               onClick={() => setRole("student")}
-              className={`py-2.5 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all duration-300 cursor-pointer ${
+              className={`py-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-all duration-200 cursor-pointer ${
                 role === "student"
-                  ? "bg-gradient-to-r from-[#D7263D]/80 via-[#FF6A00]/70 to-[#FFC247]/60 text-white shadow-md shadow-orange-950/40"
-                  : "text-orange-300/40 hover:text-orange-200"
+                  ? "bg-gradient-to-r from-blue-600 to-sky-500 text-white shadow-sm"
+                  : "text-slate-500 hover:text-slate-800"
               }`}
             >
               <GraduationCap className="w-4 h-4" />
@@ -155,10 +144,10 @@ function Register() {
             <button
               type="button"
               onClick={() => setRole("faculty")}
-              className={`py-2.5 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all duration-300 cursor-pointer ${
+              className={`py-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-all duration-200 cursor-pointer ${
                 role === "faculty"
-                  ? "bg-gradient-to-r from-[#D7263D]/80 via-[#FF6A00]/70 to-[#FFC247]/60 text-white shadow-md shadow-orange-950/40"
-                  : "text-orange-300/40 hover:text-orange-200"
+                  ? "bg-gradient-to-r from-blue-600 to-sky-500 text-white shadow-sm"
+                  : "text-slate-500 hover:text-slate-800"
               }`}
             >
               <Briefcase className="w-4 h-4" />
@@ -244,7 +233,7 @@ function Register() {
                       type="text"
                       value="Faculty Member"
                       disabled
-                      className="w-full pl-10 pr-4 py-3 bg-white/[0.02] border border-white/5 rounded-xl text-white/30 text-sm cursor-not-allowed font-medium"
+                      className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-400 text-xs cursor-not-allowed font-semibold"
                     />
                   </div>
                 </>
@@ -252,7 +241,7 @@ function Register() {
             </div>
           </div>
 
-          <div className="border-t border-white/10 my-4 pt-4 space-y-4">
+          <div className="border-t border-slate-100 my-4 pt-4 space-y-4">
             <div>
               <label className={labelCls}>College Email Address</label>
               <div className="relative">
@@ -287,7 +276,7 @@ function Register() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-gradient-to-r from-[#D7263D] via-[#FF6A00] to-[#FFC247] text-white font-black py-3.5 rounded-xl hover:brightness-110 shadow-lg shadow-orange-900/60 transition-all duration-300 disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer text-sm tracking-wide mt-2"
+            className="btn-primary w-full flex items-center justify-center gap-2 text-sm tracking-wide mt-2"
           >
             {loading ? (
               <><Loader2 className="w-4 h-4 animate-spin" />Creating Account...</>
@@ -300,16 +289,16 @@ function Register() {
         <div className="space-y-4">
           <div className="relative flex items-center justify-center">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-white/8"></div>
+              <div className="w-full border-t border-slate-100"></div>
             </div>
-            <span className="relative bg-[#0d070d] px-4 text-[10px] font-black text-white/20 uppercase tracking-widest">or register with</span>
+            <span className="relative bg-white px-4 text-[9px] font-black text-slate-400 uppercase tracking-widest">or register with</span>
           </div>
 
           <button
             type="button"
             onClick={handleOAuthSignUp}
             disabled={loading}
-            className="w-full flex items-center justify-center gap-2.5 py-3 bg-white/[0.04] hover:bg-white/[0.09] rounded-xl border border-white/10 transition-all duration-200 cursor-pointer text-white/65 hover:text-white font-semibold text-xs disabled:opacity-50"
+            className="w-full flex items-center justify-center gap-2.5 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-xl border border-slate-200 transition-all duration-200 cursor-pointer text-slate-600 hover:text-slate-800 font-bold text-xs disabled:opacity-50"
           >
             <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24">
               <path fill="#ea4335" d="M12 5.04c1.66 0 3.2.57 4.38 1.69l3.27-3.27C17.68 1.54 14.98 1 12 1 7.35 1 3.37 3.67 1.39 7.56l3.85 2.99c.9-2.7 3.4-4.51 6.76-4.51z" />
@@ -321,12 +310,12 @@ function Register() {
           </button>
         </div>
 
-        <div className="text-center border-t border-white/10 pt-4">
-          <p className="text-xs text-white/30 font-medium">
+        <div className="text-center border-t border-slate-100 pt-4">
+          <p className="text-xs text-slate-400 font-semibold">
             Already have an account?{" "}
             <Link
               to="/"
-              className="text-orange-400 hover:text-orange-300 font-black transition-colors duration-300"
+              className="text-blue-600 hover:text-blue-700 font-bold transition-colors duration-300"
             >
               Sign In
             </Link>

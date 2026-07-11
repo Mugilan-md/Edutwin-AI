@@ -3,12 +3,11 @@
 @import "tailwindcss";
 
 /* =====================================================
-   EDUTWIN AI - PREMIUM WHITE SAAS DESIGN SYSTEM
+   EDUTWIN AI — PREMIUM SAAS EDUCATION DESIGN SYSTEM
+   Palette: Electric Blue · Sky · Slate White
    ===================================================== */
 
-*, *::before, *::after {
-  box-sizing: border-box;
-}
+*, *::before, *::after { box-sizing: border-box; }
 
 html {
   scroll-behavior: smooth;
@@ -17,248 +16,201 @@ html {
 }
 
 body {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, sans-serif;
-  background-color: #f8f9fc;
-  color: #1a1a2e;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background-color: #f0f4ff;
+  color: #0f172a;
   min-height: 100vh;
   line-height: 1.6;
 }
 
-/* =====================================================
-   SCROLLBAR CUSTOMIZATION
-   ===================================================== */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #f1f1f4;
-  border-radius: 100px;
-}
-::-webkit-scrollbar-thumb {
-  background: #c7d0e8;
-  border-radius: 100px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #8b9fcf;
-}
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: #e8eef8; border-radius: 100px; }
+::-webkit-scrollbar-thumb { background: #a5b4d4; border-radius: 100px; }
+::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
 
-/* =====================================================
-   FLOATING NAVBAR ANIMATIONS
-   ===================================================== */
-nav {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
+/* Nav */
+nav { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+nav a { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+nav a:hover { transform: translateY(-1px); }
 
-nav a {
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+/* ── Animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
-
-nav a:hover {
-  transform: translateY(-1px);
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
-
-/* =====================================================
-   CARD & ELEMENT HOVER ANIMATIONS
-   ===================================================== */
-.hover-lift {
-  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
-              box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
 }
-
-.hover-lift:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px -8px rgba(99, 102, 241, 0.15);
+@keyframes pulse-ring {
+  0%   { transform: scale(0.92); opacity: 0.8; }
+  50%  { transform: scale(1.06); opacity: 0.3; }
+  100% { transform: scale(0.92); opacity: 0.8; }
 }
-
-/* Pulse animation for AI loading states */
-@keyframes ai-pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.7; transform: scale(0.97); }
+@keyframes dash-rotate {
+  from { stroke-dashoffset: 500; }
+  to   { stroke-dashoffset: 0; }
 }
-
-.ai-pulse {
-  animation: ai-pulse 2s ease-in-out infinite;
+@keyframes node-pulse {
+  0%, 100% { r: 4; opacity: 0.7; }
+  50%       { r: 6; opacity: 1; }
 }
-
-/* Shimmer loading animation */
+@keyframes line-flow {
+  0%   { stroke-dashoffset: 200; opacity: 0; }
+  30%  { opacity: 0.6; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes spin-reverse {
+  from { transform: rotate(360deg); }
+  to   { transform: rotate(0deg); }
+}
+@keyframes bounce-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
 }
 
-.skeleton {
-  background: linear-gradient(
-    90deg,
-    #f0f0f5 25%,
-    #e8e8f0 50%,
-    #f0f0f5 75%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 1.5s ease-in-out infinite;
-  border-radius: 8px;
+.animate-fade-up     { animation: fadeUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) both; }
+.animate-fade-in     { animation: fadeIn 0.4s ease both; }
+.animate-float       { animation: float 4s ease-in-out infinite; }
+.animate-pulse-ring  { animation: pulse-ring 2.5s ease-in-out infinite; }
+.animate-spin-slow   { animation: spin-slow 20s linear infinite; }
+.animate-spin-reverse { animation: spin-reverse 12s linear infinite; }
+.animate-bounce-soft { animation: bounce-soft 2s ease-in-out infinite; }
+
+/* ── Glass Cards ── */
+.glass-card {
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(147,197,253,0.3);
+  box-shadow: 0 1px 3px rgba(59,130,246,0.06), 0 8px 32px rgba(59,130,246,0.08);
 }
 
-/* =====================================================
-   PROGRESS BAR ANIMATIONS
-   ===================================================== */
-@keyframes progress-fill {
-  from { width: 0%; }
-  to { width: var(--target-width); }
+.glass-card-strong {
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(147,197,253,0.4);
+  box-shadow: 0 2px 8px rgba(59,130,246,0.08), 0 16px 48px rgba(59,130,246,0.10);
 }
 
-.progress-bar {
-  animation: progress-fill 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-/* =====================================================
-   GRADIENT TEXT UTILITY
-   ===================================================== */
+/* ── Gradient Text ── */
 .gradient-text {
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a78bfa 100%);
+  background: linear-gradient(135deg, #1d4ed8, #0ea5e9);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.gradient-text-dark {
-  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* ── Premium Buttons ── */
+.btn-primary {
+  background: linear-gradient(135deg, #1d4ed8, #2563eb, #0ea5e9);
+  color: white;
+  font-weight: 700;
+  border-radius: 12px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 16px rgba(37,99,235,0.35);
+  position: relative;
+  overflow: hidden;
 }
-
-/* =====================================================
-   GLASS MORPHISM EFFECTS
-   ===================================================== */
-.glass {
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-}
-
-.glass-dark {
-  background: rgba(30, 27, 75, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(99, 102, 241, 0.2);
-}
-
-/* =====================================================
-   BUTTON MICRO-ANIMATIONS
-   ===================================================== */
-button, a[class*="bg-"] {
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-button:active {
-  transform: scale(0.97);
-}
-
-/* =====================================================
-   INPUT FOCUS STYLES
-   ===================================================== */
-input:focus, textarea:focus, select:focus {
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* =====================================================
-   AI BADGE GLOW ANIMATION
-   ===================================================== */
-@keyframes glow-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.3); }
-  50% { box-shadow: 0 0 20px 4px rgba(99, 102, 241, 0.15); }
-}
-
-.ai-glow {
-  animation: glow-pulse 2.5s ease-in-out infinite;
-}
-
-/* =====================================================
-   FLOATING ORBS BACKGROUND
-   ===================================================== */
-.bg-orb {
+.btn-primary::before {
+  content: "";
   position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  pointer-events: none;
-  opacity: 0.5;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.btn-primary:hover::before { opacity: 1; }
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(37,99,235,0.45);
+}
+.btn-primary:active { transform: translateY(0); }
+
+/* ── Shimmer Loading ── */
+.shimmer {
+  background: linear-gradient(90deg, #e8eef8 0%, #f0f4ff 50%, #e8eef8 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
 }
 
-/* =====================================================
-   TABLE STYLES
-   ===================================================== */
-th {
-  letter-spacing: 0.05em;
+/* ── Stats Cards hover lift ── */
+.stat-card {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(37,99,235,0.12);
 }
 
-td {
-  vertical-align: middle;
+/* ── Skill Progress Bar ── */
+.skill-bar {
+  height: 6px;
+  border-radius: 100px;
+  background: #e0e8ff;
+  overflow: hidden;
+}
+.skill-bar-fill {
+  height: 100%;
+  border-radius: 100px;
+  background: linear-gradient(90deg, #2563eb, #0ea5e9);
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* =====================================================
-   MODAL ANIMATION
-   ===================================================== */
-@keyframes modal-in {
-  from { opacity: 0; transform: scale(0.95) translateY(8px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
+/* ── Timeline line ── */
+.timeline-line {
+  border-left: 2px solid #bfdbfe;
 }
 
-.modal-enter {
-  animation: modal-in 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+/* ── Input ── */
+.saas-input {
+  width: 100%;
+  padding: 10px 14px;
+  background: rgba(255,255,255,0.8);
+  border: 1.5px solid #dbeafe;
+  border-radius: 10px;
+  color: #0f172a;
+  font-size: 14px;
+  transition: all 0.2s;
+  outline: none;
 }
-
-/* =====================================================
-   FADE-IN ANIMATION FOR PAGE TRANSITIONS
-   ===================================================== */
-@keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
+.saas-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.12);
+  background: white;
 }
+.saas-input::placeholder { color: #94a3b8; }
 
-.page-fade-in {
-  animation: fade-in-up 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
+/* ── Badge ── */
+.badge-blue { background:#eff6ff; color:#1d4ed8; border:1px solid #bfdbfe; }
+.badge-green { background:#f0fdf4; color:#16a34a; border:1px solid #bbf7d0; }
+.badge-amber { background:#fffbeb; color:#d97706; border:1px solid #fde68a; }
+.badge-red { background:#fef2f2; color:#dc2626; border:1px solid #fecaca; }
 
-/* =====================================================
-   STAT CARD NUMBER COUNTER EFFECT
-   ===================================================== */
-@keyframes count-up {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.stat-number {
-  animation: count-up 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-/* =====================================================
-   RESPONSIVE ADJUSTMENTS
-   ===================================================== */
-@media (max-width: 768px) {
-  .hidden-mobile {
-    display: none !important;
-  }
-}
-
-/* =====================================================
-   PRINT STYLES
-   ===================================================== */
+/* Print support */
 @media print {
-  nav,
-  button,
-  .print\:hidden {
-    display: none !important;
-  }
-
-  body {
+  nav, button { display: none !important; }
+  body { background: white; }
+  .glass-card, .glass-card-strong {
     background: white !important;
-    color: black !important;
-  }
-
-  .bg-white {
+    border: 1px solid #e2e8f0 !important;
     box-shadow: none !important;
-    border: 1px solid #e5e7eb !important;
   }
 }
