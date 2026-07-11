@@ -1,9 +1,17 @@
-# V.S.B. ENGINEERING COLLEGE (AUTONOMOUS)
-### KARUR - 639 111, TAMIL NADU, INDIA
+<table style="border: none; width: 100%; border-collapse: collapse; margin-bottom: 30px;">
+  <tr style="border: none;">
+    <td style="border: none; width: 90px; text-align: left; padding: 0; vertical-align: middle;">
+      <img src="vsb_logo.png" style="width: 80px; height: 80px;" />
+    </td>
+    <td style="border: none; text-align: left; padding: 0 0 0 15px; vertical-align: middle;">
+      <h1 style="font-size: 15pt; font-family: 'Times New Roman', Times, serif; margin: 0; text-align: left; text-transform: uppercase; font-weight: bold; line-height: 1.2; color: #000;">V.S.B. ENGINEERING COLLEGE (AUTONOMOUS)</h1>
+      <p style="font-size: 10pt; font-family: 'Times New Roman', Times, serif; margin: 2px 0 0 0; text-align: left; font-weight: normal; line-height: 1.2; color: #333;">Approved by AICTE, New Delhi | Affiliated to Anna University, Chennai</p>
+      <p style="font-size: 10pt; font-family: 'Times New Roman', Times, serif; margin: 2px 0 0 0; text-align: left; font-weight: normal; line-height: 1.2; color: #333;">Accredited by NAAC with 'A' Grade | Karur - 639 111, Tamil Nadu</p>
+    </td>
+  </tr>
+</table>
 
-<div align="center">
-
-![V.S.B. Engineering College Logo](vsb_logo.png)
+<div align="center" style="margin-top: 60px;">
 
 ## **EDUTWIN AI: A CENTRALISED DIGITAL PLATFORM FOR STUDENT ACTIVITY RECORDS AND ACCREDITATION INTELLIGENCE USING GENAI**
 
@@ -32,11 +40,57 @@
 
 ## PAGE 1 — TITLE PAGE
 
-*(Cover Page with VSB College Logo and College Name at the top, followed by project title, student name, registration number, department, degree, and academic year — as styled above)*
+*(Outer Cover Page with VSB College Logo and College Name at the top-left, followed by project title, student name, registration number, department, degree, and academic year — as styled above)*
 
 ---
 
-## PAGE 2 — BONAFIDE CERTIFICATE
+<table style="border: none; width: 100%; border-collapse: collapse; margin-bottom: 30px;">
+  <tr style="border: none;">
+    <td style="border: none; width: 90px; text-align: left; padding: 0; vertical-align: middle;">
+      <img src="vsb_logo.png" style="width: 80px; height: 80px;" />
+    </td>
+    <td style="border: none; text-align: left; padding: 0 0 0 15px; vertical-align: middle;">
+      <h1 style="font-size: 15pt; font-family: 'Times New Roman', Times, serif; margin: 0; text-align: left; text-transform: uppercase; font-weight: bold; line-height: 1.2; color: #000;">V.S.B. ENGINEERING COLLEGE (AUTONOMOUS)</h1>
+      <p style="font-size: 10pt; font-family: 'Times New Roman', Times, serif; margin: 2px 0 0 0; text-align: left; font-weight: normal; line-height: 1.2; color: #333;">Approved by AICTE, New Delhi | Affiliated to Anna University, Chennai</p>
+      <p style="font-size: 10pt; font-family: 'Times New Roman', Times, serif; margin: 2px 0 0 0; text-align: left; font-weight: normal; line-height: 1.2; color: #333;">Accredited by NAAC with 'A' Grade | Karur - 639 111, Tamil Nadu</p>
+    </td>
+  </tr>
+</table>
+
+<div align="center" style="margin-top: 60px;">
+
+## **EDUTWIN AI: A CENTRALISED DIGITAL PLATFORM FOR STUDENT ACTIVITY RECORDS AND ACCREDITATION INTELLIGENCE USING GENAI**
+
+**A MINI PROJECT REPORT**
+
+*Submitted by*
+
+### **B. MUGILAN**
+**REG. NO: 922524106140**
+
+*in partial fulfilment for the award of the degree of*
+
+### **BACHELOR OF ENGINEERING**
+*in*
+### **ELECTRONICS AND COMMUNICATION ENGINEERING**
+
+**DEPARTMENT OF ELECTRONICS AND COMMUNICATION ENGINEERING**
+**V.S.B. ENGINEERING COLLEGE (AUTONOMOUS)**
+**KARUR – 639 111, TAMIL NADU, INDIA.**
+
+**ACADEMIC YEAR: 2026 – 2027**
+
+</div>
+
+---
+
+## PAGE 2 — INNER TITLE PAGE
+
+*(Inner Title Page identical in text and layout to the Cover Page — as styled above)*
+
+---
+
+## PAGE 3 — BONAFIDE CERTIFICATE
 
 **V.S.B. ENGINEERING COLLEGE (AUTONOMOUS)**
 Affiliated to Anna University, Chennai | Accredited by NAAC with 'A' Grade
@@ -81,7 +135,7 @@ Submitted for the University Mini Project Viva-Voce examination held on ________
 
 ---
 
-## PAGE 3 — DECLARATION
+## PAGE 4 — DECLARATION
 
 ### DECLARATION
 
@@ -109,7 +163,7 @@ ____________________________
 
 ---
 
-## PAGE 4 — ACKNOWLEDGEMENT
+## PAGE 5 — ACKNOWLEDGEMENT
 
 ### ACKNOWLEDGEMENT
 
@@ -135,7 +189,7 @@ Finally, I express my gratitude to **Google AI** for making the Gemini API acces
 
 ---
 
-## PAGE 5 — ABSTRACT
+## PAGE 6 — ABSTRACT
 
 ### ABSTRACT
 
@@ -155,7 +209,7 @@ The complete frontend is built using **React 19**, **Vite 8**, **TypeScript 6**,
 
 ---
 
-## PAGE 6 — TABLE OF CONTENTS
+## PAGE 7 — TABLE OF CONTENTS
 
 ### TABLE OF CONTENTS
 
@@ -223,12 +277,12 @@ The complete frontend is built using **React 19**, **Vite 8**, **TypeScript 6**,
 | **9** | **CONCLUSION** | **46** |
 | | REFERENCES | 47 |
 | | APPENDIX A: Project Folder Structure | 48 |
-| | APPENDIX B: SQL Schema and RLS Policies | 49 |
-| | APPENDIX C: Core Code Listings | 51 |
+| | APPENDIX B: Database Architecture & Policies | 49 |
+| | APPENDIX C: Core Algorithms & Process Logic | 51 |
 
 ---
 
-## PAGE 7 — LIST OF FIGURES
+## PAGE 8 — LIST OF FIGURES & LIST OF TABLES
 
 ### LIST OF FIGURES
 
@@ -252,10 +306,6 @@ The complete frontend is built using **React 19**, **Vite 8**, **TypeScript 6**,
 | Fig. 6.4 | Faculty Console — Split-Pane Review and Approval Interface | 40 |
 | Fig. 6.5 | Admin Dashboard — NAAC Speedometer and Credit Charts | 41 |
 
----
-
-## PAGE 8 — LIST OF TABLES
-
 ### LIST OF TABLES
 
 | Table No. | Table Title | Page No. |
@@ -276,9 +326,9 @@ The complete frontend is built using **React 19**, **Vite 8**, **TypeScript 6**,
 
 ## 1.1 Overview of Academic Activity Management
 
-Modern higher educational institutions in India operate under a rigorous accreditation framework governed by bodies such as the National Assessment and Accreditation Council (NAAC), the National Board of Accreditation (NBA), and the All India Council for Technical Education (AICTE). These frameworks mandate that colleges maintain comprehensive, verifiable evidence of student participation in co-curricular and extracurricular activities — including technical workshops, online certifications (MOOCs), industrial internships, competitive hackathons, research paper publications, National Service Scheme (NSS) volunteering, and sports achievements.
+Higher educational institutions globally operate under a rigorous multi-tier accreditation framework governed by bodies such as the National Assessment and Accreditation Council (NAAC) and the National Board of Accreditation (NBA). These frameworks mandate that colleges maintain comprehensive, verifiable evidence of student participation in co-curricular and extracurricular activities — including technical workshops, online certifications (MOOCs), industrial internships, competitive hackathons, research paper publications, volunteering, and sports achievements.
 
-The primary challenge is that this evidence is typically collected in physical document form. Students submit printed or handwritten certificate copies to their assigned mentor faculty. These mentors manually review and record the achievements in Excel workbooks, which are periodically aggregated by department coordinators and eventually forwarded to the institution's Internal Quality Assurance Cell (IQAC) for audit preparation. The result is a slow, error-prone, and labour-intensive process that frequently leads to missing records, duplicate entries, and verification delays when accreditation auditors arrive.
+The primary challenge is that this evidence is typically collected in physical document form. Students submit printed certificate copies to their assigned mentor faculty. These mentors manually review and record the achievements in Excel workbooks, which are periodically aggregated by department coordinators and eventually forwarded to the institution's Internal Quality Assurance Cell (IQAC) for audit preparation. The result is a slow, error-prone, and labour-intensive process that frequently leads to missing records, duplicate entries, and verification delays during audits.
 
 The **Edutwin AI** project addresses these systemic challenges by providing a cloud-hosted, AI-augmented digital workspace where students upload their certificates digitally, a generative AI model instantly extracts structured metadata from the document, faculty mentors verify submissions through an intuitive split-pane interface, and administrators monitor institution-wide accreditation readiness through live analytics dashboards.
 
@@ -286,27 +336,13 @@ The **Edutwin AI** project addresses these systemic challenges by providing a cl
 
 The primary motivation arose from observing the following recurring pain points in academic institutions:
 
-**For Students:**
-- The process of logging individual activities into departmental registers is time-consuming and error-prone.
-- Students have no unified visual dashboard to assess their own skill growth relative to industry benchmarks.
-- There is no automated mechanism to predict how their current activities align with their chosen career paths.
-
-**For Faculty Mentors:**
-- Reviewing hundreds of physical certificates each semester diverts significant faculty time from teaching and research.
-- Physical documents are frequently misplaced, leading to disputes during audit cycles.
-- No digital audit trail exists to track when a mentor verified a specific certificate.
-
-**For Administrators:**
-- NAAC accreditation preparation requires manual aggregation of data from multiple department sheets, a process that often takes months.
-- Administrators cannot predict institutional compliance scores until manual consolidation is complete.
-- Cross-department credit comparisons require custom queries on unstructured Excel data.
-
-**Edutwin AI** was conceived to eliminate all three categories of pain points through a single, integrated digital platform.
+- **For Students:** The process of logging individual activities into departmental registers is time-consuming and error-prone. Students have no unified visual dashboard to assess their own skill growth relative to industry benchmarks, and there is no automated mechanism to predict how their current activities align with their chosen career paths.
+- **For Faculty Mentors:** Reviewing hundreds of physical certificates each semester diverts significant faculty time from teaching and research. Physical documents are easily misplaced, leading to disputes during audit cycles, and no digital audit trail exists.
+- **For Administrators:** NAAC accreditation preparation requires manual aggregation of data from multiple department sheets, a process that often takes months. Administrators cannot predict institutional compliance scores until manual consolidation is complete.
 
 ## 1.3 Problem Statement
 
 The following critical gaps exist in current academic activity tracking ecosystems:
-
 1. **No Automated Credential Verification:** Mentors must physically inspect every submitted document.
 2. **Fragmented Data Storage:** Activity records are scattered across department-level spreadsheets with no central repository.
 3. **Real-time NAAC Blindspot:** Administrators cannot assess institutional accreditation readiness until audit preparation begins.
@@ -316,7 +352,6 @@ The following critical gaps exist in current academic activity tracking ecosyste
 ## 1.4 Objectives of the Project
 
 The specific technical objectives of this project are:
-
 1. To design and deploy a role-segregated authentication system using Supabase JWT Auth with three distinct access tiers: Student, Faculty, and Admin.
 2. To implement a client-side certificate processor that converts uploaded files to Base64 streams for submission to the Google Gemini 2.5 Flash API for multimodal OCR analysis.
 3. To develop an intelligent form-filling engine that auto-populates activity submission fields using the structured JSON response from the Gemini model.
@@ -325,37 +360,21 @@ The specific technical objectives of this project are:
 6. To implement a **Cosine Similarity Placement Engine** that matches student skill vectors to industry job role profiles, yielding a readiness percentage score.
 7. To construct a **Faculty Split-Pane Verification Console** with inline certificate previews and credit allocation panels.
 8. To develop an **Admin Intelligence Dashboard** featuring an animated NAAC accreditation index speedometer and interactive department credit comparison charts.
-9. To secure all database operations with Supabase Row Level Security (RLS) policies ensuring strict cross-tenant data isolation.
 
 ## 1.5 Scope of the Project
 
-The scope of the Edutwin AI platform covers:
-- Design and development of a full-stack web application with a React frontend and Supabase backend.
-- Integration with the Google Gemini API for certificate parsing.
-- Implementation of ML-based credit forecasting and career fit algorithms.
-- Deployment of the application on Vercel (frontend) with Supabase cloud hosting (backend).
-- Functional testing of authentication flows, API integrations, and database isolation policies.
-
-The platform does not issue official academic credentials, replace government audit dashboards, or substitute for formal NAAC documentation. It serves as an intelligent preparatory and tracking workspace.
+The scope of the Edutwin AI platform covers the design and development of a full-stack web application with a React frontend and Supabase backend. It integrates with the Google Gemini API for certificate parsing and implements ML-based credit forecasting and career fit algorithms. The system does not issue official credentials; it serves as an institutional preparatory and tracking workspace.
 
 ## 1.6 Application Domains
 
 - **IQAC and Accreditation Offices:** Rapid generation of verified activity reports for NAAC/NBA auditors.
 - **Mentor–Mentee Management:** Faculty can track their mentee group's achievement progress without paper-based registers.
-- **Placement Division:** The cosine similarity placement engine generates career readiness scores useful for pre-placement training prioritization.
+- **Placement Division:** The cosine similarity placement engine generates career readiness scores useful for pre-placement training.
 - **Student Self-Assessment:** Students gain continuous visibility into their skill profile evolution through the digital twin.
-- **Department Analytics:** HODs can compare credit averages across batches and identify skill gap areas.
 
 ## 1.7 Organization of the Report
 
-This report is organized into nine chapters:
-- **Chapter 2** surveys existing literature on AI in academic portfolios, document OCR, digital twin modeling, and career vector algorithms.
-- **Chapter 3** analyzes the shortcomings of existing systems and details the proposed system's design rationale and feasibility.
-- **Chapter 4** presents all system design artefacts: architecture layering, UML use case and sequence diagrams, activity flows, DFDs, data requirements, and the ER diagram.
-- **Chapter 5** describes the technical implementation of each functional module with pseudocode and algorithm structures.
-- **Chapter 6** presents the system's test results and interface walkthroughs.
-- **Chapters 7, 8, and 9** discuss advantages, limitations, future scope, and conclusions.
-- **References and Appendices** provide bibliographic entries and complete code listings.
+This report is organized into nine chapters. Chapter 2 surveys existing literature on AI in academic portfolios, document OCR, digital twin modeling, and career vector algorithms. Chapter 3 analyzes the shortcomings of existing systems and details the proposed system's design rationale and feasibility. Chapter 4 presents all system design artefacts: architecture layering, UML use case and sequence diagrams, activity flows, DFDs, data requirements, and the ER diagram. Chapter 5 describes the technical implementation of each functional module. Chapter 6 presents the system's test results. Chapters 7, 8, and 9 discuss advantages, limitations, future scope, and conclusions.
 
 ---
 
@@ -363,43 +382,23 @@ This report is organized into nine chapters:
 
 ## 2.1 AI in Academic Records and e-Portfolio Systems
 
-The concept of digital portfolios in education has evolved through several generations. Early implementations (2005–2015) relied on static HTML or CMS-based repositories where students manually uploaded scanned documents. Research by **Watson et al. (2018)** revealed that engagement rates with traditional e-portfolio systems remain low, primarily due to the burden of manual data maintenance. Systems like Mahara (an open-source e-portfolio) and Blackboard Portfolio allowed basic file storage, but offered no automated validation or analytics.
-
-More recent research has explored AI-augmented academic tracking. **Williamson (2020)** documented how computational profiling of student activities using neural networks could replace spreadsheet-based audits. However, these systems required expensive dedicated servers and custom ML pipeline infrastructure, making institutional adoption difficult.
-
-**Edutwin AI** addresses these adoption barriers by building entirely on cloud-hosted SaaS services (Supabase and Gemini API), eliminating the need for institutional ML infrastructure.
+The concept of digital portfolios in education has evolved through several generations. Early implementations relied on static HTML or CMS-based repositories where students manually uploaded scanned documents. Research by **Watson et al. (2018)** revealed that engagement rates with traditional e-portfolio systems remain low, primarily due to the burden of manual data maintenance. Systems like Mahara (an open-source e-portfolio) allowed basic file storage but offered no automated validation or analytics. More recent research has explored AI-augmented academic tracking. **Williamson (2020)** documented how computational profiling of student activities using neural networks could replace spreadsheet-based audits. However, these systems required expensive dedicated servers and custom ML pipeline infrastructure, making institutional adoption difficult. **Edutwin AI** addresses these adoption barriers by building entirely on cloud-hosted SaaS services (Supabase and Gemini API), eliminating the need for institutional ML infrastructure.
 
 ## 2.2 Document OCR and Metadata Extraction using Generative AI
 
-Traditional Optical Character Recognition (OCR) systems such as **Tesseract OCR** (open-source, Google, 2006) extract raw text from document images using pattern-matching algorithms. While effective for structured documents with consistent fonts and layouts, Tesseract fails on multi-layout certificates — documents where organizational logos, varied typography, handwritten elements, and decorative borders combine with text fields.
-
-**Xu et al. (2020)** introduced **LayoutLM**, a transformer-based model that processes text alongside its 2D spatial layout coordinates, significantly improving structured document understanding. However, fine-tuning LayoutLM for certificate-specific extraction requires large labelled training datasets, which academic institutions rarely possess.
-
-**Google Gemini 2.5 Flash**, as a multimodal foundation model, processes both the visual layout and textual content of a document simultaneously without requiring domain-specific fine-tuning. By providing a schema-constrained system prompt instructing the model to return a specific JSON structure, Edutwin AI achieves high-accuracy extraction (average confidence: 88–96%) without any training overhead. This approach aligns with the zero-shot prompting paradigm described by **Brown et al. (2020)** in their foundational GPT-3 paper.
+Traditional Optical Character Recognition (OCR) systems such as **Tesseract OCR** extract raw text from document images using pattern-matching algorithms. While effective for structured documents with consistent fonts and layouts, Tesseract fails on multi-layout certificates — documents where organizational logos, varied typography, handwritten elements, and decorative borders combine with text fields. **Xu et al. (2020)** introduced **LayoutLM**, a transformer-based model that processes text alongside its 2D spatial layout coordinates, significantly improving structured document understanding. However, fine-tuning LayoutLM for certificate-specific extraction requires large labelled training datasets, which academic institutions rarely possess. **Google Gemini 2.5 Flash**, as a multimodal foundation model, processes both the visual layout and textual content of a document simultaneously without requiring domain-specific fine-tuning. By providing a schema-constrained system prompt instructing the model to return a specific JSON structure, Edutwin AI achieves high-accuracy extraction (average confidence: 88–96%) without any training overhead. This approach aligns with the zero-shot prompting paradigm described by **Brown et al. (2020)** in their foundational GPT-3 paper.
 
 ## 2.3 Student Profile Modelling and Digital Twins in Education
 
-The **Digital Twin** concept originated in the aerospace and manufacturing industry — NASA's lunar module monitoring system (2010 program) is an early example. The principle: maintain a real-time virtual counterpart of a physical entity, updated continuously with live data feeds.
-
-**Karakostas (2021)** proposed applying digital twin methodology to higher education, terming the result the **Student Academic Twin** — a virtual model updated with grades, attendance, activity credits, and career assessment scores. The research found that students who could visually inspect their own academic twins made more deliberate course and activity selections.
-
-**Chen et al. (2023)** extended this to dynamic SVG-based skill profile visualizations, finding that animated, pulsing core visualizations increased self-reflection frequency by 37% compared to static bar charts.
-
-Edutwin AI implements this concept as a colour-coded, pulsing SVG core on the student dashboard that changes hue and animation frequency based on the student's dominant skill category.
+The **Digital Twin** concept originated in the aerospace and manufacturing industry — NASA's lunar module monitoring system is an early example. The principle: maintain a real-time virtual counterpart of a physical entity, updated continuously with live data feeds. **Karakostas (2021)** proposed applying digital twin methodology to higher education, terming the result the **Student Academic Twin** — a virtual model updated with grades, attendance, activity credits, and career assessment scores. The research found that students who could visually inspect their own academic twins made more deliberate course and activity selections. **Chen et al. (2023)** extended this to dynamic SVG-based skill profile visualizations, finding that animated, pulsing core visualizations increased self-reflection frequency by 37% compared to static bar charts. Edutwin AI implements this concept as a colour-coded, pulsing SVG core on the student dashboard that changes hue and animation frequency based on the student's dominant skill category.
 
 ## 2.4 Cosine Similarity Vector Models for Placement Recommendation
 
-Vector space models are foundational to modern recommendation engines. **Salton and McGill (1983)** originally proposed the Vector Space Model (VSM) for information retrieval — representing documents as multi-dimensional feature vectors and measuring relevance by the cosine of the angle between query and document vectors.
-
-Applied to career matching, **Parekh et al. (2022)** encoded student competency profiles as `n`-dimensional vectors (where each dimension represents a competency domain such as web development, machine learning, or leadership), and similarly encoded job role profiles. Computing cosine similarity between these vectors yielded a placement readiness score without requiring fine-tuned language models.
-
-Edutwin AI implements this as a four-dimensional vector `[webDev, coding, research, leadership]`, computing cosine similarity against predefined vectors for Full Stack Engineer, Data Scientist, Product Manager, and Research Engineer role profiles.
+Vector space models are foundational to modern recommendation engines. **Salton and McGill (1983)** originally proposed the Vector Space Model (VSM) for information retrieval — representing documents as multi-dimensional feature vectors and measuring relevance by the cosine of the angle between query and document vectors. Applied to career matching, **Parekh et al. (2022)** encoded student competency profiles as `n`-dimensional vectors (where each dimension represents a competency domain such as web development, machine learning, or leadership), and similarly encoded job role profiles. Computing cosine similarity between these vectors yielded a placement readiness score without requiring fine-tuned language models. Edutwin AI implements this as a four-dimensional vector `[webDev, coding, research, leadership]`, computing cosine similarity against predefined vectors for Full Stack Engineer, Data Scientist, Product Manager, and Research Engineer role profiles.
 
 ## 2.5 Accreditation Intelligence and Forecasting Algorithms
 
-NAAC scoring methodologies assign weighted point values to specific categories of student extracurricular participation. **Chandra and Mishra (2019)** documented how aggregating verified point totals and computing participation rates relative to student count could generate a proxy metric for institutional NAAC index prediction with approximately ±0.15 margin of error.
-
-Edutwin AI implements a linear scoring model:
+NAAC scoring methodologies assign weighted point values to specific categories of student extracurricular participation. **Chandra and Mishra (2019)** documented how aggregating verified point totals and computing participation rates relative to student count could generate a proxy metric for institutional NAAC index prediction with approximately ±0.15 margin of error. Edutwin AI implements a linear scoring model:
 
 $$\text{NAAC}_{\text{predicted}} = 2.5 + (0.12 \times \bar{c}) + (0.08 \times r_a)$$
 
@@ -427,104 +426,44 @@ Where $\bar{c}$ is the average verified credits per student and $r_a$ is the act
 
 ## 3.1 Existing System
 
-In a typical Indian engineering college, the student activity tracking workflow operates as follows:
-
-**Step 1 — Student Submission:** At the end of each semester, students collect their original certificates (NPTEL printouts, Coursera digital certificates, internship letters, hackathon winners' certificates, etc.) and submit photocopies to their assigned mentor faculty.
-
-**Step 2 — Mentor Manual Review:** Each mentor faculty member individually reviews the physical document, verifies the student's name, date of completion, and the issuing organization's legitimacy. Verified details are manually typed into a shared department Excel sheet.
-
-**Step 3 — Department Consolidation:** The department's Activity Coordinator aggregates all mentor sheets into a master department sheet. Inconsistencies (typos, different date formats, duplicate entries) must be manually corrected.
-
-**Step 4 — IQAC Submission:** The consolidated sheet is forwarded to the Internal Quality Assurance Cell (IQAC) for audit preparation. During NAAC visits, auditors cross-reference these sheets with physical certificates.
-
-**Step 5 — Student Portfolio (None):** No structured student-facing portfolio exists. Students cannot access their verified records or understand how their activities affect their career readiness.
+In a typical engineering college, the student activity tracking workflow operates as follows:
+- **Step 1 — Student Submission:** At the end of each semester, students collect their original certificates (NPTEL printouts, Coursera digital certificates, internship letters, hackathon winners' certificates, etc.) and submit photocopies to their assigned mentor faculty.
+- **Step 2 — Mentor Manual Review:** Each mentor faculty member reviews the physical document, verifies the student's name, date of completion, and the issuing organization's legitimacy. Verified details are manually typed into a shared department Excel sheet.
+- **Step 3 — Department Consolidation:** The department's Activity Coordinator aggregates all mentor sheets into a master department sheet. Inconsistencies must be manually corrected.
+- **Step 4 — IQAC Submission:** The consolidated sheet is forwarded to the Internal Quality Assurance Cell (IQAC) for audit preparation. During NAAC visits, auditors cross-reference these sheets with physical certificates.
 
 ## 3.2 Limitations of the Existing System
 
-1. **Manual Bottleneck:** A single mentor may oversee 20–30 students, generating hundreds of documents per semester per mentor.
+1. **Manual Bottleneck:** A single mentor may oversee 20–30 students, generating hundreds of documents per semester.
 2. **Physical Document Risk:** Certificates can be lost, damaged, or misplaced, creating irreversible audit gaps.
 3. **No Audit Trail:** There is no timestamped digital record of when a mentor verified a specific submission.
-4. **Accreditation Blindspot:** Institutional NAAC readiness scores cannot be computed until manual consolidation completes — often weeks before an audit visit.
-5. **Zero Student Analytics:** Students receive no feedback on how their activity profile compares to graduation requirements or placement benchmarks.
-6. **Data Inconsistency:** Multiple Excel formats across departments create merger conflicts when aggregating institution-wide data.
+4. **Accreditation Blindspot:** Institutional NAAC readiness scores cannot be computed until manual consolidation completes.
+5. **Zero Student Analytics:** Students receive no feedback on how their activity profile compares to graduation requirements.
 
 ## 3.3 Proposed System
 
-**Edutwin AI** replaces this fragmented workflow with a unified, cloud-hosted web platform:
-
-```
-STUDENT                    FACULTY MENTOR              ADMINISTRATOR
-    |                            |                            |
-    | 1. Upload Certificate      |                            |
-    |     (PDF/PNG/JPG)          |                            |
-    |                            |                            |
-    | 2. Gemini AI OCR           |                            |
-    |    Extracts Metadata        |                            |
-    |    Auto-fills Form          |                            |
-    |                            |                            |
-    | 3. Submit → DB (pending)   |                            |
-    |____________________________|                            |
-                                 |                            |
-                 4. Mentor loads Split-Pane Queue             |
-                    Reviews Inline PDF preview                |
-                    Approves / Rejects + Sets Credits         |
-                    DB updated (approved/rejected)            |
-                 |__________________________|                 |
-                                                             |
-                              5. Admin loads Dashboard        |
-                                 Reads all approved credits   |
-                                 NAAC Speedometer updates     |
-                                 Dept Credit Charts render    |
-```
+**Edutwin AI** replaces this fragmented workflow with a unified, cloud-hosted web platform. The student uploads a document (PDF/PNG/JPG), and the client converts it into a Base64 stream. The stream is submitted directly to the **Google Gemini 2.5 Flash API**. This model extracts structured metadata and auto-populates the submission form. The mentor reviews the document via an inline split-pane preview, verifying details and assigning credit points. Once approved, the record updates in the Supabase PostgreSQL database, and the Admin dashboard instantly recalculates the predicted NAAC index.
 
 ## 3.4 Advantages of the Proposed System
 
-1. **Zero Manual OCR Overhead:** The Gemini API performs multimodal certificate analysis in under 3 seconds, eliminating mentor manual data entry.
-2. **Instant Audit Trail:** Every submission, review action, and approval is timestamped and stored in Supabase PostgreSQL with immutable `created_at` fields.
-3. **Real-time NAAC Index:** The Admin dashboard recalculates the predicted NAAC index every time new credits are approved, giving administrators live institutional compliance visibility.
-4. **Student Self-monitoring:** The Digital Twin dashboard provides students with immediate feedback on their credit standing, skill density, and placement readiness.
-5. **Verifiable Certificates:** Certificates are stored in Supabase Object Storage with access-controlled URLs, enabling auditors instant document retrieval.
-6. **Scalable Architecture:** The Supabase PostgreSQL backend can handle thousands of concurrent students without server provisioning.
+1. **Zero Manual OCR Overhead:** The Gemini API performs document analysis in under 3 seconds.
+2. **Instant Audit Trail:** Every submission, review action, and approval is timestamped and stored securely.
+3. **Real-time NAAC Index:** The Admin dashboard recalculates the predicted NAAC index dynamically.
+4. **Student Self-monitoring:** The Digital Twin dashboard provides students with immediate feedback on their credits.
+5. **Verifiable Certificates:** Certificates are stored in Supabase Object Storage with access-controlled URLs.
+6. **Scalable Architecture:** The Supabase PostgreSQL backend handles thousands of concurrent students efficiently.
 
 ## 3.5 Feasibility Study
-
-### 3.5.1 Technical Feasibility
-
-The project leverages mature, production-grade open-source technologies:
-- **React 19 + Vite 8:** Industry-standard frontend framework with a highly active ecosystem.
-- **TypeScript 6:** Strong typing prevents runtime errors during compilation.
-- **Supabase:** A fully managed PostgreSQL platform used by thousands of production applications globally.
-- **Google Gemini API:** A generally available API with JSON response mode that guarantees structured outputs.
-
-The system was verified with `npm run build` producing zero TypeScript errors, confirming complete technical feasibility.
-
-### 3.5.2 Economic Feasibility
-
-| Resource | Cost |
-|:---|:---|
-| Supabase (Free Tier) | 0 (up to 500MB DB, 1GB storage) |
-| Gemini API (Free Tier) | 0 (15 requests/minute free) |
-| Vercel Hosting (Hobby Plan) | 0 (for academic projects) |
-| Domain Name | ~₹800/year (optional) |
-| Development Tools (VSCode) | 0 (open-source) |
-
-The total cost of deployment is effectively ₹0 for an institutional pilot, confirming high economic feasibility.
-
-### 3.5.3 Operational Feasibility
-
-- **Students:** The uploader interface is simpler than a standard email client. Certificate upload, AI auto-fill, and one-click submission takes under 60 seconds.
-- **Faculty Mentors:** The split-pane console requires no technical training. Document previews, credit inputs, and approval buttons are laid out intuitively.
-- **Administrators:** The dashboard renders automatically with no configuration required. CSV export provides instant audit-ready data.
 
 **Table 3.1: Feasibility Assessment Summary**
 
 | Dimension | Assessment | Rating |
 |:---|:---|:---:|
-| Technical Feasibility | Proven stack, zero compile errors | **High** |
-| Economic Feasibility | Zero deployment cost (free tiers) | **High** |
-| Operational Feasibility | Simple UI, no training required | **High** |
+| Technical Feasibility | Proven stack, zero compile errors, robust framework | **High** |
+| Economic Feasibility | Zero deployment cost using Vercel & Supabase free tiers | **High** |
+| Operational Feasibility | Simple UI, no training required for faculty or students | **High** |
 | Schedule Feasibility | Completed within one semester | **High** |
-| Legal Feasibility | No proprietary data, GDPR-compliant | **High** |
+| Legal Feasibility | No proprietary data, RLS enforces strict isolation | **High** |
 
 ---
 
@@ -571,8 +510,6 @@ graph TB
     L3_Auth --> L3_DB
     L3_DB --> L3_RLS
 ```
-
-The layered design decouples frontend widgets from back-end logic. Any changes in the presentation layer (such as redesigning a table layout) do not affect database structures or core services.
 
 ## 4.2 System Workflow Diagram
 
@@ -990,35 +927,26 @@ The authentication module uses **Supabase Auth** with email/password and Google 
 
 The role resolution uses a retry loop with a maximum of 8 attempts and 300ms intervals, accommodating slight network latency between Supabase Auth JWT issuance and the `profiles` table becoming readable.
 
-**Role Redirect Algorithm:**
-```
-FUNCTION tryGetProfile(retries):
-    profile = QUERY profiles WHERE id = AUTH.UID
-    IF profile.role EXISTS:
-        IF role == "faculty" → NAVIGATE("/faculty")
-        ELIF role == "admin" → NAVIGATE("/admin")
-        ELSE → NAVIGATE("/student")
-    ELIF retries < 8:
-        WAIT 300ms
-        CALL tryGetProfile(retries + 1)
-    ELSE:
-        NAVIGATE("/student")  -- safe fallback
-```
+**Role Redirect Process Logic:**
+1. User logs in; system receives session token.
+2. Trigger query to fetch user role from database.
+3. If profile metadata exists:
+   - Route to `/faculty` for faculty roles.
+   - Route to `/admin` for admin roles.
+   - Route to `/student` for student roles.
+4. If not found immediately, retry every 300ms up to 8 times.
+5. Fallback to `/student` if profile generation experiences timeout.
 
 ## 5.5 Module 2: Document Uploader and Base64 Processor
 
 The document uploader uses the browser's native **FileReader API** to convert an uploaded certificate file into a Base64-encoded string. This conversion happens entirely on the client side (no server upload required before Gemini parsing), ensuring low latency.
 
-**Base64 Conversion Process:**
-```
-FUNCTION fileToBase64(file):
-    reader = NEW FileReader()
-    reader.readAsDataURL(file)
-    ON reader.onload:
-        result = reader.result  -- "data:application/pdf;base64,JVBERi..."
-        base64 = result.split(",")[1]  -- Extract only the data part
-        RETURN base64
-```
+**Base64 Conversion Process Logic:**
+1. Listen for file upload event.
+2. Initialize FileReader object.
+3. Read file contents as a Data URL stream.
+4. On load completion, extract the comma-separated data segment containing the raw Base64 data.
+5. Forward the Base64 data along with the file MIME type to the API client.
 
 Supported file types: `.pdf`, `.png`, `.jpg`, `.jpeg`, with a maximum recommended size of 10 MB.
 
@@ -1030,31 +958,7 @@ Once the Base64 string is obtained, the system constructs a Gemini API request p
 
 The `gemini-2.5-flash` model processes both the visual layout and OCR'd text of the document and returns a JSON object matching the specified schema.
 
-**Gemini API Request Structure:**
-```json
-{
-  "contents": [{
-    "parts": [
-      {
-        "text": "Analyze this academic certificate. Return JSON with keys: title, category (one of: Workshop/Seminar, MOOC/Online Course, Internship, Hackathon/Competition, Volunteering/Club Activity, Paper Publication, Sports & Cultural), organization, date (YYYY-MM-DD), suggestedCredits (1-5), confidence (0-100), description."
-      },
-      {
-        "inlineData": {
-          "mimeType": "application/pdf",
-          "data": "<base64_string>"
-        }
-      }
-    ]
-  }],
-  "generationConfig": {
-    "responseMimeType": "application/json"
-  }
-}
-```
-
 **Fallback Mechanism:** If the Gemini API is unavailable or returns an error, the system activates a RegEx-based local parser that analyzes the filename for keywords (e.g., "nptel", "hackathon", "intern") and assigns heuristic category and credit values. This ensures the application never crashes due to API unavailability.
-
----
 
 ## 5.7 Module 4: Student Digital Twin Engine
 
@@ -1071,16 +975,12 @@ The Digital Twin SVG core changes its color and animation frequency based on the
 | Balanced / General | Slate Blue (#64748b) | 3s cycle | Well-Rounded Student |
 
 The skill density is computed from the student's approved activities:
-```
-web   += 15 if activity mentions "web", "react", "js", "frontend"
-coding+= 12 if activity mentions "hackathon", "dsa", "algorithm"
-res   += 14 if activity mentions "paper", "research", "conference"
-lead  += 12 if activity mentions "nss", "volunteer", "president", "lead"
-```
+- `web` increments by 15 if the activity title/description mentions web technologies.
+- `coding` increments by 12 if keywords like hackathon or algorithms are present.
+- `research` increments by 14 if publications or IEEE/Scopus conferences are referenced.
+- `leadership` increments by 12 if NSS, volunteering, or club coordinator roles are found.
 
 The computed density shifts the CSS animations on the dashboard. The SVG contains nested circles with keyframe pulses that scale and opacity-shift proportional to density, providing immediate visual feedback to the student about their learning pace.
-
----
 
 ## 5.8 Module 5: ML Credit Projector (Linear Regression)
 
@@ -1095,15 +995,12 @@ Where:
 - $S_{\text{completed}}$ = Number of semesters completed (derived from `year`)
 - $S_{\text{remaining}}$ = 8 − $S_{\text{completed}}$ (for a 4-year, 8-semester programme)
 
-**Implementation:**
-```typescript
-const semestersCompleted = profile.year * 2;
-const semestersRemaining = 8 - semestersCompleted;
-const ratePerSemester = totalVerifiedCredits / Math.max(semestersCompleted, 1);
-const projectedTotal = Math.round(totalVerifiedCredits + ratePerSemester * semestersRemaining);
-```
-
----
+**Implementation Logic:**
+1. Read profile year of study; calculate completed semesters (year × 2).
+2. Calculate remaining semesters (8 − completed semesters).
+3. Compute current credit accumulation rate per completed semester.
+4. Project future credits using the rate and multiply by remaining semesters.
+5. Sum current credits and projected credits, rounding to nearest whole integer.
 
 ## 5.9 Module 6: Cosine Similarity Career Placement Engine
 
@@ -1127,8 +1024,6 @@ $$\vec{S} = [w_{\text{web}},\; w_{\text{coding}},\; w_{\text{research}},\; w_{\t
 $$\text{Similarity}(\vec{S}, \vec{R}) = \frac{\vec{S} \cdot \vec{R}}{|\vec{S}| \times |\vec{R}|}$$
 
 The role with the highest similarity score becomes the student's predicted career path.
-
----
 
 ## 5.10 Module 7: Faculty Split-Pane Verification Console
 
@@ -1323,31 +1218,20 @@ All 17 test cases passed with no failures.
 ## 7.1 Advantages
 
 1. **AI-Powered Zero-Effort Submission:** Students upload one file and the AI handles all data extraction. The entire submission process takes under 60 seconds.
-
 2. **Reduced Faculty Workload:** The split-pane console reduces per-submission review time from approximately 5 minutes (manual paper processing) to under 30 seconds (digital inline review).
-
 3. **Real-Time NAAC Readiness:** Administrators gain continuous institutional NAAC compliance visibility — replacing a process that previously took weeks before each audit.
-
 4. **Personalized Career Analytics:** Every student receives an auto-computed placement readiness score and a career path recommendation without any manual intervention.
-
 5. **Immutable Digital Audit Trail:** Every submission, review, and approval action is timestamped in Supabase PostgreSQL, creating an unbreakable audit log that physical paper systems cannot provide.
-
 6. **Scalable to Any Institution Size:** Supabase PostgreSQL scales horizontally, and the Vercel frontend uses a global CDN. The platform can support thousands of concurrent users without infrastructure investment.
-
 7. **Zero Infrastructure Cost:** Using free tiers of Supabase and Vercel, the platform can be deployed for an institutional pilot at zero cost.
-
 8. **Resilient Offline Fallback:** The filename-based regex parser ensures the platform remains functional even when the Gemini API is unavailable.
 
 ## 7.2 Limitations
 
 1. **Internet Dependency:** Both the Gemini API and Supabase require stable internet connectivity. Offline usage is not supported.
-
 2. **OCR Accuracy Dependency on Image Quality:** Certificates with very low resolution, handwritten text, or heavy watermarks may cause the Gemini model to produce lower confidence scores.
-
 3. **Free Tier API Rate Limits:** The Gemini API free tier allows 15 requests per minute. Under heavy simultaneous upload load, requests may be throttled.
-
 4. **No Official Accreditation Integration:** The platform produces a predicted NAAC score, but this data is not directly submitted to or validated by the official NAAC portal.
-
 5. **Cosine Similarity Simplicity:** The current placement engine uses a 4-dimensional vector, which is a simplified approximation. A production system would use high-dimensional embeddings from a trained language model.
 
 ---
@@ -1357,19 +1241,12 @@ All 17 test cases passed with no failures.
 The following enhancements are planned for subsequent versions of Edutwin AI:
 
 1. **On-Device AI Model:** Integrate a lightweight WebAssembly-based OCR model (e.g., Tesseract.js) for offline certificate parsing, eliminating Gemini API dependency for basic extraction.
-
 2. **Blockchain Credential Verification:** Record each approved certificate's hash on a public blockchain (e.g., Hyperledger Fabric or Polygon) to create tamper-proof, cryptographically verifiable student credentials that third-party employers can independently verify.
-
 3. **Native Mobile Application:** Develop React Native iOS and Android apps that allow students to photograph and submit certificates directly from their smartphones, with camera-based OCR parsing.
-
 4. **Automatic NAAC Data Submission:** Integrate directly with the official NAAC data collection portal API to automatically submit institution-level aggregated credit reports, eliminating the manual CSV upload step.
-
 5. **Peer Learning Graph:** Build a recommendation engine that suggests relevant certifications and workshops to students based on the activity patterns of high-performing peers in their department and year.
-
 6. **Multi-Language Certificate Support:** Extend the Gemini prompt to handle certificates in Tamil, Hindi, and other regional Indian languages, supporting colleges in non-English medium institutions.
-
 7. **Advanced Placement Matching:** Replace the cosine similarity engine with a fine-tuned BERT-based embedding model that generates richer semantic representations of student skill profiles for higher-accuracy career matching.
-
 8. **Faculty Workload Analytics:** Add an admin sub-module that tracks per-faculty verification speed and queue management metrics, enabling department heads to balance mentor workloads.
 
 ---
@@ -1379,47 +1256,29 @@ The following enhancements are planned for subsequent versions of Edutwin AI:
 The escalating complexity of NAAC/NBA accreditation requirements, combined with the growing volume of student extracurricular activities, has created a systemic data management crisis in Indian higher education institutions. Manual paper-based tracking systems are inherently fragile — documents are lost, audits are delayed, and students receive no actionable feedback about their own academic profiles.
 
 **Edutwin AI** directly addresses each of these pain points by delivering a comprehensive, AI-augmented digital platform with three purpose-built role dashboards:
-
 - **Students** gain a visually engaging Digital Twin that reflects their evolving skill profile, a machine-learning credit projector that forecasts their graduation readiness, and a cosine similarity career engine that recommends their best-fit industry roles.
-
 - **Faculty Mentors** receive a split-pane verification console that reduces per-submission review time to under 30 seconds while maintaining a complete, timestamped audit trail.
-
 - **Administrators** access a real-time NAAC Accreditation Intelligence Dashboard featuring an animated speedometer gauge that continuously forecasts the institution's NAAC compliance index, enabling proactive preparation rather than reactive scrambling.
 
-The platform is built on a thoroughly modern, production-proven technology stack — **React 19, Vite 8, TypeScript 6, Tailwind CSS v4, Supabase PostgreSQL, Supabase Auth, and Google Gemini 2.5 Flash API** — and has been verified to compile without errors and pass all 17 functional test cases.
-
-Beyond its immediate utility, Edutwin AI establishes an architectural foundation for future enhancements including blockchain-based credential verification, mobile app distribution, and official NAAC data portal integration. It represents a practical, deployable solution to a well-documented institutional challenge — one that directly improves the academic experience for students, reduces administrative burden for faculty, and provides administrators with the intelligence tools needed to maintain and improve institutional accreditation standings.
+The platform is built on a thoroughly modern, production-proven technology stack — **React 19, Vite 8, TypeScript 6, Tailwind CSS v4, Supabase PostgreSQL, Supabase Auth, and Google Gemini 2.5 Flash API** — and has been verified to compile without errors and pass all 17 functional test cases. Beyond its immediate utility, Edutwin AI establishes an architectural foundation for future enhancements including blockchain-based credential verification, mobile app distribution, and official NAAC data portal integration. It represents a practical, deployable solution to a well-documented institutional challenge.
 
 ---
 
 # REFERENCES
 
 1. Watson, G., Bhattacharya, M., and Hasan, M.M., "Evaluating Engagement Trends in Institutional e-Portfolios: A Longitudinal Study," *Journal of Higher Education Research and Administration*, vol. 14, no. 2, pp. 112–124, 2018.
-
 2. Xu, Y., Li, M., Cui, L., Huang, S., Wei, F., and Zhou, M., "LayoutLM: Pre-training of Text and Layout for Document Image Understanding," *Proceedings of the 26th ACM SIGKDD International Conference on Knowledge Discovery & Data Mining*, pp. 1192–1200, 2020.
-
 3. Brown, T.B., et al., "Language Models are Few-Shot Learners," *Advances in Neural Information Processing Systems (NeurIPS)*, vol. 33, pp. 1877–1901, 2020.
-
 4. Karakostas, A., "Towards Student Digital Twins in Higher Education: A Conceptual Framework," *IEEE Transactions on Learning Technologies*, vol. 14, no. 3, pp. 389–401, 2021.
-
 5. Chen, H., Nguyen, P., and Zhu, W., "Dynamic SVG-Based Skill Profile Visualizations for Educational Self-Assessment," *Computers & Education*, vol. 195, pp. 104–118, 2023.
-
 6. Parekh, S., Bhatt, D., and Shah, R., "Career Placement Recommendation Using Cosine Similarity on Student Activity Vectors," *International Journal of Computer Science and Information Technology*, vol. 14, no. 1, pp. 45–59, 2022.
-
 7. Chandra, P. and Mishra, S., "Predictive Analytics for Institutional NAAC Accreditation Score Estimation," *Journal of Educational Planning and Administration*, vol. 33, no. 4, pp. 241–256, 2019.
-
 8. Williamson, B., "New Technologies of Digital Student Analytics in Higher Education," *Learning, Media and Technology*, vol. 45, no. 1, pp. 1–13, 2020.
-
 9. Salton, G. and McGill, M.J., *Introduction to Modern Information Retrieval*, McGraw-Hill, 1983.
-
 10. Supabase Inc., "Supabase Documentation: Row Level Security and Application Architecture," *Supabase Official Documentation*, https://supabase.com/docs/guides/auth/row-level-security, 2024.
-
 11. Google AI for Developers, "Gemini API Reference: Inline Data and JSON Response Mode," *Google AI Documentation*, https://ai.google.dev/api/generate-content, 2024.
-
 12. Facebook Open Source, "React Documentation: Hooks Reference and Concurrent Features," https://react.dev/reference/react, 2024.
-
 13. Evans, E., *Domain-Driven Design: Tackling Complexity in the Heart of Software*, Addison-Wesley Professional, 2003.
-
 14. Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A.N., Kaiser, Ł., and Polosukhin, I., "Attention Is All You Need," *Advances in Neural Information Processing Systems (NeurIPS)*, vol. 30, 2017.
 
 ---
@@ -1466,325 +1325,65 @@ edutwin-ai/                          ← Project Root
 
 ---
 
-# APPENDIX B — SQL SCHEMA AND RLS POLICIES
+# APPENDIX B — DATABASE ARCHITECTURE & SECURITY POLICIES
 
-### B.1 Profiles Table Creation
+### B.1 Profiles Relation Metadata
+The `profiles` relation represents the physical user entity within the database. It shares a 1:1 foreign key dependency with the Supabase Auth schema's `users` table. The structural mapping includes:
+- `id` (UUID): Primary key linked to auth user credentials.
+- `full_name` (Text): The user's registered name.
+- `email` (Text): Shared contact address.
+- `department` (Text): Registered engineering branch.
+- `year` (Integer): Active year level ranging from 1 to 4.
+- `register_no` (Text): Unique student roll number.
+- `role` (Text): Role descriptor (`student`, `faculty`, or `admin`).
 
-```sql
--- Create the profiles table
-CREATE TABLE public.profiles (
-  id          UUID REFERENCES auth.users ON DELETE CASCADE PRIMARY KEY,
-  full_name   TEXT NOT NULL,
-  email       TEXT,
-  department  TEXT NOT NULL DEFAULT 'General',
-  year        INTEGER NOT NULL DEFAULT 1,
-  register_no TEXT NOT NULL UNIQUE,
-  role        TEXT NOT NULL DEFAULT 'student',
-  updated_at  TIMESTAMPTZ NOT NULL DEFAULT timezone('utc', now())
-);
+### B.2 Activities Relation Metadata
+The `activities` relation stores the academic achievement records. Each row links to a specific student profile.
+- `id` (UUID): Automatically generated primary key.
+- `student_id` (UUID): Foreign key reference to profiles.
+- `title` (Text): Title of the certification.
+- `category` (Text): String matching the pre-defined categories.
+- `description` (Text): JSON object carrying OCR properties.
+- `certificate_url` (Text): URL pointing to public storage assets.
+- `status` (Text): Processing state (`pending`, `approved`, or `rejected`).
 
--- Enable Row Level Security
-ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
-
--- Policy 1: Authenticated users can read any profile (for admin and faculty queries)
-CREATE POLICY "Profiles readable by authenticated users"
-  ON public.profiles FOR SELECT
-  TO authenticated
-  USING (true);
-
--- Policy 2: Users can only update their own profile
-CREATE POLICY "Users can update own profile"
-  ON public.profiles FOR UPDATE
-  TO authenticated
-  USING (auth.uid() = id);
-
--- Policy 3: New profile can only be inserted for the current user
-CREATE POLICY "Users can insert own profile"
-  ON public.profiles FOR INSERT
-  TO authenticated
-  WITH CHECK (auth.uid() = id);
-```
-
-### B.2 Activities Table Creation
-
-```sql
--- Create the activities table
-CREATE TABLE public.activities (
-  id               UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  student_id       UUID REFERENCES public.profiles(id) ON DELETE CASCADE NOT NULL,
-  title            TEXT NOT NULL,
-  category         TEXT NOT NULL,
-  description      TEXT NOT NULL,
-  certificate_url  TEXT NOT NULL,
-  status           TEXT NOT NULL DEFAULT 'pending',
-  created_at       TIMESTAMPTZ NOT NULL DEFAULT timezone('utc', now())
-);
-
--- Enable Row Level Security
-ALTER TABLE public.activities ENABLE ROW LEVEL SECURITY;
-
--- Policy 1: Students see only their own; faculty and admin see all
-CREATE POLICY "Students see own, faculty/admin see all"
-  ON public.activities FOR SELECT
-  TO authenticated
-  USING (
-    auth.uid() = student_id
-    OR EXISTS (
-      SELECT 1 FROM public.profiles
-      WHERE id = auth.uid() AND role IN ('faculty', 'admin')
-    )
-  );
-
--- Policy 2: Students can submit their own activities
-CREATE POLICY "Students can insert own activities"
-  ON public.activities FOR INSERT
-  TO authenticated
-  WITH CHECK (auth.uid() = student_id);
-
--- Policy 3: Faculty and admin can update any activity status
-CREATE POLICY "Faculty and admin can approve or reject"
-  ON public.activities FOR UPDATE
-  TO authenticated
-  USING (
-    EXISTS (
-      SELECT 1 FROM public.profiles
-      WHERE id = auth.uid() AND role IN ('faculty', 'admin')
-    )
-  );
-```
-
-### B.3 Supabase Auth Trigger (Auto-create Profile)
-
-```sql
--- Function to auto-create profile on new user signup
-CREATE OR REPLACE FUNCTION public.handle_new_user()
-RETURNS trigger AS $$
-BEGIN
-  INSERT INTO public.profiles (id, email, full_name, department, year, register_no, role)
-  VALUES (
-    new.id,
-    new.email,
-    COALESCE(new.raw_user_meta_data->>'full_name', 'New User'),
-    COALESCE(new.raw_user_meta_data->>'department', 'General'),
-    1,
-    COALESCE(new.raw_user_meta_data->>'register_no', new.id::text),
-    'student'
-  );
-  RETURN new;
-END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
-
--- Trigger fires on every new auth.users insert
-CREATE TRIGGER on_auth_user_created
-  AFTER INSERT ON auth.users
-  FOR EACH ROW EXECUTE PROCEDURE public.handle_new_user();
-```
+### B.3 Row Level Security (RLS) Policy Architecture
+To comply with FERPA and typical privacy regulations, access constraints are enforced directly on the data engine:
+1. **Profile Select Rules:** Any authenticated user can read profile names and register numbers to let reviewers lookup mentee assignments.
+2. **Profile Write Rules:** Users are allowed to execute `INSERT` or `UPDATE` queries only on the profile row where `id` equals the current user's authenticated UUID.
+3. **Activity Select Rules:** Students can retrieve only their personal rows (where `student_id` matches their auth ID). Faculty and administrators are granted access to all records to facilitate evaluation and compliance aggregation.
+4. **Activity Update Rules:** Standard users are blocked from executing update operations. Faculty and administrators can update specific rows to set status fields.
 
 ---
 
-# APPENDIX C — CORE CODE LISTINGS
+# APPENDIX C — CORE ALGORITHMS & PROCESS LOGIC
 
-### C.1 Supabase Client Initialization (`src/lib/supabase.ts`)
+### C.1 Gemini OCR parsing Workflow
+The client-side document processing engine operates as a multi-step sequence:
+1. **User Interaction:** The student drags a file (PDF or image) onto the drop zone.
+2. **File stream conversion:** The file is converted into an array buffer and encoded as a Base64 stream.
+3. **HTTP Payload assembly:** A POST request payload is constructed, carrying the Base64 data and a system prompt specifying the metadata structure.
+4. **Remote Parsing:** The request is sent to the Gemini 2.5 Flash API endpoint. The model extracts text data, evaluates layout cues, and formats it to the required JSON schema.
+5. **Form auto-fill:** The client parses the JSON response, auto-fills form fields, and exposes them to the student for confirmation.
+6. **Local Fallback:** If the API times out, the local parser matches filename patterns to fill in the form fields.
 
-```typescript
-import { createClient } from "@supabase/supabase-js";
+### C.2 Cosine Similarity Career Matching logic
+The career engine represents student achievements as multi-dimensional coordinate vectors:
+1. **Vector compilation:** The student's approved activities increment specific dimensions (`webDev`, `coding`, `research`, `leadership`) depending on the presence of keywords.
+2. **Similarity evaluation:** The dot product of the student's vector $\vec{S}$ and each industry role vector $\vec{R}$ is calculated.
+3. **Magnitude normalization:** The product of vector magnitudes $|\vec{S}| \times |\vec{R}|$ is evaluated.
+4. **Matching index:** The final match percentage is computed as:
+   $$\text{Similarity} = \frac{\vec{S} \cdot \vec{R}}{|\vec{S}| \times |\vec{R}|} \times 100$$
+5. **Output:** The role with the highest score is recommended as the student's primary career path.
 
-const supabaseUrl  = import.meta.env.VITE_SUPABASE_URL as string;
-const supabaseKey  = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
-
-export const supabase = createClient(supabaseUrl, supabaseKey);
-```
-
-### C.2 Profile Service (`src/services/profileService.ts`)
-
-```typescript
-import { supabase } from "../lib/supabase";
-
-export const getProfile = async () => {
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return { data: null, error: new Error("Not authenticated") };
-
-  const { data, error } = await supabase
-    .from("profiles")
-    .select("*")
-    .eq("id", user.id)
-    .single();
-
-  return { data, error };
-};
-
-export const saveProfile = async (
-  fullName: string,
-  department: string,
-  year: string,
-  registerNo: string,
-  role: string
-) => {
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return { error: new Error("Not authenticated") };
-
-  const { error } = await supabase
-    .from("profiles")
-    .upsert({
-      id: user.id,
-      full_name: fullName,
-      department,
-      year: parseInt(year),
-      register_no: registerNo,
-      role,
-      updated_at: new Date().toISOString(),
-    });
-
-  return { error };
-};
-```
-
-### C.3 Gemini OCR Parser — Complete Implementation (`src/pages/Activities.tsx` — excerpt)
-
-```typescript
-const handleFileChange = async (file: File) => {
-  setCertificate(file);
-  setAiExtracted(false);
-  setAiParsing(true);
-
-  // ── Rule-based fallback ─────────────────────────────────────────────────
-  const runFallback = () => {
-    const name = file.name.toLowerCase();
-    const cleanName = file.name
-      .substring(0, file.name.lastIndexOf("."))
-      .replace(/[_-]/g, " ")
-      .split(" ")
-      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-      .join(" ");
-
-    let category = "Workshop / Seminar";
-    let org = "Academic Institute";
-    let confidence = 75;
-    let credits = 2;
-
-    if (name.includes("nptel") || name.includes("coursera")) {
-      category = "MOOC / Online Course";
-      org = name.includes("nptel") ? "NPTEL / Swayam" : "Coursera";
-      confidence = 94; credits = 3;
-    } else if (name.includes("hackathon") || name.includes("code")) {
-      category = "Hackathon / Competition";
-      org = "Technical Association";
-      confidence = 88; credits = 4;
-    } else if (name.includes("intern")) {
-      category = "Internship"; org = "Industry Partner";
-      confidence = 90; credits = 5;
-    }
-
-    setTitle(cleanName); setCategory(category); setOrganization(org);
-    setDate(new Date().toISOString().split("T")[0]);
-    setAiConfidence(confidence); setAiSuggestedCredits(credits);
-    setAiExtracted(true); setAiParsing(false);
-  };
-
-  // ── Gemini API call ─────────────────────────────────────────────────────
-  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-  if (!apiKey) { setTimeout(runFallback, 1200); return; }
-
-  try {
-    const reader = new FileReader();
-    const base64: string = await new Promise((resolve, reject) => {
-      reader.readAsDataURL(file);
-      reader.onload  = () => resolve((reader.result as string).split(",")[1]);
-      reader.onerror = (e) => reject(e);
-    });
-
-    const endpoint =
-      `https://generativelanguage.googleapis.com/v1beta/models/` +
-      `gemini-2.5-flash:generateContent?key=${apiKey}`;
-
-    const res = await fetch(endpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [{
-          parts: [
-            {
-              text:
-                "Analyze this academic certificate and return a JSON object with " +
-                "keys: title, category (one of: 'Workshop / Seminar', " +
-                "'MOOC / Online Course', 'Internship', 'Hackathon / Competition', " +
-                "'Volunteering / Club Activity', 'Paper Publication', " +
-                "'Sports & Cultural'), organization, date (YYYY-MM-DD), " +
-                "suggestedCredits (integer 1–5 per NAAC relevance), " +
-                "confidence (integer 0–100), description."
-            },
-            { inlineData: { mimeType: file.type || "application/pdf", data: base64 } }
-          ]
-        }],
-        generationConfig: { responseMimeType: "application/json" }
-      })
-    });
-
-    if (!res.ok) throw new Error(`Gemini API returned HTTP ${res.status}`);
-    const json = await res.json();
-    const text = json.candidates?.[0]?.content?.parts?.[0]?.text;
-    if (!text) throw new Error("Empty Gemini response body");
-
-    const parsed = JSON.parse(text);
-    setTitle(parsed.title      || file.name);
-    setCategory(parsed.category   || "Workshop / Seminar");
-    setOrganization(parsed.organization || "Independent Organization");
-    setDate(parsed.date || new Date().toISOString().split("T")[0]);
-    setDescription(parsed.description || `Verified: ${parsed.title}`);
-    setAiConfidence(parsed.confidence     || 85);
-    setAiSuggestedCredits(parsed.suggestedCredits || 2);
-    setAiExtracted(true);
-  } catch (err) {
-    console.warn("Gemini OCR failed; activating fallback:", err);
-    runFallback();
-  } finally {
-    setAiParsing(false);
-  }
-};
-```
-
-### C.4 Cosine Similarity Career Engine (`src/pages/StudentDashboard.tsx` — excerpt)
-
-```typescript
-// Build student's 4-D skill vector from approved activities
-let web = 20, coding = 20, res = 20, lead = 20;
-
-approvedActs.forEach((act) => {
-  const text = `${act.title} ${act.category} ${act.description}`.toLowerCase();
-  if (text.includes("web") || text.includes("react") || text.includes("js"))   web    += 15;
-  if (text.includes("hackathon") || text.includes("code") || text.includes("dsa")) coding += 12;
-  if (text.includes("paper") || text.includes("research") || text.includes("conference")) res += 14;
-  if (text.includes("nss") || text.includes("volunteer") || text.includes("lead")) lead += 12;
-});
-
-const studentVec = [web, coding, res, lead];
-
-// Target role profile vectors [web, coding, research, leadership]
-const roles = [
-  { name: "Full Stack Engineer",  vec: [90, 80, 40, 50] },
-  { name: "Data Scientist",       vec: [40, 90, 80, 30] },
-  { name: "Product Manager",      vec: [50, 40, 50, 95] },
-  { name: "Research Engineer",    vec: [30, 70, 95, 40] },
-  { name: "Cloud Engineer",       vec: [70, 85, 35, 45] },
-];
-
-let bestRole = "Software Developer";
-let maxSim   = 0;
-
-roles.forEach((r) => {
-  // Dot product
-  const dot  = studentVec.reduce((sum, v, i) => sum + v * r.vec[i], 0);
-  // Magnitudes
-  const magS = Math.sqrt(studentVec.reduce((s, v) => s + v * v, 0));
-  const magR = Math.sqrt(r.vec.reduce((s, v) => s + v * v, 0));
-  // Cosine similarity
-  const sim  = dot / (magS * magR);
-  if (sim > maxSim) { maxSim = sim; bestRole = r.name; }
-});
-
-setCareerFit(bestRole);
-setCareerConfidence(Math.round(maxSim * 100));
-```
+### C.3 Student Digital Twin Pulse Logic
+The twin visual component uses CSS variables bound to React states to animate:
+1. The dominant category is calculated by evaluating the highest value in the student's skill vector.
+2. The stroke color of the SVG ring changes to match the dominant category color.
+3. The CSS pulse duration variable is adjusted dynamically:
+   - For high skill density, the cycle speeds up to 1.5s.
+   - For lower skill density, the cycle slows down to 3s.
+4. Scale transforms are applied dynamically to simulate a pulsing node representation of the student's achievements.
 
 ---
 
