@@ -746,8 +746,6 @@ erDiagram
 
 The database structures utilize primary and foreign key constraints to enforce referential integrity. Setting `ON DELETE CASCADE` on `student_id` ensures that if a student profile is deleted, all their associated activity records are automatically purged, preventing orphan rows.
 
----
-
 ## 4.8 Data Requirements and Specifications
 
 Establishing clear data specifications is essential for ensuring backend stability, database performance, and API consistency. This section details the inputs, storage formats, validation rules, and security classifications required by **Edutwin AI**.
@@ -778,8 +776,6 @@ Establishing clear data specifications is essential for ensuring backend stabili
 - **Bucket Name:** `certificates` (configured with public select policy but restricted insert policies).
 - **File Naming Convention:** `student_id/UUID_filename` to prevent collisions.
 - **Database Engine:** PostgreSQL 14 (Supabase cloud).
-
----
 
 ## 4.9 Database Schema Design
 
