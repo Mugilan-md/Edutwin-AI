@@ -143,7 +143,7 @@ function AdminDashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#eef4ff] to-[#f0f7ff] flex items-center justify-center">
+      <div className="min-h-screen bg-[#F8F2E7] flex items-center justify-center">
         <div className="flex flex-col items-center gap-3">
           <Loader2 className="w-8 h-8 text-blue-500 animate-spin" />
           <span className="text-sm font-semibold text-slate-500">Generating Accreditation Analytics...</span>
@@ -160,7 +160,7 @@ function AdminDashboard() {
   const naacColor = naacScore >= 3.75 ? "#10b981" : naacScore >= 3.25 ? "#3b82f6" : naacScore >= 3.0 ? "#f59e0b" : "#ef4444";
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#eef4ff] via-[#f0f7ff] to-[#e8f0fe] pb-16">
+    <div className="min-h-screen bg-[#F8F2E7] pb-16">
       <Navbar forcedRole="admin" />
       <div className="pt-24 px-4 max-w-6xl mx-auto space-y-6">
 

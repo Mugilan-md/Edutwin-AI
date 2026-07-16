@@ -94,7 +94,7 @@ function Register() {
   const inputCls = "w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400 text-slate-800 text-xs font-semibold placeholder-slate-300 transition-all";
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#eef4ff] via-[#f0f7ff] to-[#e8f0fe] flex items-center justify-center p-4 relative overflow-hidden py-12">
+    <div className="min-h-screen bg-[#F8F2E7] flex items-center justify-center p-4 relative overflow-hidden py-12">
       {/* Background Blobs */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute -top-32 -left-32 w-96 h-96 bg-blue-200/40 rounded-full blur-3xl" />

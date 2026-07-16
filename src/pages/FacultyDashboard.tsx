@@ -87,7 +87,7 @@ function FacultyDashboard() {
 
   if (loading && activities.length === 0) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#eef4ff] to-[#f0f7ff] flex items-center justify-center">
+      <div className="min-h-screen bg-[#F8F2E7] flex items-center justify-center">
         <div className="flex flex-col items-center gap-3">
           <Loader2 className="w-8 h-8 text-blue-500 animate-spin" />
           <span className="text-sm font-semibold text-slate-500">Loading Student Submissions...</span>
@@ -99,7 +99,7 @@ function FacultyDashboard() {
   const inputCls = "w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400 text-slate-800 text-xs transition-all placeholder-slate-300";
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#eef4ff] via-[#f0f7ff] to-[#e8f0fe] pb-16">
+    <div className="min-h-screen bg-[#F8F2E7] pb-16">
       <Navbar forcedRole="faculty" />
       <div className="pt-24 px-4 max-w-6xl mx-auto space-y-6">
 
