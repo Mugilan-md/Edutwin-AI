@@ -153,29 +153,30 @@ function Login() {
 
       {/* ── Premium Marketing Navbar ── */}
       <header className="w-full z-50 bg-[#E53935] shadow-lg shadow-red-900/20">
-        <div className="max-w-7xl mx-auto px-5 py-3.5 flex items-center justify-between">
-          {/* Brand */}
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-[#C62828] flex items-center justify-center shadow-md">
-              <Sparkles className="w-4 h-4 text-[#FFF8E7]" />
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-start">
+          {/* Brand Only — clean, centred on identity */}
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-[#C62828] flex items-center justify-center shadow-md">
+              <Sparkles className="w-4.5 h-4.5 text-[#FFF8E7]" />
             </div>
             <div>
-              <span className="font-black text-sm text-[#FFF8E7]" style={{textShadow: '0 0 10px rgba(255,248,231,0.6)', fontFamily:'"Cormorant Garamond", Georgia, serif', fontSize:'1.15rem', letterSpacing:'0.05em'}}>Edutwin AI</span>
-              <span className="block text-[9px] text-[#FFF8E7]/70 font-semibold uppercase tracking-widest -mt-0.5">Smart Education Platform</span>
+              <span
+                className="font-black text-[#FFF8E7] block"
+                style={{
+                  fontFamily: '"Cormorant Garamond", Georgia, serif',
+                  fontSize: '1.55rem',
+                  letterSpacing: '0.06em',
+                  textShadow: '0 0 14px rgba(255,248,231,0.7), 0 2px 4px rgba(0,0,0,0.15)',
+                  lineHeight: 1.1,
+                }}
+              >
+                Edutwin AI
+              </span>
+              <span className="text-[9px] text-[#FFF8E7]/65 font-semibold uppercase tracking-[0.18em]">
+                Smart Education Platform
+              </span>
             </div>
           </div>
-          {/* Nav Links */}
-          <nav className="hidden md:flex items-center gap-1 bg-[#C62828] rounded-xl px-2 py-1.5">
-            {['Home', 'About', 'Features', 'Contact'].map((item) => (
-              <a key={item} href="#" className="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-[#FFF8E7] hover:bg-[#E53935] hover:text-white transition-all duration-200 cursor-pointer" style={{textShadow: '0 0 8px rgba(255,248,231,0.5)'}}>
-                {item}
-              </a>
-            ))}
-          </nav>
-          {/* CTA */}
-          <Link to="/register" className="hidden md:block text-xs font-bold bg-[#FFF8E7] text-[#E53935] px-4 py-2 rounded-xl hover:bg-white transition-all duration-200 shadow-md hover:shadow-lg hover:-translate-y-0.5">
-            Get Started
-          </Link>
         </div>
       </header>
 
@@ -204,7 +205,7 @@ function Login() {
         </div>
 
         {/* Content Heading */}
-        <div className={`space-y-4 my-2 transition-all duration-700 ${showUI ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+        <div className={`space-y-3 my-3 transition-all duration-700 ${showUI ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <h1 className="text-3xl lg:text-4xl font-black leading-tight" style={{color:'#2C2C2C', fontFamily:'"Cormorant Garamond", Georgia, serif', fontWeight:700, letterSpacing:'0.01em'}}>
             Centralised Digital Platform<br />
             <span className="bg-gradient-to-r from-red-600 to-rose-500 bg-clip-text text-transparent">
@@ -215,6 +216,46 @@ function Login() {
           <p className="text-slate-500 text-xs lg:text-sm leading-relaxed max-w-md">
             Streamlining campus achievements. Automate credential auditing, extract metadata with Gemini AI OCR, and match skills to career placements in one workspace.
           </p>
+
+          {/* ── Stats Row ── */}
+          <div className="flex items-center gap-4 pt-1">
+            {[
+              { value: '5,000+', label: 'Students' },
+              { value: '98%',    label: 'AI Accuracy' },
+              { value: '50+',    label: 'Colleges' },
+            ].map((s) => (
+              <div key={s.label} className="text-center">
+                <div className="text-xl font-black" style={{color:'#E53935', fontFamily:'"Cormorant Garamond", Georgia, serif', letterSpacing:'0.02em'}}>{s.value}</div>
+                <div className="text-[9px] text-slate-400 font-bold uppercase tracking-widest">{s.label}</div>
+              </div>
+            ))}
+            <div className="w-px h-8 bg-slate-200 mx-1" />
+            <div className="flex flex-col gap-1">
+              {['Gemini AI Powered', 'NAAC Compliant', 'Supabase Secured'].map((f) => (
+                <div key={f} className="flex items-center gap-1.5 text-[10px] text-slate-500 font-semibold">
+                  <CheckCircle2 className="w-3 h-3 text-emerald-500 shrink-0" />{f}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* ── Feature Pills ── */}
+          <div className="flex flex-wrap gap-2 pt-1">
+            {[
+              { icon: GraduationCap, text: 'Academic Records' },
+              { icon: Award,         text: 'Co-Curricular Tracking' },
+              { icon: TrendingUp,    text: 'Placement Matching' },
+              { icon: Briefcase,     text: 'Internship Logging' },
+            ].map(({ icon: Icon, text }) => (
+              <span
+                key={text}
+                className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold"
+                style={{background:'rgba(229,57,53,0.08)', color:'#C62828', border:'1px solid rgba(229,57,53,0.18)'}}
+              >
+                <Icon className="w-3 h-3" />{text}
+              </span>
+            ))}
+          </div>
         </div>
 
         {/* Restored Network Block Diagram */}
