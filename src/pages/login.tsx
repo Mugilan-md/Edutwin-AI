@@ -217,27 +217,6 @@ function Login() {
             Streamlining campus achievements. Automate credential auditing, extract metadata with Gemini AI OCR, and match skills to career placements in one workspace.
           </p>
 
-          {/* ── Stats Row ── */}
-          <div className="flex items-center gap-4 pt-1">
-            {[
-              { value: '5,000+', label: 'Students' },
-              { value: '98%',    label: 'AI Accuracy' },
-              { value: '50+',    label: 'Colleges' },
-            ].map((s) => (
-              <div key={s.label} className="text-center">
-                <div className="text-xl font-black" style={{color:'#E53935', fontFamily:'"Cormorant Garamond", Georgia, serif', letterSpacing:'0.02em'}}>{s.value}</div>
-                <div className="text-[9px] text-slate-400 font-bold uppercase tracking-widest">{s.label}</div>
-              </div>
-            ))}
-            <div className="w-px h-8 bg-slate-200 mx-1" />
-            <div className="flex flex-col gap-1">
-              {['Gemini AI Powered', 'NAAC Compliant', 'Supabase Secured'].map((f) => (
-                <div key={f} className="flex items-center gap-1.5 text-[10px] text-slate-500 font-semibold">
-                  <CheckCircle2 className="w-3 h-3 text-emerald-500 shrink-0" />{f}
-                </div>
-              ))}
-            </div>
-          </div>
 
           {/* ── Feature Pills ── */}
           <div className="flex flex-wrap gap-2 pt-1">
