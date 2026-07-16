@@ -24,9 +24,9 @@ function BlockDiagram() {
     <div className="relative w-[340px] h-[340px] mx-auto flex items-center justify-center my-6 animate-float shrink-0">
       
       {/* Center Brain Hub */}
-      <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-blue-600 via-blue-500 to-sky-400 flex flex-col items-center justify-center p-1 border border-blue-300/40 shadow-[0_0_30px_rgba(37,99,235,0.25)] relative z-20 animate-pulse-ring">
+      <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-red-600 via-red-500 to-rose-400 flex flex-col items-center justify-center p-1 border border-red-300/40 shadow-[0_0_30px_rgba(229,57,53,0.35)] relative z-20 animate-pulse-ring">
         <Brain className="w-9 h-9 text-white animate-bounce-soft" />
-        <span className="text-[9px] font-black tracking-wider uppercase mt-1 text-blue-50">EDUTWIN AI</span>
+        <span className="text-[9px] font-black tracking-wider uppercase mt-1 text-red-50">EDUTWIN AI</span>
       </div>
 
       {/* Connecting paths */}
@@ -149,34 +149,65 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#eef4ff] via-[#f0f7ff] to-[#e8f0fe] flex flex-col md:flex-row overflow-hidden relative">
+    <div className="min-h-screen bg-[#F8F2E7] flex flex-col overflow-hidden relative">
+
+      {/* ── Premium Marketing Navbar ── */}
+      <header className="w-full z-50 bg-[#E53935] shadow-lg shadow-red-900/20">
+        <div className="max-w-7xl mx-auto px-5 py-3.5 flex items-center justify-between">
+          {/* Brand */}
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-xl bg-[#C62828] flex items-center justify-center shadow-md">
+              <Sparkles className="w-4 h-4 text-[#FFF8E7]" />
+            </div>
+            <div>
+              <span className="font-black text-sm text-[#FFF8E7]" style={{textShadow: '0 0 10px rgba(255,248,231,0.6)'}}>Edutwin AI</span>
+              <span className="block text-[9px] text-[#FFF8E7]/70 font-semibold uppercase tracking-widest -mt-0.5">Smart Education Platform</span>
+            </div>
+          </div>
+          {/* Nav Links */}
+          <nav className="hidden md:flex items-center gap-1 bg-[#C62828] rounded-xl px-2 py-1.5">
+            {['Home', 'About', 'Features', 'Contact'].map((item) => (
+              <a key={item} href="#" className="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-[#FFF8E7] hover:bg-[#E53935] hover:text-white transition-all duration-200 cursor-pointer" style={{textShadow: '0 0 8px rgba(255,248,231,0.5)'}}>
+                {item}
+              </a>
+            ))}
+          </nav>
+          {/* CTA */}
+          <Link to="/register" className="hidden md:block text-xs font-bold bg-[#FFF8E7] text-[#E53935] px-4 py-2 rounded-xl hover:bg-white transition-all duration-200 shadow-md hover:shadow-lg hover:-translate-y-0.5">
+            Get Started
+          </Link>
+        </div>
+      </header>
+
+      {/* ── Main Content: split panels ── */}
+      <div className="flex flex-col md:flex-row flex-1 relative">
 
       {/* ── Background decorative blobs ── */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-32 -left-32 w-96 h-96 bg-blue-200/40 rounded-full blur-3xl" />
-        <div className="absolute top-1/3 -right-24 w-80 h-80 bg-sky-200/35 rounded-full blur-3xl" />
-        <div className="absolute -bottom-20 left-1/3 w-72 h-72 bg-indigo-200/30 rounded-full blur-3xl" />
+        <div className="absolute -top-32 -left-32 w-96 h-96 bg-red-200/30 rounded-full blur-3xl" />
+        <div className="absolute top-1/3 -right-24 w-80 h-80 bg-rose-200/25 rounded-full blur-3xl" />
+        <div className="absolute -bottom-20 left-1/3 w-72 h-72 bg-orange-100/30 rounded-full blur-3xl" />
       </div>
 
       {/* ─── LEFT: Brand Panel & Motion Block Diagram ────────── */}
-      <div className="hidden md:flex flex-col justify-between w-full md:w-[52%] p-10 lg:p-12 relative z-10 border-r border-blue-100/60 bg-white/30 backdrop-blur-sm">
+      <div className="hidden md:flex flex-col justify-between w-full md:w-[52%] p-10 lg:p-12 relative z-10 border-r border-red-100/40 bg-white/40 backdrop-blur-sm">
 
         {/* Logo */}
         <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 via-blue-500 to-sky-400 flex items-center justify-center shadow-md shadow-blue-500/25">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-red-600 via-red-500 to-rose-400 flex items-center justify-center shadow-md shadow-red-500/25">
             <Sparkles className="w-4.5 h-4.5 text-white" />
           </div>
           <div>
-            <span className="font-black text-base text-slate-800">Edutwin AI</span>
-            <span className="block text-[9px] text-blue-500 font-bold uppercase tracking-widest -mt-0.5">Smart Education Platform</span>
+            <span className="font-black text-base" style={{color:'#E53935', textShadow:'0 0 8px rgba(229,57,53,0.15)'}}>Edutwin AI</span>
+            <span className="block text-[9px] font-bold uppercase tracking-widest -mt-0.5" style={{color:'#C62828'}}>Smart Education Platform</span>
           </div>
         </div>
 
         {/* Content Heading */}
         <div className={`space-y-4 my-2 transition-all duration-700 ${showUI ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-          <h1 className="text-3xl lg:text-4xl font-black text-slate-900 leading-tight">
+          <h1 className="text-3xl lg:text-4xl font-black leading-tight" style={{color:'#2C2C2C'}}>
             Centralised Digital Platform<br />
-            <span className="bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-red-600 to-rose-500 bg-clip-text text-transparent">
               for Student Activity Records
             </span>
           </h1>
@@ -204,20 +235,21 @@ function Login() {
 
         {/* Mobile Logo */}
         <div className="flex items-center gap-2 mb-6 md:hidden">
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-sky-400 flex items-center justify-center shadow-md shadow-blue-500/20">
+          <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-red-600 to-rose-400 flex items-center justify-center shadow-md shadow-red-500/20">
             <Sparkles className="w-4 h-4 text-white" />
           </div>
-          <span className="font-black text-base text-slate-800">Edutwin AI</span>
+          <span className="font-black text-base" style={{color:'#E53935'}}>Edutwin AI</span>
         </div>
 
         <div
-          className={`w-full max-w-sm bg-white/95 backdrop-blur-2xl border border-blue-100 rounded-3xl shadow-xl shadow-blue-900/5 py-6 px-6 md:px-8 transition-all duration-700 ${
+          className={`w-full max-w-sm bg-white rounded-3xl border border-red-100 shadow-xl shadow-red-900/8 py-6 px-6 md:px-8 transition-all duration-700 ${
             showUI ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
           }`}
+          style={{boxShadow: '0 20px 60px rgba(229,57,53,0.06), 0 4px 16px rgba(229,57,53,0.04)'}}
         >
           {/* Card Header */}
           <div className="mb-4">
-            <h2 className="text-xl font-black text-slate-900">Sign in</h2>
+            <h2 className="text-xl font-black" style={{color:'#E53935', textShadow:'0 0 6px rgba(229,57,53,0.12)'}}>Sign in</h2>
             <p className="text-[11px] text-slate-400">Access your institutional student activity portal</p>
           </div>
 
@@ -232,7 +264,7 @@ function Login() {
             {/* Email */}
             <div className="space-y-1">
               <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-1">
-                <Mail className="w-3 h-3 text-blue-500" />
+                <Mail className="w-3 h-3" style={{color:'#E53935'}} />
                 Email Address
               </label>
               <input
@@ -250,7 +282,7 @@ function Login() {
             {/* Password */}
             <div className="space-y-1">
               <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-1">
-                <Lock className="w-3 h-3 text-blue-500" />
+                <Lock className="w-3 h-3" style={{color:'#E53935'}} />
                 Password
               </label>
               <div className="relative">
@@ -277,7 +309,7 @@ function Login() {
             {/* Role Hint */}
             <div className="grid grid-cols-3 gap-1.5 pt-0.5">
               {[
-                { role: "Student", color: "bg-blue-50 border-blue-200 text-blue-700" },
+                { role: "Student", color: "bg-red-50 border-red-200 text-red-700" },
                 { role: "Faculty", color: "bg-emerald-50 border-emerald-200 text-emerald-700" },
                 { role: "Admin",   color: "bg-amber-50  border-amber-200  text-amber-700" },
               ].map((r) => (
@@ -330,7 +362,7 @@ function Login() {
           <div className="mt-4 pt-4 border-t border-slate-100 text-center">
             <p className="text-[11px] text-slate-500">
               New to Edutwin?{" "}
-              <Link to="/register" className="text-blue-600 font-bold hover:text-blue-700 transition-colors">
+              <Link to="/register" className="font-bold transition-colors hover:underline" style={{color:'#E53935'}}>
                 Create account
               </Link>
             </p>
@@ -348,6 +380,7 @@ function Login() {
           <span>·</span>
           <span>Accreditation Ready</span>
         </div>
+      </div>
       </div>
     </div>
   );

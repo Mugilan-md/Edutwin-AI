@@ -6,40 +6,40 @@
   --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
   /* Redefining existing colors to map to the new brand palette */
-  --color-blue-50: #F8F4EC;   /* Secondary: Cream Beige */
-  --color-blue-100: #F8F4EC;
-  --color-blue-200: #E3DDD3;
-  --color-blue-500: #1F3A5F;  /* Primary: Ink Blue */
-  --color-blue-600: #1F3A5F;  /* Primary: Ink Blue */
-  --color-blue-700: #152740;  
-  --color-blue-800: #152740;
-  --color-blue-900: #0C1726;
+  --color-blue-50: #FFF8E7;   /* Secondary: Ivory / Cream */
+  --color-blue-100: #FFF8E7;
+  --color-blue-200: #F1EAD9;
+  --color-blue-500: #E53935;  /* Primary: Bright Red */
+  --color-blue-600: #E53935;  /* Primary: Bright Red */
+  --color-blue-700: #C62828;  /* Darker Red */
+  --color-blue-800: #C62828;
+  --color-blue-900: #9B1C1C;
 
-  --color-sky-50: #F8F4EC;
-  --color-sky-100: #F8F4EC;
-  --color-sky-400: #8B1E3F;   /* Accent: Burgundy Red */
-  --color-sky-500: #8B1E3F;   /* Accent: Burgundy Red */
-  --color-sky-600: #6D1832;   /* Hover: Dark Burgundy */
-  --color-sky-700: #6D1832;
+  --color-sky-50: #FFF8E7;
+  --color-sky-100: #FFF8E7;
+  --color-sky-400: #FFF8E7;   /* Ivory Accent */
+  --color-sky-500: #E53935;   /* Bright Red */
+  --color-sky-600: #C62828;   /* Darker Red */
+  --color-sky-700: #C62828;
 
-  --color-indigo-50: #F8F4EC;
-  --color-indigo-100: #F8F4EC;
-  --color-indigo-500: #1F3A5F;
-  --color-indigo-600: #1F3A5F;
-  --color-indigo-700: #152740;
+  --color-indigo-50: #FFF8E7;
+  --color-indigo-100: #FFF8E7;
+  --color-indigo-500: #E53935;
+  --color-indigo-600: #E53935;
+  --color-indigo-700: #C62828;
 
-  --color-violet-500: #1F3A5F;
-  --color-violet-600: #1F3A5F;
+  --color-violet-500: #E53935;
+  --color-violet-600: #E53935;
 
-  --color-slate-50: #F8F4EC;
-  --color-slate-100: #E3DDD3;
+  --color-slate-50: #F8F2E7;  /* Main Background: Bright Golden Cream Beige */
+  --color-slate-100: #F8F2E7;
   --color-slate-800: #2C2C2C; /* Text: Charcoal */
   --color-slate-900: #2C2C2C;
 }
 
 /* =====================================================
    EDUTWIN AI — PREMIUM SAAS EDUCATION DESIGN SYSTEM
-   Palette: Ink Blue (#1F3A5F) · Cream Beige (#F8F4EC) · Burgundy Red (#8B1E3F) · Charcoal (#2C2C2C)
+   Palette: Bright Red (#E53935) · Ivory (#FFF8E7) · Bright Golden Cream Beige (#F8F2E7) · Charcoal (#2C2C2C)
    ===================================================== */
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -52,80 +52,80 @@ html {
 
 body {
   font-family: "Plus Jakarta Sans", sans-serif;
-  background-color: #F8F4EC; /* Secondary: Cream Beige */
+  background-color: #F8F2E7; /* Bright Golden Cream Beige */
   color: #2C2C2C; /* Charcoal */
   min-height: 100vh;
   line-height: 1.6;
-  text-shadow: 0 0 1px rgba(31, 58, 95, 0.05);
+  text-shadow: 0 0 1px rgba(229, 57, 53, 0.05);
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: #1F3A5F; /* Headings in Ink Blue */
-  text-shadow: 0 0 8px rgba(31, 58, 95, 0.12);
+  color: #E53935; /* Headings in Bright Red */
+  text-shadow: 0 0 8px rgba(229, 57, 53, 0.12);
 }
 
 /* Custom Background Gradient overrides for JSX files */
 div[class*="from-[#eef4ff]"],
 div[class*="from-[#eef4ff] to-[#f0f7ff]"],
 div[class*="from-[#eef4ff] via-[#f0f7ff] to-[#e8f0fe]"] {
-  background: linear-gradient(135deg, #F8F4EC 0%, #E3DDD3 100%) !important;
+  background: linear-gradient(135deg, #FFF8E7 0%, #F8F2E7 100%) !important;
 }
 
 /* Scrollbar */
 ::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: #F8F4EC; border-radius: 100px; }
-::-webkit-scrollbar-thumb { background: #E3DDD3; border-radius: 100px; }
-::-webkit-scrollbar-thumb:hover { background: #1F3A5F; }
+::-webkit-scrollbar-track { background: #FFF8E7; border-radius: 100px; }
+::-webkit-scrollbar-thumb { background: #F1EAD9; border-radius: 100px; }
+::-webkit-scrollbar-thumb:hover { background: #E53935; }
 
 /* ── Navbar Custom Styling Override ── */
 nav {
-  background: rgba(139, 30, 63, 0.95) !important; /* Burgundy Red */
-  border-color: rgba(139, 30, 63, 0.4) !important;
-  box-shadow: 0 4px 30px rgba(139, 30, 63, 0.15), 0 0 15px rgba(139, 30, 63, 0.1) !important;
+  background: #E53935 !important; /* Scarlet Red background */
+  border-color: rgba(229, 57, 53, 0.4) !important;
+  box-shadow: 0 4px 30px rgba(229, 57, 53, 0.15), 0 0 15px rgba(229, 57, 53, 0.1) !important;
 }
 /* Brand text in nav with glowing effect */
 nav a span, nav span {
-  color: #FFFFFF !important;
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.4) !important;
+  color: #FFF8E7 !important; /* Ivory text */
+  text-shadow: 0 0 10px rgba(255, 248, 231, 0.8), 0 0 20px rgba(255, 248, 231, 0.4) !important;
 }
 /* Subtitle under logo */
 nav a span.block {
-  color: #F8F4EC !important;
+  color: #FFF8E7 !important;
   opacity: 0.8;
   text-shadow: none !important;
 }
 /* Active pill background and links in desktop nav */
-nav div.hidden.md\:flex {
-  background: rgba(109, 24, 50, 0.5) !important; /* Dark Burgundy pill container bg */
-  border-color: rgba(139, 30, 63, 0.3) !important;
+nav div.hidden.md:flex {
+  background: #C62828 !important; /* Darker Red pill container bg */
+  border-color: rgba(229, 57, 53, 0.3) !important;
 }
-nav div.hidden.md\:flex a {
-  color: #F8F4EC !important;
+nav div.hidden.md:flex a {
+  color: #FFF8E7 !important;
 }
-nav div.hidden.md\:flex a:hover {
-  background: rgba(139, 30, 63, 0.8) !important;
+nav div.hidden.md:flex a:hover {
+  background: #D32F2F !important;
   color: #FFFFFF !important;
   text-shadow: 0 0 6px rgba(255, 255, 255, 0.6) !important;
 }
-nav div.hidden.md\:flex a[class*="bg-gradient-to-r"] {
-  background: #F8F4EC !important; /* Cream Beige active pill */
-  color: #8B1E3F !important;      /* Burgundy Red text */
-  box-shadow: 0 0 12px rgba(248, 244, 236, 0.4) !important;
+nav div.hidden.md:flex a[class*="bg-gradient-to-r"] {
+  background: #FFF8E7 !important; /* Ivory active pill */
+  color: #E53935 !important;      /* Bright Red text */
+  box-shadow: 0 0 12px rgba(255, 248, 231, 0.4) !important;
   text-shadow: none !important;
 }
 /* Mobile menu toggler and background dropdowns */
 nav button[class*="md:hidden"] {
-  background: rgba(139, 30, 63, 0.4) !important;
+  background: rgba(229, 57, 53, 0.4) !important;
   border-color: rgba(255, 255, 255, 0.2) !important;
   color: #FFFFFF !important;
 }
-div[class*="absolute top-\[70px\]"] {
-  background: #F8F4EC !important;
-  border-color: rgba(139, 30, 63, 0.2) !important;
+div[class*="absolute top-[70px]"] {
+  background: #FFF8E7 !important;
+  border-color: rgba(229, 57, 53, 0.2) !important;
 }
 nav span[class*="rounded-full"] {
-  background: rgba(109, 24, 50, 0.6) !important; /* Dark Burgundy badge */
-  color: #F8F4EC !important;
+  background: #C62828 !important; /* Darker Red badge */
+  color: #FFF8E7 !important;
   border: 1px solid rgba(255, 255, 255, 0.2) !important;
   text-shadow: none !important;
 }
@@ -166,33 +166,33 @@ nav a:hover { transform: translateY(-1px); }
 /* ── Glass Cards ── */
 .glass-card {
   background: #FFFFFF;
-  border: 1px solid rgba(31, 58, 95, 0.15);
-  box-shadow: 0 4px 20px rgba(31, 58, 95, 0.04), 0 1px 3px rgba(31, 58, 95, 0.02);
+  border: 1px solid rgba(229, 57, 53, 0.15);
+  box-shadow: 0 4px 20px rgba(229, 57, 53, 0.04), 0 1px 3px rgba(229, 57, 53, 0.02);
   transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.25s ease, border-color 0.25s ease;
   will-change: transform, box-shadow, border-color;
 }
 .glass-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 20px 40px rgba(31, 58, 95, 0.08), 0 0 15px rgba(31, 58, 95, 0.1);
-  border-color: rgba(31, 58, 95, 0.4);
+  box-shadow: 0 20px 40px rgba(229, 57, 53, 0.08), 0 0 15px rgba(229, 57, 53, 0.1);
+  border-color: rgba(229, 57, 53, 0.4);
 }
 
 .glass-card-strong {
   background: #FFFFFF;
-  border: 1px solid rgba(31, 58, 95, 0.2);
-  box-shadow: 0 8px 30px rgba(31, 58, 95, 0.06), 0 2px 8px rgba(31, 58, 95, 0.03);
+  border: 1px solid rgba(229, 57, 53, 0.2);
+  box-shadow: 0 8px 30px rgba(229, 57, 53, 0.06), 0 2px 8px rgba(229, 57, 53, 0.03);
   transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.25s ease, border-color 0.25s ease;
   will-change: transform, box-shadow, border-color;
 }
 .glass-card-strong:hover {
   transform: translateY(-4px);
-  box-shadow: 0 24px 48px rgba(31, 58, 95, 0.1), 0 0 20px rgba(31, 58, 95, 0.12);
-  border-color: rgba(31, 58, 95, 0.45);
+  box-shadow: 0 24px 48px rgba(229, 57, 53, 0.1), 0 0 20px rgba(229, 57, 53, 0.12);
+  border-color: rgba(229, 57, 53, 0.45);
 }
 
 /* ── Gradient Text ── */
 .gradient-text {
-  background: linear-gradient(135deg, #1F3A5F, #8B1E3F);
+  background: linear-gradient(135deg, #E53935, #C62828);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -200,7 +200,7 @@ nav a:hover { transform: translateY(-1px); }
 
 /* ── Premium Buttons ── */
 .btn-primary {
-  background: linear-gradient(135deg, #8B1E3F, #6D1832);
+  background: linear-gradient(135deg, #E53935, #C62828);
   color: white;
   font-weight: 700;
   border-radius: 12px;
@@ -208,7 +208,7 @@ nav a:hover { transform: translateY(-1px); }
   border: none;
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
-  box-shadow: 0 4px 16px rgba(139, 30, 63, 0.25);
+  box-shadow: 0 4px 16px rgba(229, 57, 53, 0.25);
   position: relative;
   overflow: hidden;
 }
@@ -223,7 +223,7 @@ nav a:hover { transform: translateY(-1px); }
 .btn-primary:hover::before { opacity: 1; }
 .btn-primary:hover {
   transform: scale(1.02) translateY(-1px);
-  box-shadow: 0 8px 24px rgba(139, 30, 63, 0.35);
+  box-shadow: 0 8px 24px rgba(229, 57, 53, 0.35);
 }
 .btn-primary:active {
   transform: scale(0.98) translateY(0);
@@ -231,33 +231,33 @@ nav a:hover { transform: translateY(-1px); }
 
 /* ── Shimmer Loading ── */
 .shimmer {
-  background: linear-gradient(90deg, #F8F4EC 0%, #E3DDD3 50%, #F8F4EC 100%);
+  background: linear-gradient(90deg, #FFF8E7 0%, #F8F2E7 50%, #FFF8E7 100%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 }
 
 /* ── Stats Cards hover lift ── */
 .stat-card {
-  border: 1px solid rgba(31, 58, 95, 0.15);
+  border: 1px solid rgba(229, 57, 53, 0.15);
   transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
 }
 .stat-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 20px 40px rgba(31, 58, 95, 0.08), 0 0 15px rgba(31, 58, 95, 0.1);
-  border-color: rgba(31, 58, 95, 0.4);
+  box-shadow: 0 20px 40px rgba(229, 57, 53, 0.08), 0 0 15px rgba(229, 57, 53, 0.1);
+  border-color: rgba(229, 57, 53, 0.4);
 }
 
 /* ── Skill Progress Bar ── */
 .skill-bar {
   height: 6px;
   border-radius: 100px;
-  background: #E3DDD3;
+  background: #F1EAD9;
   overflow: hidden;
 }
 .skill-bar-fill {
   height: 100%;
   border-radius: 100px;
-  background: linear-gradient(90deg, #1F3A5F, #8B1E3F);
+  background: linear-gradient(90deg, #E53935, #D32F2F);
   transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -266,7 +266,7 @@ nav a:hover { transform: translateY(-1px); }
   width: 100%;
   padding: 10px 14px;
   background: #FFFFFF;
-  border: 1.5px solid rgba(31, 58, 95, 0.25);
+  border: 1.5px solid rgba(229, 57, 53, 0.25);
   border-radius: 10px;
   color: #2C2C2C;
   font-size: 14px;
@@ -274,16 +274,16 @@ nav a:hover { transform: translateY(-1px); }
   outline: none;
 }
 .saas-input:focus {
-  border-color: #1F3A5F;
-  box-shadow: 0 0 0 3px rgba(31, 58, 95, 0.12);
+  border-color: #E53935;
+  box-shadow: 0 0 0 3px rgba(229, 57, 53, 0.12);
   background: white;
 }
 .saas-input::placeholder { color: #94a3b8; }
 
 /* ── Badge ── */
-.badge-blue { background:#FAF7F2; color:#1F3A5F; border:1px solid rgba(31, 58, 95, 0.3); }
+.badge-blue { background:#FFF8E7; color:#E53935; border:1px solid rgba(229, 57, 53, 0.3); }
 .badge-green { background:#fdfdfd; color:#16a34a; border:1px solid #bbf7d0; }
-.badge-amber { background:#fffbeb; color:#8B1E3F; border:1px solid #fde68a; }
+.badge-amber { background:#fffbeb; color:#E53935; border:1px solid #fde68a; }
 .badge-red { background:#fef2f2; color:#dc2626; border:1px solid #fecaca; }
 
 /* Print support */

@@ -23,8 +23,8 @@ if (typeof window !== 'undefined') {
     const rotateX = -((y - yc) / yc) * 3;
 
     card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
-    card.style.boxShadow = `0 20px 40px rgba(31, 58, 95, 0.08), 0 0 15px rgba(31, 58, 95, 0.12)`;
-    card.style.borderColor = `rgba(31, 58, 95, 0.35)`;
+    card.style.boxShadow = `0 20px 40px rgba(229, 57, 53, 0.08), 0 0 15px rgba(229, 57, 53, 0.12)`;
+    card.style.borderColor = `rgba(229, 57, 53, 0.35)`;
   });
 
   document.addEventListener('mouseout', (e) => {
