@@ -160,7 +160,7 @@ function Login() {
               <Sparkles className="w-4 h-4 text-[#FFF8E7]" />
             </div>
             <div>
-              <span className="font-black text-sm text-[#FFF8E7]" style={{textShadow: '0 0 10px rgba(255,248,231,0.6)'}}>Edutwin AI</span>
+              <span className="font-black text-sm text-[#FFF8E7]" style={{textShadow: '0 0 10px rgba(255,248,231,0.6)', fontFamily:'"Cormorant Garamond", Georgia, serif', fontSize:'1.15rem', letterSpacing:'0.05em'}}>Edutwin AI</span>
               <span className="block text-[9px] text-[#FFF8E7]/70 font-semibold uppercase tracking-widest -mt-0.5">Smart Education Platform</span>
             </div>
           </div>
@@ -205,7 +205,7 @@ function Login() {
 
         {/* Content Heading */}
         <div className={`space-y-4 my-2 transition-all duration-700 ${showUI ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-          <h1 className="text-3xl lg:text-4xl font-black leading-tight" style={{color:'#2C2C2C'}}>
+          <h1 className="text-3xl lg:text-4xl font-black leading-tight" style={{color:'#2C2C2C', fontFamily:'"Cormorant Garamond", Georgia, serif', fontWeight:700, letterSpacing:'0.01em'}}>
             Centralised Digital Platform<br />
             <span className="bg-gradient-to-r from-red-600 to-rose-500 bg-clip-text text-transparent">
               for Student Activity Records
@@ -249,7 +249,7 @@ function Login() {
         >
           {/* Card Header */}
           <div className="mb-4">
-            <h2 className="text-xl font-black" style={{color:'#E53935', textShadow:'0 0 6px rgba(229,57,53,0.12)'}}>Sign in</h2>
+            <h2 className="text-xl font-black" style={{color:'#E53935', textShadow:'0 0 6px rgba(229,57,53,0.12)', fontFamily:'"Cormorant Garamond", Georgia, serif', fontSize:'1.6rem', fontWeight:700, letterSpacing:'0.03em'}}>Sign in</h2>
             <p className="text-[11px] text-slate-400">Access your institutional student activity portal</p>
           </div>
 

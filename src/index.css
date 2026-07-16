@@ -1,9 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap");
+/* ── Royal Premium Font Stack ── */
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap");
 
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-sans: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
 
   /* Redefining existing colors to map to the new brand palette */
   --color-blue-50: #FFF8E7;   /* Secondary: Ivory / Cream */
@@ -51,17 +53,52 @@ html {
 }
 
 body {
-  font-family: "Plus Jakarta Sans", sans-serif;
+  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
   background-color: #F8F2E7; /* Bright Golden Cream Beige */
   color: #2C2C2C; /* Charcoal */
   min-height: 100vh;
-  line-height: 1.6;
-  text-shadow: 0 0 1px rgba(229, 57, 53, 0.05);
+  line-height: 1.65;
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
+/* ── Royal Display Headings ── */
 h1, h2, h3, h4, h5, h6 {
-  color: #E53935; /* Headings in Bright Red */
-  text-shadow: 0 0 8px rgba(229, 57, 53, 0.12);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  color: #E53935;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  text-shadow: 0 0 8px rgba(229, 57, 53, 0.1);
+}
+h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; letter-spacing: 0.01em; }
+h2 { font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 600; }
+h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); font-weight: 600; }
+
+/* ── Premium Brand Serif Overrides ── */
+/* Navbar brand name gets the serif display font */
+nav a span.font-black,
+nav span.font-black {
+  font-family: "Cormorant Garamond", Georgia, serif !important;
+  font-size: 1.1rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.05em !important;
+}
+
+/* All bold labels and upper-case tracking text get DM Sans */
+.text-xs, .text-\[10px\], .text-\[9px\], .text-\[11px\] {
+  font-family: "DM Sans", sans-serif;
+}
+
+/* Card headings get serif treatment */
+.glass-card h2, .glass-card h3,
+.glass-card-strong h2, .glass-card-strong h3 {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 600;
+  letter-spacing: 0.03em;
 }
 
 /* Custom Background Gradient overrides for JSX files */

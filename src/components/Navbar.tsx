@@ -102,7 +102,7 @@ export default function Navbar({ forcedRole }: NavbarProps) {
               <Sparkles className="w-4 h-4 text-white" />
             </div>
             <div>
-              <span className="font-black text-sm text-slate-800">Edutwin AI</span>
+              <span className="font-black text-sm text-slate-800" style={{fontFamily:'"Cormorant Garamond", Georgia, serif', fontSize:'1.15rem', letterSpacing:'0.04em'}}>Edutwin AI</span>
               <span className="block text-[9px] text-blue-400 font-bold uppercase tracking-widest -mt-0.5 hidden xs:block">
                 Smart Education
               </span>
