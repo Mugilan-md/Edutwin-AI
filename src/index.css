@@ -1,10 +1,43 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap");
 
 @import "tailwindcss";
 
+@theme {
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Redefining existing colors to map to the new brand palette */
+  --color-blue-50: #FAF7F2;   /* Cream Beige */
+  --color-blue-100: #FAF7F2;
+  --color-blue-200: #F3EFE9;
+  --color-blue-500: #0F766E;  /* Teal Blue */
+  --color-blue-600: #0F766E;  /* Teal Blue */
+  --color-blue-700: #115E59;  /* Deep Teal */
+  --color-blue-800: #115E59;
+  --color-blue-900: #0E4B47;
+
+  --color-sky-50: #FAF7F2;
+  --color-sky-100: #FAF7F2;
+  --color-sky-400: #D4A017;   /* Gold Accent */
+  --color-sky-500: #D4A017;   /* Gold Accent */
+  --color-sky-600: #0F766E;
+  --color-sky-700: #115E59;
+
+  --color-indigo-50: #FAF7F2;
+  --color-indigo-100: #FAF7F2;
+  --color-indigo-500: #0F766E;
+  --color-indigo-600: #0F766E;
+  --color-indigo-700: #115E59;
+
+  --color-violet-500: #0F766E;
+  --color-violet-600: #0F766E;
+
+  --color-slate-50: #FAF7F2;
+  --color-slate-100: #F5F1EB;  /* Warm Beige */
+}
+
 /* =====================================================
    EDUTWIN AI — PREMIUM SAAS EDUCATION DESIGN SYSTEM
-   Palette: Electric Blue · Sky · Slate White
+   Palette: Teal Blue (#0F766E) · Deep Teal (#115E59) · Cream Beige (#FAF7F2) · Warm Beige (#F5F1EB) · Gold (#D4A017)
    ===================================================== */
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -16,18 +49,30 @@ html {
 }
 
 body {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background-color: #f0f4ff;
-  color: #0f172a;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  background-color: #F5F1EB; /* Warm Beige */
+  color: #0F172A;
   min-height: 100vh;
   line-height: 1.6;
+  text-shadow: 0 0 1px rgba(15, 118, 110, 0.05);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-shadow: 0 0 8px rgba(15, 118, 110, 0.12);
+}
+
+/* Custom Background Gradient overrides for JSX files */
+div[class*="from-[#eef4ff]"],
+div[class*="from-[#eef4ff] to-[#f0f7ff]"],
+div[class*="from-[#eef4ff] via-[#f0f7ff] to-[#e8f0fe]"] {
+  background: linear-gradient(135deg, #FAF7F2 0%, #F5F1EB 100%) !important;
 }
 
 /* Scrollbar */
 ::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: #e8eef8; border-radius: 100px; }
-::-webkit-scrollbar-thumb { background: #a5b4d4; border-radius: 100px; }
-::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
+::-webkit-scrollbar-track { background: #FAF7F2; border-radius: 100px; }
+::-webkit-scrollbar-thumb { background: #D8D4CC; border-radius: 100px; }
+::-webkit-scrollbar-thumb:hover { background: #0F766E; }
 
 /* Nav */
 nav { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
@@ -92,24 +137,34 @@ nav a:hover { transform: translateY(-1px); }
 
 /* ── Glass Cards ── */
 .glass-card {
-  background: rgba(255,255,255,0.75);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(147,197,253,0.3);
-  box-shadow: 0 1px 3px rgba(59,130,246,0.06), 0 8px 32px rgba(59,130,246,0.08);
+  background: #FFFFFF;
+  border: 1px solid rgba(15, 118, 110, 0.15);
+  box-shadow: 0 4px 20px rgba(15, 118, 110, 0.04), 0 1px 3px rgba(15, 118, 110, 0.02);
+  transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+  will-change: transform, box-shadow, border-color;
+}
+.glass-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(15, 118, 110, 0.08), 0 0 15px rgba(15, 118, 110, 0.1);
+  border-color: rgba(15, 118, 110, 0.4);
 }
 
 .glass-card-strong {
-  background: rgba(255,255,255,0.92);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(147,197,253,0.4);
-  box-shadow: 0 2px 8px rgba(59,130,246,0.08), 0 16px 48px rgba(59,130,246,0.10);
+  background: #FFFFFF;
+  border: 1px solid rgba(15, 118, 110, 0.2);
+  box-shadow: 0 8px 30px rgba(15, 118, 110, 0.06), 0 2px 8px rgba(15, 118, 110, 0.03);
+  transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+  will-change: transform, box-shadow, border-color;
+}
+.glass-card-strong:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 48px rgba(15, 118, 110, 0.1), 0 0 20px rgba(15, 118, 110, 0.12);
+  border-color: rgba(15, 118, 110, 0.45);
 }
 
 /* ── Gradient Text ── */
 .gradient-text {
-  background: linear-gradient(135deg, #1d4ed8, #0ea5e9);
+  background: linear-gradient(135deg, #0F766E, #115E59, #D4A017);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -117,15 +172,15 @@ nav a:hover { transform: translateY(-1px); }
 
 /* ── Premium Buttons ── */
 .btn-primary {
-  background: linear-gradient(135deg, #1d4ed8, #2563eb, #0ea5e9);
+  background: linear-gradient(135deg, #0F766E, #115E59);
   color: white;
   font-weight: 700;
   border-radius: 12px;
   padding: 12px 24px;
   border: none;
   cursor: pointer;
-  transition: all 0.25s ease;
-  box-shadow: 0 4px 16px rgba(37,99,235,0.35);
+  transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+  box-shadow: 0 4px 16px rgba(15, 118, 110, 0.25);
   position: relative;
   overflow: hidden;
 }
@@ -139,69 +194,68 @@ nav a:hover { transform: translateY(-1px); }
 }
 .btn-primary:hover::before { opacity: 1; }
 .btn-primary:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 8px 24px rgba(37,99,235,0.45);
+  transform: scale(1.02) translateY(-1px);
+  box-shadow: 0 8px 24px rgba(15, 118, 110, 0.35);
 }
-.btn-primary:active { transform: translateY(0); }
+.btn-primary:active {
+  transform: scale(0.98) translateY(0);
+}
 
 /* ── Shimmer Loading ── */
 .shimmer {
-  background: linear-gradient(90deg, #e8eef8 0%, #f0f4ff 50%, #e8eef8 100%);
+  background: linear-gradient(90deg, #FAF7F2 0%, #F5F1EB 50%, #FAF7F2 100%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 }
 
 /* ── Stats Cards hover lift ── */
 .stat-card {
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(15, 118, 110, 0.15);
+  transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
 }
 .stat-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 40px rgba(37,99,235,0.12);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(15, 118, 110, 0.08), 0 0 15px rgba(15, 118, 110, 0.1);
+  border-color: rgba(15, 118, 110, 0.4);
 }
 
 /* ── Skill Progress Bar ── */
 .skill-bar {
   height: 6px;
   border-radius: 100px;
-  background: #e0e8ff;
+  background: #EAE6DF;
   overflow: hidden;
 }
 .skill-bar-fill {
   height: 100%;
   border-radius: 100px;
-  background: linear-gradient(90deg, #2563eb, #0ea5e9);
+  background: linear-gradient(90deg, #0F766E, #D4A017);
   transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* ── Timeline line ── */
-.timeline-line {
-  border-left: 2px solid #bfdbfe;
-}
-
-/* ── Input ── */
 .saas-input {
   width: 100%;
   padding: 10px 14px;
-  background: rgba(255,255,255,0.8);
-  border: 1.5px solid #dbeafe;
+  background: #FFFFFF;
+  border: 1.5px solid rgba(15, 118, 110, 0.2);
   border-radius: 10px;
-  color: #0f172a;
+  color: #0F172A;
   font-size: 14px;
   transition: all 0.2s;
   outline: none;
 }
 .saas-input:focus {
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59,130,246,0.12);
+  border-color: #0F766E;
+  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.12);
   background: white;
 }
 .saas-input::placeholder { color: #94a3b8; }
 
 /* ── Badge ── */
-.badge-blue { background:#eff6ff; color:#1d4ed8; border:1px solid #bfdbfe; }
-.badge-green { background:#f0fdf4; color:#16a34a; border:1px solid #bbf7d0; }
-.badge-amber { background:#fffbeb; color:#d97706; border:1px solid #fde68a; }
+.badge-blue { background:#FAF7F2; color:#0F766E; border:1px solid rgba(15, 118, 110, 0.3); }
+.badge-green { background:#fdfdfd; color:#16a34a; border:1px solid #bbf7d0; }
+.badge-amber { background:#fffbeb; color:#D4A017; border:1px solid #fde68a; }
 .badge-red { background:#fef2f2; color:#dc2626; border:1px solid #fecaca; }
 
 /* Print support */
