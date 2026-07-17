@@ -149,7 +149,7 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8F2E7] flex flex-col overflow-hidden relative">
+    <div className="min-h-screen bg-[#FFFCC7] flex flex-col overflow-hidden relative">
 
       {/* ── Premium Marketing Navbar ── */}
       <header className="w-full z-50 bg-[#E53935] shadow-lg shadow-red-900/20">

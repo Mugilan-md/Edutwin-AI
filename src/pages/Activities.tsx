@@ -131,7 +131,7 @@ function Activities() {
   const labelCls = "text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1 flex items-center gap-1";
 
   return (
-    <div className="min-h-screen bg-[#F8F2E7] pb-16">
+    <div className="min-h-screen bg-[#FFFCC7] pb-16">
       <Navbar />
       <div className="pt-28 px-4 max-w-4xl mx-auto">
 

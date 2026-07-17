@@ -33,15 +33,15 @@
   --color-violet-500: #E53935;
   --color-violet-600: #E53935;
 
-  --color-slate-50: #F8F2E7;  /* Main Background: Bright Golden Cream Beige */
-  --color-slate-100: #F8F2E7;
+  --color-slate-50: #FFFCC7;  /* Main Background: Bright Golden Cream Beige */
+  --color-slate-100: #FFFCC7;
   --color-slate-800: #2C2C2C; /* Text: Charcoal */
   --color-slate-900: #2C2C2C;
 }
 
 /* =====================================================
    EDUTWIN AI — PREMIUM SAAS EDUCATION DESIGN SYSTEM
-   Palette: Bright Red (#E53935) · Ivory (#FFF8E7) · Bright Golden Cream Beige (#F8F2E7) · Charcoal (#2C2C2C)
+   Palette: Bright Red (#E53935) · Ivory (#FFF8E7) · Bright Golden Cream Beige (#FFFCC7) · Charcoal (#2C2C2C)
    ===================================================== */
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -54,7 +54,7 @@ html {
 
 body {
   font-family: "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
-  background-color: #F8F2E7; /* Bright Golden Cream Beige */
+  background-color: #FFFCC7; /* Bright Golden Cream Beige */
   color: #2C2C2C; /* Charcoal */
   min-height: 100vh;
   line-height: 1.65;
@@ -105,7 +105,7 @@ nav span.font-black {
 div[class*="from-[#eef4ff]"],
 div[class*="from-[#eef4ff] to-[#f0f7ff]"],
 div[class*="from-[#eef4ff] via-[#f0f7ff] to-[#e8f0fe]"] {
-  background: linear-gradient(135deg, #FFF8E7 0%, #F8F2E7 100%) !important;
+  background: linear-gradient(135deg, #FFF8E7 0%, #FFFCC7 100%) !important;
 }
 
 /* Scrollbar */
@@ -268,7 +268,7 @@ nav a:hover { transform: translateY(-1px); }
 
 /* ── Shimmer Loading ── */
 .shimmer {
-  background: linear-gradient(90deg, #FFF8E7 0%, #F8F2E7 50%, #FFF8E7 100%);
+  background: linear-gradient(90deg, #FFF8E7 0%, #FFFCC7 50%, #FFF8E7 100%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 }

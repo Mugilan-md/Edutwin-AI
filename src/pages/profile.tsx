@@ -98,7 +98,7 @@ function Profile() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#F8F2E7] flex items-center justify-center">
+      <div className="min-h-screen bg-[#FFFCC7] flex items-center justify-center">
         <div className="flex flex-col items-center gap-3">
           <Loader2 className="w-8 h-8 text-blue-500 animate-spin" />
           <span className="text-sm font-medium text-slate-500">Loading Profile...</span>
@@ -113,7 +113,7 @@ function Profile() {
   const disabledCls = "w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-400 text-xs cursor-not-allowed font-semibold";
 
   return (
-    <div className="min-h-screen bg-[#F8F2E7] pb-16">
+    <div className="min-h-screen bg-[#FFFCC7] pb-16">
       <Navbar />
       <div className="pt-28 px-4 max-w-4xl mx-auto">
 

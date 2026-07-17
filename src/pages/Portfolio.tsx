@@ -109,7 +109,7 @@ function Portfolio() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#F8F2E7] flex items-center justify-center">
+      <div className="min-h-screen bg-[#FFFCC7] flex items-center justify-center">
         <div className="flex flex-col items-center gap-3">
           <Loader2 className="w-8 h-8 text-blue-500 animate-spin" />
           <span className="text-sm font-semibold text-slate-500">Generating Verified Portfolio...</span>
@@ -120,7 +120,7 @@ function Portfolio() {
 
   if (!profile) {
     return (
-      <div className="min-h-screen bg-[#F8F2E7] flex flex-col items-center justify-center p-4">
+      <div className="min-h-screen bg-[#FFFCC7] flex flex-col items-center justify-center p-4">
         <div className="max-w-md w-full text-center space-y-4 bg-white p-8 rounded-3xl border border-blue-100 shadow-sm">
           <Award className="w-16 h-16 text-red-400 mx-auto" />
           <h2 className="text-xl font-bold text-slate-800">Portfolio Not Found</h2>
@@ -136,7 +136,7 @@ function Portfolio() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F8F2E7] pb-16 relative">
+    <div className="min-h-screen bg-[#FFFCC7] pb-16 relative">
       {/* Back button (Hidden during PDF print) */}
       <div className="print:hidden fixed top-6 left-6 z-50 flex gap-2">
         <Link
