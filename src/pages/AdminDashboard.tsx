@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { fetchAllActivitiesForAdmin, parseDescription } from "../services/activityService";
+import { fetchAllActivitiesForAdmin, fetchFacultyActivitiesForAdmin, updateActivityStatus, parseDescription } from "../services/activityService";
 import Navbar from "../components/Navbar";
 import {
   BarChart3, Users, CheckCircle2, BookOpen, Download, Search,
@@ -29,6 +29,11 @@ function AdminDashboard() {
 
   const [deptSkills, setDeptSkills]     = useState<{ [key: string]: { web: number; coding: number; res: number; lead: number } }>({});
   const [categoryStats, setCategoryStats] = useState<{ [key: string]: number }>({});
+
+  // Faculty approval state
+  const [facultyActivities, setFacultyActivities] = useState<any[]>([]);
+  const [facultyApproving, setFacultyApproving]   = useState<string | null>(null);
+  const [facultyCredits, setFacultyCredits]       = useState<{ [id: string]: number }>({});
 
   useEffect(() => {
     async function init() {
@@ -116,12 +121,29 @@ function AdminDashboard() {
         finalDeptSkills["ECE"] = { web: 35, coding: 45, res: 60, lead: 50 };
       }
       setDeptSkills(finalDeptSkills);
+      
+      // Load faculty activities for approval
+      const { data: facActs } = await fetchFacultyActivitiesForAdmin();
+      setFacultyActivities(facActs || []);
     } catch (err) {
       setErrorMsg("An unexpected error occurred while loading admin data.");
     } finally {
       setLoading(false);
     }
   }
+
+  const handleFacultyApproval = async (actId: string, status: "approved" | "rejected", credits: number) => {
+    setFacultyApproving(actId);
+    await updateActivityStatus(
+      actId,
+      status,
+      credits,
+      status === "approved" ? "Approved by admin — eligible for NAAC credit records." : "Rejected by admin — not eligible for NAAC credit."
+    );
+    const { data } = await fetchFacultyActivitiesForAdmin();
+    setFacultyActivities(data || []);
+    setFacultyApproving(null);
+  };
 
   const exportToCSV = () => {
     if (students.length === 0) return;
@@ -295,7 +317,7 @@ function AdminDashboard() {
             {Object.keys(categoryStats).length > 0 && (
               <div className="glass-card-strong rounded-3xl p-7">
                 <h2 className="text-base font-bold text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-4 mb-5">
-                  <BarChart3 className="w-5 h-5 text-blue-600" />
+                  <BarChart3 className="w-5 h-5 text-violet-500" />
                   Activity Category Distribution
                 </h2>
                 <div className="space-y-4">
@@ -306,7 +328,7 @@ function AdminDashboard() {
                       <div key={cat} className="space-y-1.5">
                         <div className="flex justify-between text-xs font-semibold">
                           <span className="text-slate-700">{cat}</span>
-                          <span className="text-blue-600">{count} submissions</span>
+                          <span className="text-violet-600">{count} submissions</span>
                         </div>
                         <div className="skill-bar"><div className="skill-bar-fill" style={{ width: `${pct}%` }} /></div>
                       </div>
@@ -315,6 +337,91 @@ function AdminDashboard() {
                 </div>
               </div>
             )}
+
+            {/* ── Faculty Certificate Approvals ── */}
+            <div className="glass-card-strong rounded-3xl p-7 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-violet-50/70 rounded-full blur-2xl pointer-events-none" />
+              <div className="flex items-center justify-between border-b border-slate-100 pb-4 mb-5">
+                <div>
+                  <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
+                    <CheckSquare className="w-5 h-5 text-violet-600" />
+                    Faculty Certificate Approvals
+                  </h2>
+                  <p className="text-xs text-slate-400 mt-0.5">Staff-submitted activities pending admin approval for NAAC verification</p>
+                </div>
+                <span className="text-[10px] font-black bg-violet-100 text-violet-700 border border-violet-200 px-2.5 py-1 rounded-full">
+                  {facultyActivities.filter(a => a.status === 'pending').length} Pending
+                </span>
+              </div>
+
+              {facultyActivities.length === 0 ? (
+                <div className="py-10 text-center">
+                  <CheckCircle2 className="w-10 h-10 text-emerald-200 mx-auto mb-2" />
+                  <p className="text-xs text-slate-400 font-medium">No faculty submissions yet</p>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {facultyActivities.slice(0, 10).map((act: any) => {
+                    const meta = parseDescription(act.description);
+                    const isPending = act.status === "pending";
+                    return (
+                      <div key={act.id} className={`p-4 rounded-2xl border transition-all duration-200 ${
+                        act.status === "approved" ? "bg-emerald-50/60 border-emerald-200" :
+                        act.status === "rejected" ? "bg-red-50/60 border-red-200" :
+                        "bg-white border-slate-200 hover:border-violet-300 hover:shadow-sm"
+                      }`}>
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="flex-1 min-w-0">
+                            <span className="block text-sm font-bold text-slate-800 truncate">{act.title}</span>
+                            <span className="text-[10px] text-slate-400">
+                              {act.profiles?.full_name || "Faculty"} · {act.category}
+                              {meta.organization ? ` · ${meta.organization}` : ""}
+                            </span>
+                          </div>
+                          <span className={`text-[10px] font-black px-2 py-0.5 rounded-full border shrink-0 ${
+                            act.status === "approved" ? "bg-emerald-100 text-emerald-700 border-emerald-200" :
+                            act.status === "rejected" ? "bg-red-100 text-red-700 border-red-200" :
+                            "bg-amber-100 text-amber-700 border-amber-200"
+                          }`}>
+                            {act.status}
+                          </span>
+                        </div>
+                        {act.status === "approved" && (
+                          <p className="text-[10px] text-emerald-600 font-semibold mt-1.5">
+                            ✓ {meta.credits || 0} credits awarded for NAAC records
+                          </p>
+                        )}
+                        {isPending && (
+                          <div className="flex items-center gap-2 mt-3">
+                            <input
+                              type="number" min="0" max="10"
+                              placeholder="Credits"
+                              value={facultyCredits[act.id] ?? ""}
+                              onChange={(e) => setFacultyCredits(prev => ({ ...prev, [act.id]: parseInt(e.target.value) || 0 }))}
+                              className="w-20 px-2 py-1 text-xs border border-slate-200 rounded-lg focus:outline-none focus:border-violet-400 bg-white"
+                            />
+                            <button
+                              onClick={() => handleFacultyApproval(act.id, "approved", facultyCredits[act.id] ?? 2)}
+                              disabled={facultyApproving === act.id}
+                              className="flex-1 py-1.5 text-[11px] font-bold bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg transition-colors cursor-pointer disabled:opacity-50"
+                            >
+                              {facultyApproving === act.id ? "Saving..." : "✓ Approve"}
+                            </button>
+                            <button
+                              onClick={() => handleFacultyApproval(act.id, "rejected", 0)}
+                              disabled={facultyApproving === act.id}
+                              className="flex-1 py-1.5 text-[11px] font-bold bg-red-100 hover:bg-red-200 text-red-700 rounded-lg transition-colors cursor-pointer disabled:opacity-50"
+                            >
+                              ✕ Reject
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Right: AI Analytics Panel */}

@@ -213,7 +213,7 @@ export const fetchAllActivitiesForAdmin = async () => {
     // Step 3: Get all profiles
     const { data: profiles } = await supabase
       .from("profiles")
-      .select("id, full_name, register_no, department, year")
+      .select("id, full_name, register_no, department, year, role")
       .in("id", studentIds);
 
     // Step 4: Join manually
@@ -231,4 +231,47 @@ export const fetchAllActivitiesForAdmin = async () => {
   } catch (err: any) {
     return { data: null, error: err };
   }
+};
+
+// ── Fetch only FACULTY-submitted activities for admin approval ──
+export const fetchFacultyActivitiesForAdmin = async () => {
+  try {
+    const { data: acts, error: actsError } = await supabase
+      .from("activities")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (actsError || !acts) return { data: null, error: actsError };
+    if (acts.length === 0) return { data: [], error: null };
+
+    const userIds = [...new Set(acts.map((a) => a.student_id))];
+
+    const { data: profiles } = await supabase
+      .from("profiles")
+      .select("id, full_name, register_no, department, role, email")
+      .in("id", userIds);
+
+    const profileMap: { [key: string]: any } = {};
+    (profiles || []).forEach((p) => { profileMap[p.id] = p; });
+
+    // Only keep activities whose submitter has role === 'faculty'
+    const facultyActs = acts
+      .filter((a) => profileMap[a.student_id]?.role === "faculty")
+      .map((a) => ({ ...a, profiles: profileMap[a.student_id] || null }));
+
+    return { data: facultyActs, error: null };
+  } catch (err: any) {
+    return { data: null, error: err };
+  }
+};
+
+
+// Approve or reject a faculty-submitted activity
+export const approveFacultyActivity = async (
+  activityId: string,
+  status: "approved" | "rejected",
+  credits: number,
+  feedback: string
+) => {
+  return updateActivityStatus(activityId, status, credits, feedback);
 };

@@ -60,6 +60,7 @@ export default function Navbar({ forcedRole }: NavbarProps) {
       case "faculty":
         return [
           { path: "/faculty", label: "Approval Console", icon: LayoutDashboard },
+          { path: "/activities", label: "Track Activities", icon: UploadCloud },
           { path: "/profile", label: "My Profile", icon: User },
         ];
       case "admin":
@@ -98,13 +99,24 @@ export default function Navbar({ forcedRole }: NavbarProps) {
 
           {/* Brand */}
           <Link to={`/${role}`} className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 via-blue-500 to-sky-400 flex items-center justify-center shadow-md shadow-blue-500/30 group-hover:scale-105 transition-transform duration-300 shrink-0">
-              <Sparkles className="w-4 h-4 text-white" />
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#CC0011] via-[#FF0015] to-rose-400 flex items-center justify-center shadow-md shadow-red-900/30 group-hover:scale-105 transition-transform duration-300 shrink-0">
+              <Sparkles className="w-4.5 h-4.5 text-white" />
             </div>
             <div>
-              <span className="font-black text-sm text-slate-800" style={{fontFamily:'"Cormorant Garamond", Georgia, serif', fontSize:'1.15rem', letterSpacing:'0.04em'}}>Edutwin AI</span>
-              <span className="block text-[9px] text-blue-400 font-bold uppercase tracking-widest -mt-0.5 hidden xs:block">
-                Smart Education
+              <span
+                className="font-black text-white block"
+                style={{
+                  fontFamily: '"Cormorant Garamond", Georgia, serif',
+                  fontSize: '1.6rem',
+                  letterSpacing: '0.06em',
+                  lineHeight: 1.1,
+                  textShadow: '0 0 18px rgba(255,255,255,0.55), 0 2px 6px rgba(0,0,0,0.2)',
+                }}
+              >
+                Edutwin AI
+              </span>
+              <span className="block text-[9px] text-white/65 font-semibold uppercase tracking-[0.18em] -mt-0.5 hidden xs:block">
+                Smart Education Platform
               </span>
             </div>
           </Link>

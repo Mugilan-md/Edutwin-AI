@@ -130,10 +130,14 @@ function StudentDashboard() {
   const dominant = getDominantSkill();
 
   const statCards = [
-    { label: "CGPA", value: cgpa.toFixed(2), sub: "Cumulative Grade Point", icon: BookOpen, badge: "badge-blue" },
-    { label: "Attendance", value: `${attendance}%`, sub: "Excellent attendance", icon: Clock, badge: "badge-green" },
-    { label: "Total Credits", value: `${totalCredits} pts`, sub: `${approvedCount} verified achievements`, icon: Award, badge: "badge-blue" },
-    { label: "Pending Review", value: pendingCount, sub: "Awaiting faculty approval", icon: AlertTriangle, badge: "badge-amber" },
+    { label: "CGPA", value: cgpa.toFixed(2), sub: "Cumulative Grade Point", icon: BookOpen,
+      iconCls: "text-indigo-600", bgCls: "bg-indigo-50 border-indigo-100" },
+    { label: "Attendance", value: `${attendance}%`, sub: "Excellent attendance", icon: Clock,
+      iconCls: "text-emerald-600", bgCls: "bg-emerald-50 border-emerald-100" },
+    { label: "Total Credits", value: `${totalCredits} pts`, sub: `${approvedCount} verified achievements`, icon: Award,
+      iconCls: "text-amber-600", bgCls: "bg-amber-50 border-amber-100" },
+    { label: "Pending Review", value: pendingCount, sub: "Awaiting faculty approval", icon: AlertTriangle,
+      iconCls: "text-rose-500", bgCls: "bg-rose-50 border-rose-100" },
   ];
 
   return (
@@ -143,15 +147,15 @@ function StudentDashboard() {
 
         {/* Hero Header */}
         <div className="glass-card-strong rounded-3xl p-6 md:p-8 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-blue-100/60 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-48 h-48 bg-sky-100/40 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-0 right-0 w-64 h-64 bg-amber-100/40 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-48 h-48 bg-rose-100/30 rounded-full blur-3xl pointer-events-none" />
           <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div className="space-y-2">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-100 border border-blue-200 rounded-full text-xs font-bold text-blue-700">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-100 border border-indigo-200 rounded-full text-xs font-bold text-indigo-700">
                 <Sparkles className="w-3.5 h-3.5" />
                 AI Digital Twin — Student View
               </div>
-              <h1 className="text-2xl md:text-3xl font-black text-slate-900">
+              <h1 className="text-2xl md:text-3xl font-black" style={{color:'#2C211A', fontFamily:'"Cormorant Garamond", Georgia, serif', letterSpacing:'0.01em'}}>
                 Hello, {profile?.full_name || "Academic Student"} 👋
               </h1>
               <p className="text-slate-500 text-sm max-w-xl">
@@ -174,10 +178,10 @@ function StudentDashboard() {
             <div key={stat.label} className="glass-card-strong rounded-2xl p-5 stat-card flex items-center justify-between">
               <div className="space-y-1">
                 <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">{stat.label}</span>
-                <h3 className="text-2xl font-black text-slate-900">{stat.value}</h3>
+                <h3 className="text-2xl font-black" style={{color:'#2C211A'}}>{stat.value}</h3>
                 <p className="text-[11px] text-slate-500 font-medium">{stat.sub}</p>
               </div>
-              <div className="w-11 h-11 bg-blue-50 border border-blue-100 rounded-xl flex items-center justify-center text-blue-600 shrink-0">
+              <div className={`w-11 h-11 border rounded-xl flex items-center justify-center shrink-0 ${stat.bgCls} ${stat.iconCls}`}>
                 <stat.icon className="w-5 h-5" />
               </div>
             </div>
@@ -325,10 +329,11 @@ function StudentDashboard() {
           {/* Right: AI Analytics */}
           <div className="space-y-6">
 
-            {/* Digital Twin Core + Skills */}
-            <div className="glass-card-strong rounded-3xl p-6 space-y-5">
-              <h2 className="text-base font-bold text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-4">
-                <BrainCircuit className="w-5 h-5 text-blue-600" />
+            {/* Digital Twin Core + Skills — Orbit 3D Effect */}
+            <div className="glass-card-strong rounded-3xl p-6 space-y-5 relative overflow-hidden" style={{perspective:'800px', transformStyle:'preserve-3d'}}>
+              <div className="absolute -top-8 -right-8 w-32 h-32 bg-indigo-100/40 rounded-full blur-2xl pointer-events-none" />
+              <h2 className="text-base font-bold flex items-center gap-2 border-b border-slate-100 pb-4" style={{color:'#2C211A'}}>
+                <BrainCircuit className="w-5 h-5 text-indigo-500" />
                 AI Skill Density
               </h2>
 
@@ -384,33 +389,40 @@ function StudentDashboard() {
                 </>
               )}
 
-              {/* Career Fit */}
-              <div className="p-4 bg-gradient-to-br from-blue-50 to-sky-50 border border-blue-100 rounded-2xl space-y-1.5">
-                <span className="text-[10px] font-black text-blue-600 uppercase tracking-wider">AI Career Fit Prediction</span>
+              {/* Career Fit — Warm amber depth glow */}
+              <div className="p-4 rounded-2xl space-y-1.5 relative overflow-hidden" style={{background:'linear-gradient(135deg, #fffbeb, #fef9c3)', border:'1px solid #fde68a', boxShadow:'0 4px 20px rgba(245,158,11,0.10)'}}>
+                <div className="absolute -top-4 -right-4 w-16 h-16 bg-amber-200/40 rounded-full blur-xl" />
+                <span className="text-[10px] font-black text-amber-700 uppercase tracking-wider flex items-center gap-1">
+                  <Sparkles className="w-3 h-3 text-amber-500" /> AI Career Fit Prediction
+                </span>
                 {approvedCount === 0 ? (
                   <div className="text-sm text-slate-400 italic">Awaiting approved certificates...</div>
                 ) : (
                   <>
-                    <div className="text-base font-black text-slate-900">{careerFit}</div>
+                    <div className="text-base font-black" style={{color:'#2C211A'}}>{careerFit}</div>
                     <div className="flex items-center justify-between text-xs text-slate-400">
                       <span>Cosine Similarity Score</span>
-                      <span className="font-bold text-blue-600">{careerConfidence}% Confidence</span>
+                      <span className="font-bold text-amber-600">{careerConfidence}% Confidence</span>
                     </div>
                   </>
                 )}
               </div>
             </div>
 
-            {/* AI Smart Actions */}
-            <div className="glass-card-strong rounded-3xl p-6">
-              <h2 className="text-base font-bold text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-4 mb-5">
+            {/* AI Smart Recommendations — Stagger float effect */}
+            <div className="glass-card-strong rounded-3xl p-6 relative overflow-hidden">
+              <div className="absolute bottom-0 left-0 w-24 h-24 bg-emerald-100/40 rounded-full blur-2xl pointer-events-none" />
+              <h2 className="text-base font-bold flex items-center gap-2 border-b border-slate-100 pb-4 mb-5" style={{color:'#2C211A'}}>
                 <Lightbulb className="w-5 h-5 text-amber-500" />
                 AI Smart Recommendations
               </h2>
               <ul className="space-y-3">
                 {recommendations.map((rec, idx) => (
-                  <li key={idx} className="flex gap-3 text-xs leading-relaxed text-slate-600 p-3 bg-slate-50 rounded-xl border border-slate-100">
-                    <Sparkles className="w-4 h-4 text-blue-500 shrink-0 mt-0.5" />
+                  <li key={idx}
+                    className={`flex gap-3 text-xs leading-relaxed text-slate-600 p-3 rounded-xl border scroll-hidden delay-${Math.min(idx+1,6)} transition-all duration-300 hover:-translate-y-0.5 hover:shadow-sm`}
+                    style={{background: idx%3===0 ? 'linear-gradient(135deg,#f0fdf4,#dcfce7)' : idx%3===1 ? 'linear-gradient(135deg,#eff6ff,#dbeafe)' : 'linear-gradient(135deg,#fefce8,#fef9c3)', borderColor: idx%3===0 ? '#bbf7d0' : idx%3===1 ? '#bfdbfe' : '#fde68a'}}
+                  >
+                    <Sparkles className={`w-4 h-4 shrink-0 mt-0.5 ${idx%3===0?'text-emerald-500':idx%3===1?'text-indigo-500':'text-amber-500'}`} />
                     <span>{rec}</span>
                   </li>
                 ))}
