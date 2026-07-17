@@ -191,12 +191,12 @@ function StudentDashboard() {
           <div className="lg:col-span-2 space-y-6">
 
             {/* ML Credit Projector */}
-            <div className="glass-card-strong rounded-3xl p-7 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-40 h-40 bg-blue-50 rounded-full blur-2xl pointer-events-none" />
-              <div className="flex items-center justify-between border-b border-slate-100 pb-4 mb-5">
+            <div className="glass-card-strong rounded-3xl p-7 relative overflow-hidden ml-projector-3d">
+              <div className="absolute top-0 right-0 w-40 h-40 bg-red-50/50 rounded-full blur-2xl pointer-events-none" />
+              <div className="flex items-center justify-between border-b border-slate-100 pb-4 mb-5 ml-layer-1">
                 <div>
                   <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                    <TrendingUp className="w-5 h-5 text-blue-600" />
+                    <TrendingUp className="w-5 h-5 text-[#FF0015]" />
                     ML Credit Projector
                   </h2>
                   <p className="text-xs text-slate-400 mt-0.5">Linear regression model predicting graduation credits based on your trajectory</p>
@@ -207,17 +207,17 @@ function StudentDashboard() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-center">
-                <div className="text-center md:text-left">
+                <div className="text-center md:text-left ml-layer-1">
                   <span className="text-xs font-bold text-slate-400 uppercase block mb-1">Current Credits</span>
                   <div className="text-4xl font-black text-slate-900">{totalCredits}</div>
                   <span className="text-xs text-slate-400">Faculty-verified</span>
                 </div>
-                <div className="flex flex-col items-center p-4 bg-gradient-to-br from-blue-50 to-sky-50 border border-blue-100 rounded-2xl">
-                  <span className="text-[10px] font-black text-blue-600 uppercase tracking-wider mb-1">Graduation Projection</span>
-                  <div className="text-4xl font-black text-blue-700">{projectedCredits}</div>
-                  <span className="text-[10px] text-blue-500 font-semibold mt-1">Expected Total Credits</span>
+                <div className="flex flex-col items-center p-4 bg-gradient-to-br from-red-50 to-rose-50 border border-red-100 rounded-2xl ml-layer-2 shadow-sm">
+                  <span className="text-[10px] font-black text-[#FF0015] uppercase tracking-wider mb-1">Graduation Projection</span>
+                  <div className="text-4xl font-black text-[#CC0011]">{projectedCredits}</div>
+                  <span className="text-[10px] text-[#FF0015] font-semibold mt-1">Expected Total Credits</span>
                 </div>
-                <div className="text-center md:text-left">
+                <div className="text-center md:text-left ml-layer-3">
                   <span className="text-xs font-bold text-slate-400 uppercase block mb-1">NAAC Level</span>
                   <div className="flex items-center gap-1.5 justify-center md:justify-start text-emerald-600 font-bold text-sm">
                     <CheckCircle2 className="w-4 h-4" />

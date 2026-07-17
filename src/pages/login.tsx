@@ -24,7 +24,7 @@ function BlockDiagram() {
     <div className="relative w-[340px] h-[340px] mx-auto flex items-center justify-center my-6 animate-float shrink-0">
       
       {/* Center Brain Hub */}
-      <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-red-600 via-red-500 to-rose-400 flex flex-col items-center justify-center p-1 border border-red-300/40 shadow-[0_0_30px_rgba(229,57,53,0.35)] relative z-20 animate-pulse-ring">
+      <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-red-600 via-red-500 to-rose-400 flex flex-col items-center justify-center p-1 border border-red-300/40 shadow-[0_0_30px_rgba(255, 0, 21,0.35)] relative z-20 animate-pulse-ring">
         <Brain className="w-9 h-9 text-white animate-bounce-soft" />
         <span className="text-[9px] font-black tracking-wider uppercase mt-1 text-red-50">EDUTWIN AI</span>
       </div>
@@ -152,11 +152,11 @@ function Login() {
     <div className="min-h-screen bg-[#FFFCC7] flex flex-col overflow-hidden relative">
 
       {/* ── Premium Marketing Navbar ── */}
-      <header className="w-full z-50 bg-[#E53935] shadow-lg shadow-red-900/20">
+      <header className="w-full z-50 bg-[#FF0015] shadow-lg shadow-red-900/20">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-start">
           {/* Brand Only — clean, centred on identity */}
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-[#C62828] flex items-center justify-center shadow-md">
+            <div className="w-9 h-9 rounded-xl bg-[#CC0011] flex items-center justify-center shadow-md">
               <Sparkles className="w-4.5 h-4.5 text-[#FFF8E7]" />
             </div>
             <div>
@@ -199,16 +199,16 @@ function Login() {
             <Sparkles className="w-4.5 h-4.5 text-white" />
           </div>
           <div>
-            <span className="font-black text-base" style={{color:'#E53935', textShadow:'0 0 8px rgba(229,57,53,0.15)'}}>Edutwin AI</span>
-            <span className="block text-[9px] font-bold uppercase tracking-widest -mt-0.5" style={{color:'#C62828'}}>Smart Education Platform</span>
+            <span className="font-black text-base" style={{color:'#4C0612', textShadow:'0 0 8px rgba(76, 6, 18, 0.15)'}}>Edutwin AI</span>
+            <span className="block text-[9px] font-bold uppercase tracking-widest -mt-0.5" style={{color:'#6E161C'}}>Smart Education Platform</span>
           </div>
         </div>
 
         {/* Content Heading */}
         <div className={`space-y-3 my-3 transition-all duration-700 ${showUI ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-          <h1 className="text-3xl lg:text-4xl font-black leading-tight" style={{color:'#2C2C2C', fontFamily:'"Cormorant Garamond", Georgia, serif', fontWeight:700, letterSpacing:'0.01em'}}>
+          <h1 className="text-3xl lg:text-4xl font-black leading-tight" style={{color:'#2C211A', fontFamily:'"Cormorant Garamond", Georgia, serif', fontWeight:700, letterSpacing:'0.01em'}}>
             Centralised Digital Platform<br />
-            <span className="bg-gradient-to-r from-red-600 to-rose-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#4C0612] to-[#B0121A] bg-clip-text text-transparent">
               for Student Activity Records
             </span>
           </h1>
@@ -229,7 +229,7 @@ function Login() {
               <span
                 key={text}
                 className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold"
-                style={{background:'rgba(229,57,53,0.08)', color:'#C62828', border:'1px solid rgba(229,57,53,0.18)'}}
+                style={{background:'rgba(76, 6, 18, 0.05)', color:'#6E161C', border:'1px solid rgba(76, 6, 18, 0.15)'}}
               >
                 <Icon className="w-3 h-3" />{text}
               </span>
@@ -258,18 +258,18 @@ function Login() {
           <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-red-600 to-rose-400 flex items-center justify-center shadow-md shadow-red-500/20">
             <Sparkles className="w-4 h-4 text-white" />
           </div>
-          <span className="font-black text-base" style={{color:'#E53935'}}>Edutwin AI</span>
+          <span className="font-black text-base" style={{color:'#4C0612'}}>Edutwin AI</span>
         </div>
 
         <div
           className={`w-full max-w-sm bg-white rounded-3xl border border-red-100 shadow-xl shadow-red-900/8 py-6 px-6 md:px-8 transition-all duration-700 ${
             showUI ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
           }`}
-          style={{boxShadow: '0 20px 60px rgba(229,57,53,0.06), 0 4px 16px rgba(229,57,53,0.04)'}}
+          style={{boxShadow: '0 20px 60px rgba(255, 0, 21,0.06), 0 4px 16px rgba(255, 0, 21,0.04)'}}
         >
           {/* Card Header */}
           <div className="mb-4">
-            <h2 className="text-xl font-black" style={{color:'#E53935', textShadow:'0 0 6px rgba(229,57,53,0.12)', fontFamily:'"Cormorant Garamond", Georgia, serif', fontSize:'1.6rem', fontWeight:700, letterSpacing:'0.03em'}}>Sign in</h2>
+            <h2 className="text-xl font-black" style={{color:'#4C0612', textShadow:'0 0 6px rgba(76, 6, 18, 0.12)', fontFamily:'"Cormorant Garamond", Georgia, serif', fontSize:'1.6rem', fontWeight:700, letterSpacing:'0.03em'}}>Sign in</h2>
             <p className="text-[11px] text-slate-400">Access your institutional student activity portal</p>
           </div>
 
@@ -284,7 +284,7 @@ function Login() {
             {/* Email */}
             <div className="space-y-1">
               <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-1">
-                <Mail className="w-3 h-3" style={{color:'#E53935'}} />
+                <Mail className="w-3 h-3" style={{color:'#4C0612'}} />
                 Email Address
               </label>
               <input
@@ -302,7 +302,7 @@ function Login() {
             {/* Password */}
             <div className="space-y-1">
               <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-1">
-                <Lock className="w-3 h-3" style={{color:'#E53935'}} />
+                <Lock className="w-3 h-3" style={{color:'#4C0612'}} />
                 Password
               </label>
               <div className="relative">
@@ -382,7 +382,7 @@ function Login() {
           <div className="mt-4 pt-4 border-t border-slate-100 text-center">
             <p className="text-[11px] text-slate-500">
               New to Edutwin?{" "}
-              <Link to="/register" className="font-bold transition-colors hover:underline" style={{color:'#E53935'}}>
+              <Link to="/register" className="font-bold transition-colors hover:underline" style={{color:'#4C0612'}}>
                 Create account
               </Link>
             </p>

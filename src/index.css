@@ -11,37 +11,37 @@
   --color-blue-50: #FFF8E7;   /* Secondary: Ivory / Cream */
   --color-blue-100: #FFF8E7;
   --color-blue-200: #F1EAD9;
-  --color-blue-500: #E53935;  /* Primary: Bright Red */
-  --color-blue-600: #E53935;  /* Primary: Bright Red */
-  --color-blue-700: #C62828;  /* Darker Red */
-  --color-blue-800: #C62828;
-  --color-blue-900: #9B1C1C;
+  --color-blue-500: #FF0015;  /* Primary: Bright Red */
+  --color-blue-600: #FF0015;  /* Primary: Bright Red */
+  --color-blue-700: #CC0011;  /* Darker Red */
+  --color-blue-800: #CC0011;
+  --color-blue-900: #990010;
 
   --color-sky-50: #FFF8E7;
   --color-sky-100: #FFF8E7;
   --color-sky-400: #FFF8E7;   /* Ivory Accent */
-  --color-sky-500: #E53935;   /* Bright Red */
-  --color-sky-600: #C62828;   /* Darker Red */
-  --color-sky-700: #C62828;
+  --color-sky-500: #FF0015;   /* Bright Red */
+  --color-sky-600: #CC0011;   /* Darker Red */
+  --color-sky-700: #CC0011;
 
   --color-indigo-50: #FFF8E7;
   --color-indigo-100: #FFF8E7;
-  --color-indigo-500: #E53935;
-  --color-indigo-600: #E53935;
-  --color-indigo-700: #C62828;
+  --color-indigo-500: #FF0015;
+  --color-indigo-600: #FF0015;
+  --color-indigo-700: #CC0011;
 
-  --color-violet-500: #E53935;
-  --color-violet-600: #E53935;
+  --color-violet-500: #FF0015;
+  --color-violet-600: #FF0015;
 
   --color-slate-50: #FFFCC7;  /* Main Background: Bright Golden Cream Beige */
   --color-slate-100: #FFFCC7;
-  --color-slate-800: #2C2C2C; /* Text: Charcoal */
-  --color-slate-900: #2C2C2C;
+  --color-slate-800: #2C211A; /* Text: Deep Obsidian Espresso */
+  --color-slate-900: #2C211A;
 }
 
 /* =====================================================
    EDUTWIN AI — PREMIUM SAAS EDUCATION DESIGN SYSTEM
-   Palette: Bright Red (#E53935) · Ivory (#FFF8E7) · Bright Golden Cream Beige (#FFFCC7) · Charcoal (#2C2C2C)
+   Palette: Bright Red (#FF0015) · Ivory (#FFF8E7) · Bright Golden Cream Beige (#FFFCC7) · Charcoal (#2C2C2C)
    ===================================================== */
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -55,7 +55,7 @@ html {
 body {
   font-family: "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
   background-color: #FFFCC7; /* Bright Golden Cream Beige */
-  color: #2C2C2C; /* Charcoal */
+  color: #2C211A; /* Deep Obsidian Espresso */
   min-height: 100vh;
   line-height: 1.65;
   font-size: 15px;
@@ -68,11 +68,11 @@ body {
 /* ── Royal Display Headings ── */
 h1, h2, h3, h4, h5, h6 {
   font-family: "Cormorant Garamond", Georgia, serif;
-  color: #E53935;
+  color: #4C0612; /* Deep Mahogany Red instead of bright red */
   font-weight: 600;
   letter-spacing: 0.02em;
   line-height: 1.2;
-  text-shadow: 0 0 8px rgba(229, 57, 53, 0.1);
+  text-shadow: 0 0 8px rgba(76, 6, 18, 0.08);
 }
 h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; letter-spacing: 0.01em; }
 h2 { font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 600; }
@@ -112,13 +112,13 @@ div[class*="from-[#eef4ff] via-[#f0f7ff] to-[#e8f0fe]"] {
 ::-webkit-scrollbar { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: #FFF8E7; border-radius: 100px; }
 ::-webkit-scrollbar-thumb { background: #F1EAD9; border-radius: 100px; }
-::-webkit-scrollbar-thumb:hover { background: #E53935; }
+::-webkit-scrollbar-thumb:hover { background: #FF0015; }
 
 /* ── Navbar Custom Styling Override ── */
 nav {
-  background: #E53935 !important; /* Scarlet Red background */
-  border-color: rgba(229, 57, 53, 0.4) !important;
-  box-shadow: 0 4px 30px rgba(229, 57, 53, 0.15), 0 0 15px rgba(229, 57, 53, 0.1) !important;
+  background: #FF0015 !important; /* Scarlet Red background */
+  border-color: rgba(255, 0, 21, 0.4) !important;
+  box-shadow: 0 4px 30px rgba(255, 0, 21, 0.15), 0 0 15px rgba(255, 0, 21, 0.1) !important;
 }
 /* Brand text in nav with glowing effect */
 nav a span, nav span {
@@ -133,35 +133,35 @@ nav a span.block {
 }
 /* Active pill background and links in desktop nav */
 nav div.hidden.md:flex {
-  background: #C62828 !important; /* Darker Red pill container bg */
-  border-color: rgba(229, 57, 53, 0.3) !important;
+  background: #CC0011 !important; /* Darker Red pill container bg */
+  border-color: rgba(255, 0, 21, 0.3) !important;
 }
 nav div.hidden.md:flex a {
   color: #FFF8E7 !important;
 }
 nav div.hidden.md:flex a:hover {
-  background: #D32F2F !important;
+  background: #CC0011 !important;
   color: #FFFFFF !important;
   text-shadow: 0 0 6px rgba(255, 255, 255, 0.6) !important;
 }
 nav div.hidden.md:flex a[class*="bg-gradient-to-r"] {
   background: #FFF8E7 !important; /* Ivory active pill */
-  color: #E53935 !important;      /* Bright Red text */
+  color: #FF0015 !important;      /* Bright Red text */
   box-shadow: 0 0 12px rgba(255, 248, 231, 0.4) !important;
   text-shadow: none !important;
 }
 /* Mobile menu toggler and background dropdowns */
 nav button[class*="md:hidden"] {
-  background: rgba(229, 57, 53, 0.4) !important;
+  background: rgba(255, 0, 21, 0.4) !important;
   border-color: rgba(255, 255, 255, 0.2) !important;
   color: #FFFFFF !important;
 }
 div[class*="absolute top-[70px]"] {
   background: #FFF8E7 !important;
-  border-color: rgba(229, 57, 53, 0.2) !important;
+  border-color: rgba(255, 0, 21, 0.2) !important;
 }
 nav span[class*="rounded-full"] {
-  background: #C62828 !important; /* Darker Red badge */
+  background: #CC0011 !important; /* Darker Red badge */
   color: #FFF8E7 !important;
   border: 1px solid rgba(255, 255, 255, 0.2) !important;
   text-shadow: none !important;
@@ -203,33 +203,33 @@ nav a:hover { transform: translateY(-1px); }
 /* ── Glass Cards ── */
 .glass-card {
   background: #FFFFFF;
-  border: 1px solid rgba(229, 57, 53, 0.15);
-  box-shadow: 0 4px 20px rgba(229, 57, 53, 0.04), 0 1px 3px rgba(229, 57, 53, 0.02);
+  border: 1px solid rgba(255, 0, 21, 0.15);
+  box-shadow: 0 4px 20px rgba(255, 0, 21, 0.04), 0 1px 3px rgba(255, 0, 21, 0.02);
   transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.25s ease, border-color 0.25s ease;
   will-change: transform, box-shadow, border-color;
 }
 .glass-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 20px 40px rgba(229, 57, 53, 0.08), 0 0 15px rgba(229, 57, 53, 0.1);
-  border-color: rgba(229, 57, 53, 0.4);
+  box-shadow: 0 20px 40px rgba(255, 0, 21, 0.08), 0 0 15px rgba(255, 0, 21, 0.1);
+  border-color: rgba(255, 0, 21, 0.4);
 }
 
 .glass-card-strong {
   background: #FFFFFF;
-  border: 1px solid rgba(229, 57, 53, 0.2);
-  box-shadow: 0 8px 30px rgba(229, 57, 53, 0.06), 0 2px 8px rgba(229, 57, 53, 0.03);
+  border: 1px solid rgba(255, 0, 21, 0.2);
+  box-shadow: 0 8px 30px rgba(255, 0, 21, 0.06), 0 2px 8px rgba(255, 0, 21, 0.03);
   transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.25s ease, border-color 0.25s ease;
   will-change: transform, box-shadow, border-color;
 }
 .glass-card-strong:hover {
   transform: translateY(-4px);
-  box-shadow: 0 24px 48px rgba(229, 57, 53, 0.1), 0 0 20px rgba(229, 57, 53, 0.12);
-  border-color: rgba(229, 57, 53, 0.45);
+  box-shadow: 0 24px 48px rgba(255, 0, 21, 0.1), 0 0 20px rgba(255, 0, 21, 0.12);
+  border-color: rgba(255, 0, 21, 0.45);
 }
 
 /* ── Gradient Text ── */
 .gradient-text {
-  background: linear-gradient(135deg, #E53935, #C62828);
+  background: linear-gradient(135deg, #FF0015, #CC0011);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -237,7 +237,7 @@ nav a:hover { transform: translateY(-1px); }
 
 /* ── Premium Buttons ── */
 .btn-primary {
-  background: linear-gradient(135deg, #E53935, #C62828);
+  background: linear-gradient(135deg, #FF0015, #CC0011);
   color: white;
   font-weight: 700;
   border-radius: 12px;
@@ -245,7 +245,7 @@ nav a:hover { transform: translateY(-1px); }
   border: none;
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
-  box-shadow: 0 4px 16px rgba(229, 57, 53, 0.25);
+  box-shadow: 0 4px 16px rgba(255, 0, 21, 0.25);
   position: relative;
   overflow: hidden;
 }
@@ -260,7 +260,7 @@ nav a:hover { transform: translateY(-1px); }
 .btn-primary:hover::before { opacity: 1; }
 .btn-primary:hover {
   transform: scale(1.02) translateY(-1px);
-  box-shadow: 0 8px 24px rgba(229, 57, 53, 0.35);
+  box-shadow: 0 8px 24px rgba(255, 0, 21, 0.35);
 }
 .btn-primary:active {
   transform: scale(0.98) translateY(0);
@@ -275,13 +275,13 @@ nav a:hover { transform: translateY(-1px); }
 
 /* ── Stats Cards hover lift ── */
 .stat-card {
-  border: 1px solid rgba(229, 57, 53, 0.15);
+  border: 1px solid rgba(255, 0, 21, 0.15);
   transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
 }
 .stat-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 20px 40px rgba(229, 57, 53, 0.08), 0 0 15px rgba(229, 57, 53, 0.1);
-  border-color: rgba(229, 57, 53, 0.4);
+  box-shadow: 0 20px 40px rgba(255, 0, 21, 0.08), 0 0 15px rgba(255, 0, 21, 0.1);
+  border-color: rgba(255, 0, 21, 0.4);
 }
 
 /* ── Skill Progress Bar ── */
@@ -294,7 +294,7 @@ nav a:hover { transform: translateY(-1px); }
 .skill-bar-fill {
   height: 100%;
   border-radius: 100px;
-  background: linear-gradient(90deg, #E53935, #D32F2F);
+  background: linear-gradient(90deg, #FF0015, #CC0011);
   transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -303,7 +303,7 @@ nav a:hover { transform: translateY(-1px); }
   width: 100%;
   padding: 10px 14px;
   background: #FFFFFF;
-  border: 1.5px solid rgba(229, 57, 53, 0.25);
+  border: 1.5px solid rgba(255, 0, 21, 0.25);
   border-radius: 10px;
   color: #2C2C2C;
   font-size: 14px;
@@ -311,16 +311,16 @@ nav a:hover { transform: translateY(-1px); }
   outline: none;
 }
 .saas-input:focus {
-  border-color: #E53935;
-  box-shadow: 0 0 0 3px rgba(229, 57, 53, 0.12);
+  border-color: #FF0015;
+  box-shadow: 0 0 0 3px rgba(255, 0, 21, 0.12);
   background: white;
 }
 .saas-input::placeholder { color: #94a3b8; }
 
 /* ── Badge ── */
-.badge-blue { background:#FFF8E7; color:#E53935; border:1px solid rgba(229, 57, 53, 0.3); }
+.badge-blue { background:#FFF8E7; color:#FF0015; border:1px solid rgba(255, 0, 21, 0.3); }
 .badge-green { background:#fdfdfd; color:#16a34a; border:1px solid #bbf7d0; }
-.badge-amber { background:#fffbeb; color:#E53935; border:1px solid #fde68a; }
+.badge-amber { background:#fffbeb; color:#FF0015; border:1px solid #fde68a; }
 .badge-red { background:#fef2f2; color:#dc2626; border:1px solid #fecaca; }
 
 /* ═══════════════════════════════════════════════════════
@@ -340,9 +340,9 @@ nav a:hover { transform: translateY(-1px); }
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: rgba(229, 57, 53, 0.06);
+  background: rgba(255, 0, 21, 0.06);
   transform: translateZ(-8px) translateY(8px) scale(0.97);
-  box-shadow: 0 8px 24px rgba(229, 57, 53, 0.08);
+  box-shadow: 0 8px 24px rgba(255, 0, 21, 0.08);
   pointer-events: none;
   transition: transform 0.35s ease, opacity 0.35s ease;
   opacity: 0.7;
@@ -352,9 +352,9 @@ nav a:hover { transform: translateY(-1px); }
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: rgba(229, 57, 53, 0.03);
+  background: rgba(255, 0, 21, 0.03);
   transform: translateZ(-16px) translateY(16px) scale(0.94);
-  box-shadow: 0 16px 40px rgba(229, 57, 53, 0.05);
+  box-shadow: 0 16px 40px rgba(255, 0, 21, 0.05);
   pointer-events: none;
   transition: transform 0.35s ease, opacity 0.35s ease;
   opacity: 0.5;
@@ -423,8 +423,8 @@ nav a:hover { transform: translateY(-1px); }
 
 /* ── 7. Interactive glow pulse on active cards ── */
 @keyframes glow-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(229, 57, 53, 0); }
-  50%       { box-shadow: 0 0 20px 4px rgba(229, 57, 53, 0.12); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 0, 21, 0); }
+  50%       { box-shadow: 0 0 20px 4px rgba(255, 0, 21, 0.12); }
 }
 .glow-active { animation: glow-pulse 3s ease-in-out infinite; }
 
@@ -434,12 +434,45 @@ nav a:hover { transform: translateY(-1px); }
   100% { background-position: 200% center; }
 }
 .shimmer-number {
-  background: linear-gradient(90deg, #E53935 0%, #ff6b6b 40%, #E53935 60%, #C62828 100%);
+  background: linear-gradient(90deg, #FF0015 0%, #ff6b6b 40%, #FF0015 60%, #CC0011 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   animation: shimmer-number 3s linear infinite;
+}
+
+/* ── 9. ML Projector Box 3D Layering ── */
+.ml-projector-3d {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+}
+.ml-projector-3d:hover {
+  transform: translateY(-8px) rotateX(4deg) rotateY(-2deg) !important;
+  box-shadow: 0 35px 70px rgba(255, 0, 21, 0.12), 0 10px 30px rgba(255, 0, 21, 0.08) !important;
+  border-color: rgba(255, 0, 21, 0.5) !important;
+}
+.ml-projector-3d .ml-layer-1 {
+  transform: translateZ(10px);
+  transition: transform 0.4s ease;
+}
+.ml-projector-3d .ml-layer-2 {
+  transform: translateZ(25px) scale(1.02);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.ml-projector-3d .ml-layer-3 {
+  transform: translateZ(15px);
+  transition: transform 0.4s ease;
+}
+.ml-projector-3d:hover .ml-layer-1 {
+  transform: translateZ(15px) translateY(-2px);
+}
+.ml-projector-3d:hover .ml-layer-2 {
+  transform: translateZ(35px) scale(1.05) translateY(-4px);
+}
+.ml-projector-3d:hover .ml-layer-3 {
+  transform: translateZ(20px) translateY(-2px);
 }
 
 /* Print support */

@@ -46,11 +46,11 @@ if (typeof window !== 'undefined') {
     card.style.transition = 'transform 0.08s ease, box-shadow 0.08s ease, border-color 0.08s ease';
     card.style.transform  = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px) scale(1.01)`;
     card.style.boxShadow  = `
-      0 24px 48px rgba(229, 57, 53, 0.10),
-      0 0 20px rgba(229, 57, 53, 0.12),
+      0 24px 48px rgba(255, 0, 21, 0.10),
+      0 0 20px rgba(255, 0, 21, 0.12),
       inset 0 1px 0 rgba(255,248,231,0.3)
     `;
-    card.style.borderColor = `rgba(229, 57, 53, 0.4)`;
+    card.style.borderColor = `rgba(255, 0, 21, 0.4)`;
     // CSS variable for gloss spot (picked up by shine-card::before if present)
     card.style.setProperty('--glow-x', `${glowX}%`);
     card.style.setProperty('--glow-y', `${glowY}%`);
