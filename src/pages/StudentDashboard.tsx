@@ -419,7 +419,7 @@ function StudentDashboard() {
               <ul className="space-y-3">
                 {recommendations.map((rec, idx) => (
                   <li key={idx}
-                    className={`flex gap-3 text-xs leading-relaxed text-slate-600 p-3 rounded-xl border scroll-hidden delay-${Math.min(idx+1,6)} transition-all duration-300 hover:-translate-y-0.5 hover:shadow-sm`}
+                    className="flex gap-3 text-xs leading-relaxed text-slate-600 p-3 rounded-xl border transition-all duration-300 hover:-translate-y-0.5 hover:shadow-sm"
                     style={{background: idx%3===0 ? 'linear-gradient(135deg,#f0fdf4,#dcfce7)' : idx%3===1 ? 'linear-gradient(135deg,#eff6ff,#dbeafe)' : 'linear-gradient(135deg,#fefce8,#fef9c3)', borderColor: idx%3===0 ? '#bbf7d0' : idx%3===1 ? '#bfdbfe' : '#fde68a'}}
                   >
                     <Sparkles className={`w-4 h-4 shrink-0 mt-0.5 ${idx%3===0?'text-emerald-500':idx%3===1?'text-indigo-500':'text-amber-500'}`} />
