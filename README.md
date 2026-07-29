@@ -64,29 +64,31 @@ Edutwin AI bridges this gap by deploying an intelligent, multi-role digital plat
 
 ```mermaid
 flowchart TD
-    subgraph Client Layer ["Frontend Application (Vite + React 19 + TypeScript)"]
-        UI_Student["Student Dashboard\n(Log Activities & Run ML)"]
-        UI_Faculty["Faculty Reviewer Dashboard\n(Audit & Allocate Credits)"]
-        UI_Admin["Admin NAAC Dashboard\n(CGPA Analytics & Dept Metrics)"]
-        UI_Portfolio["Public Student Portfolio\n(PDF Generator & NLG Summaries)"]
+    subgraph Client_Layer ["Frontend Application (Vite + React 19 + TypeScript)"]
+        UI_Student["Student Dashboard (Log Activities & Run ML)"]
+        UI_Faculty["Faculty Reviewer Dashboard (Audit & Allocate Credits)"]
+        UI_Admin["Admin NAAC Dashboard (CGPA Analytics & Dept Metrics)"]
+        UI_Portfolio["Public Student Portfolio (PDF Generator & NLG Summaries)"]
     end
 
-    subgraph Service Layer ["Services & ML Analytics Engine"]
+    subgraph Service_Layer ["Services & ML Analytics Engine"]
         OCR["AI OCR Certificate Parser"]
-        ML_Proj["ML Credit Projector\n(Linear Regression)"]
+        ML_Proj["ML Credit Projector (Linear Regression)"]
         TFIDF["TF-IDF Skill Density Engine"]
         Cosine["Vector Cosine Similarity Matcher"]
         NAAC_Engine["NAAC Forecaster Engine"]
     end
 
-    subgraph Database Layer ["Backend Infrastructure (Supabase Cloud)"]
+    subgraph Database_Layer ["Backend Infrastructure (Supabase Cloud)"]
         Auth["Supabase Auth (JWT & Role Claims)"]
-        DB[("Supabase Postgres DB\n(Profiles & Activities Tables)")]
-        Storage["Supabase Storage Bucket\n(Certificate Documents)"]
+        DB[("Supabase Postgres DB (Profiles & Activities Tables)")]
+        Storage["Supabase Storage Bucket (Certificate Documents)"]
         RLS["Row-Level Security Policies"]
     end
 
-    Client Layer --> Auth
+    UI_Student --> Auth
+    UI_Faculty --> Auth
+    UI_Admin --> Auth
     UI_Student --> OCR
     OCR --> Storage
     UI_Student --> ML_Proj
