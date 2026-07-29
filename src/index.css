@@ -132,19 +132,19 @@ nav a span.block {
   text-shadow: none !important;
 }
 /* Active pill background and links in desktop nav */
-nav div.hidden.md:flex {
+nav div.hidden.md\:flex {
   background: #CC0011 !important; /* Darker Red pill container bg */
   border-color: rgba(255, 0, 21, 0.3) !important;
 }
-nav div.hidden.md:flex a {
+nav div.hidden.md\:flex a {
   color: #FFF8E7 !important;
 }
-nav div.hidden.md:flex a:hover {
+nav div.hidden.md\:flex a:hover {
   background: #CC0011 !important;
   color: #FFFFFF !important;
   text-shadow: 0 0 6px rgba(255, 255, 255, 0.6) !important;
 }
-nav div.hidden.md:flex a[class*="bg-gradient-to-r"] {
+nav div.hidden.md\:flex a[class*="bg-gradient-to-r"] {
   background: #FFF8E7 !important; /* Ivory active pill */
   color: #FF0015 !important;      /* Bright Red text */
   box-shadow: 0 0 12px rgba(255, 248, 231, 0.4) !important;
