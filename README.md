@@ -244,5 +244,5 @@ Distributed under the **MIT License**. See `LICENSE` for details.
 ---
 
 <div align="center">
-  <sub>Built with ❤️ for Higher Education Institutions by <b>Edutwin AI Team</b></sub>
+  <sub>Built by ❤️  <b>B . MUGILAN</b></sub>
 </div>
